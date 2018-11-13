@@ -335,6 +335,8 @@ TSettings::TSettings()
 			Screen->size = DM_TRIPLESIZE;
 		else if (strcmp(m->value, "quadruple") == 0)
 			Screen->size = DM_QUADRUPLESIZE;
+		else if (strcmp(m->value, "full") == 0)
+			Screen->size = DM_FULLSCREEN;
 
 		Screen->realsize = Screen->size;
 

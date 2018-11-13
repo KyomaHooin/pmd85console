@@ -319,7 +319,7 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 		debug("Screen", "Full-screen mode: %dx%d -> viewport: %dx%d",
 				screenWidth, screenHeight, screenRect->w, screenRect->h);
 
-		SDL_SetWindowFullscreen(gdc.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		SDL_SetWindowFullscreen(gdc.window, SDL_WINDOW_FULLSCREEN);
 	}
 	else {
 		screenRect->x = borderSize;
