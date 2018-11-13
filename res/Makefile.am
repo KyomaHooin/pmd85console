@@ -5,7 +5,6 @@ AUTOMAKE_OPTIONS = foreign
 RES = \
 	base.fnt \
 	default.conf \
-	icon.bmp \
 	statusbar.bmp
 
 pkgdata_DATA = $(RES)
