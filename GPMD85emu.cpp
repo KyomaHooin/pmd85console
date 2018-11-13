@@ -71,14 +71,14 @@ int main(int argc, char** argv)
 	SDL_RenderSetScale(gdc.renderer, 1, 1);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
 
-	SDL_Surface *icon = SDL_LoadBMP(LocateResource("icon.bmp", false));
-	if (icon) {
-		SDL_SetColorKey(icon, SDL_TRUE, SDL_MapRGB(icon->format, 255, 0, 255));
-		SDL_SetWindowIcon(gdc.window, icon);
-		SDL_FreeSurface(icon);
-	}
-	else
-		warning("", "Can't load icon resource file");
+	//SDL_Surface *icon = SDL_LoadBMP(LocateResource("icon.bmp", false));
+	//if (icon) {
+	//	SDL_SetColorKey(icon, SDL_TRUE, SDL_MapRGB(icon->format, 255, 0, 255));
+	//	SDL_SetWindowIcon(gdc.window, icon);
+	//	SDL_FreeSurface(icon);
+	//}
+	//else
+	//	warning("", "Can't load icon resource file");
 
 //---------------------------------------------------------------------------------------
 	debug(NULL, "Initialization process started...");
