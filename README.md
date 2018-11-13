@@ -63,21 +63,13 @@ network={
 }
 EOF
 
-        [3.3V UART!]
- ___ ___ _____ ____ ____ ___
-| x | x | GND | TX | RX | ..
-|___|___|__6__|_8__|_10_|___
-| x | x |  x  | x  | x  | ..
-|___|___|_____|____|____|___
-
+3.3V UART => | x | x | GND | TX | RX | ..
 
 minicom -D /dev/ttyUSB0 -b 115200
 
 [ctrl]+[A] > [Z] > 'o' > Serial port setup > Hardware flow-control > No  
 
 raspi-config > Advanced > GL Driver > Enable Fake KMS
-
-lsmod
 
 apt-get install libgl1-mesa-dri
 
@@ -93,23 +85,19 @@ apt-get install vim git
 
 tmpfs	/tmp	tmpfs	defaults,noatime,nosuid,size=5m	0	0
 tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
-
 </pre>
 
 SDL
 
 <pre>
-
 wget --no-check-certificate https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 
 apt-get install libfreetype6-dev libgles2-mesa-dev libgbm-dev libudev-dev libasound2-dev liblzma-dev
 
-autogen.sh <- (?)
+autogen.sh
 ./configure --enable-video-kmsdrm --disable-video-opengl --disable-video-x11 --disable-video-rpi
 make -j4
 make install
-
-FPS: 25 CPU: 45-50
 
 glestest.c
 
@@ -121,13 +109,12 @@ GPMD
 <pre>
 apt-get istall autoconf
 
-bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
-debug => ./configure --enable-trace
-
 autoreconf -vfi
 ./configure --enable-trace
 make
 make install
+
+bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 
 function `[f]` keys are any of Alt, Win, Mac or Meta keys
 main menu appear with `[f]+F1` or with the "menu key"
