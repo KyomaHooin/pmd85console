@@ -1,7 +1,7 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro-cosole(original code by Martin Bórik & Roman Bórik).
+Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 
 TODO
 
@@ -133,7 +133,7 @@ for start/stop of tape emulator use `[f]+P` hotkey
 FILES
 
 <pre>
-emulator/ - PMD85 computer emulator source code(original by Martin Bórik & Roman Bórik)
+emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
     game/ - Game binaries by VBG Software.
 </pre>
 
