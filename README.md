@@ -7,12 +7,10 @@ TODO
 
 <pre>
 -flashload
--cursor fix
 -border + inner border fix
 -progress / run ico drop
 -multithread dispmanx(Amiberry)
 -snd flood alsa lib pcm.c:(snd_pcm_recover) underrun occured
--menu delay fix(issues)
 -mesa loader: failed to retrieve device information
 -CPU govenor tune(?)
 -Amiberry path = bcm_init.h + dispmanx thread
@@ -20,7 +18,6 @@ TODO
 -RetrpPie tune(?)
 -glxgears/glestest.c test
 -SDL "utility libs"(?)
--Default config
 -3D case
 </pre>
 
