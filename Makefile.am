@@ -37,6 +37,4 @@ noinst_HEADERS = \
 
 EXTRA_DIST = \
 	AUTHORS \
-	INSTALL.md \
-	README.md \
-	ChangeLog
+	README.md
