@@ -7,7 +7,6 @@ TODO
 
 <pre>
 -flashload
--fullscreen
 -cursor fix
 -border + inner border fix
 -progress / run ico drop
