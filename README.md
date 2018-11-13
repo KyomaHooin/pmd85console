@@ -21,6 +21,8 @@ TODO
 -RetrpPie tune(?)
 -glxgears/glestest.c test
 -SDL "utility libs"(?)
+-Default config
+-3D case
 </pre>
 
 HARDWARE
