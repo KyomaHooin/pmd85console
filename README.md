@@ -2,10 +2,6 @@
 - multiplatform GNU/GPL emulator of the Tesla PMD 85, an 8-bit personal
   micro-computer produced in 80s of 20th century in former Czechoslovakia
 
-> Notice that GPMD85Emulator is not aimed to build and run on Windows,
-> because there is our much better and feature-rich PMD 85 Emulator
-> specifically for this platform (https://pmd85.borik.net/wiki/Emulator)
-
 ## AUTHORS:
 - **mborik** _[Martin Bórik]_
   - leader programmer of this *nix port based on SDL
