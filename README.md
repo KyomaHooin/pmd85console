@@ -80,10 +80,9 @@ raspi-config > Advanced > GL Driver > Enable Fake KMS
 
 lsmod
 
-raspi-config > Advanced > GPU mem > 128
-
 apt-get install libgl1-mesa-dri
 
+raspi-config > Advanced > GPU mem > 128
 raspi-config > Advanced > Overclocking > Medium
 
 sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|plymouth|rsync|triggerhappy|nfs-client.target|rc-local|systemd-timesyncd]
