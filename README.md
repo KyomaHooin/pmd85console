@@ -52,17 +52,17 @@ umount /dev/sd[12] 2>/dev/null
 unzip -p 2018-11-13-raspbian-stretch-lite.zip | dd of=/dev/sda bs=4M
 
 touch /boot/ssh
-touch/boot/wpa_supplicant.conf:
-
-  country=CZ
-  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-  update_config=1
-  network={
-    ssid="Wireless LAN"
-    scan_ssid=1
-    psk="cleartext"
-    key_mgmt=WPA-PSK
-  }
+cat << EOF >> /boot/wpa_supplicant.conf
+country=CZ
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+	ssid="Wireless LAN"
+	scan_ssid=1
+	psk="cleartext"
+	key_mgmt=WPA-PSK
+}
+EOF
 
         [3.3V UART!]
  ___ ___ _____ ____ ____ ___
