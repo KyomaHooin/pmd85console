@@ -3,7 +3,7 @@ DESCRIPTION
 
 Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 
-Original code source by: Martin Bórik & Roman Bórik
+Original code by Martin Bórik & Roman Bórik
 
 https://github.com/mborik/GPMD85Emulator
 
@@ -27,16 +27,15 @@ TODO
 -SDL "utility libs"(?)
 </pre>
 
-HARDWARE REQUIREMENT
+HARDWARE
 
 <pre>
-Single board computer - Raspberry 1A+[http://rpishop.cz/248-raspberry-pi-1a]
-Power adapter 5V 1.2A - MW 5V/1,2A SUN-USB [https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html]
-Wireless USB dongle - Edimax EW-7811Un[https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/]  (RTL8188CUS)
-HDMI cable 0.5m - Gembird Cablexpert[https://www.czc.cz/gembird-cablexpert-kabel-hdmi-hdmi-0-5m-1-4-m-m-stineny-zlacene-kontakty-cerna/248060/produkt]
-
-MicroSD/SDHC 2-4G Class4/10
-Keyboard - Chicony KU-0108 [100mA]
+1x <a href="http://rpishop.cz/248-raspberry-pi-1a">Raspberry</a>(1A+)
+1x <a href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a>(5V 1.2A)
+1x <a href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS)
+1x <a href="https://www.czc.cz/gembird-cablexpert-kabel-hdmi-hdmi-0-5m-1-4-m-m-stineny-zlacene-kontakty-cerna/248060/produkt">HDMI cable</a>(0.5m)
+1 x MicroSD(2G)
+1 x Keyboard(Chicony KU-0108 100mA)
 </pre>
 
 SOFTWARE REQUIREMENT
