@@ -57,13 +57,13 @@ int main(int argc, char** argv)
 	gdc.format = desktop.format;
 	gdc.window = SDL_CreateWindow(PACKAGE_NAME,
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 256, 256,
-			SDL_WINDOW_HIDDEN | SDL_WINDOW_FULLSCREEN);
+			SDL_WINDOW_HIDDEN | SDL_WINDOW_FULLSCREEN_DESKTOP);
 
 	if (!gdc.window)
 		error("", "Couldn't initialize window:\n\t%s", SDL_GetError());
 
 	gdc.windowID = SDL_GetWindowID(gdc.window);
-	gdc.renderer = SDL_CreateRenderer(gdc.window, -1, SDL_RENDERER_ACCELERATED);
+	gdc.renderer = SDL_CreateRenderer(gdc.window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	if (!gdc.renderer)
 		error("", "Couldn't initialize renderer:\n\t%s", SDL_GetError());
