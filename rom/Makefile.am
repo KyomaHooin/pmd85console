@@ -12,19 +12,9 @@ ROM = \
 	basic2A.rmm \
 	basic3.rmm \
 	booter2-pmd85-pmd32.rmm \
-	c2717.rom \
-	c2717-2.rom \
 	demo0.rmm \
 	demo0-c.rmm \
-	didalfa.rom \
-	didalfa2.rom \
 	kli2.rmm \
-	mato-gm.rom \
-	mato-gm2-en.rom \
-	mato-gm2-sk.rom \
-	mato-gm3.rom \
-	mato-mb.rom \
-	mato-mb-ru.rom \
 	mon19-15k-2A.rom \
 	mon19-16k.rom \
 	mon19-4k.rom \
