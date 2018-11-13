@@ -133,7 +133,8 @@ for start/stop of tape emulator use `[f]+P` hotkey
 FILES
 
 <pre>
-...
+emulator/ - PMD85 computer emulator source code(original by Martin Bórik & Roman Bórik)
+    game/ - Game binaries by VBG Software.
 </pre>
 
 SOURCE
