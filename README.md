@@ -88,6 +88,12 @@ sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|plymouth|rsync|triggerha
 
 apt-get update
 apt-get install vim git
+
+/etc/fstab:
+
+tmpfs	/tmp	tmpfs	defaults,noatime,nosuid,size=5m	0	0
+tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
+
 </pre>
 
 SDL
@@ -113,7 +119,7 @@ glestest.cpp => gcc `sdl-config --flags --libs` -lbcm_host -L/opt/vc/lib
 GPMD
 
 <pre>
-apt-get istall (build-essential|libtool|autoconf|autotools-dev|pkg-config)
+apt-get istall autoconf
 
 bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 debug => ./configure --enable-trace
