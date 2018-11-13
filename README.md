@@ -1,7 +1,7 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro-cosole(original code by Martin Bórik & Roman Bórisk).
+Raspberry Pi 1A+ Tesla PMD-85 retro-cosole(original code by Martin Bórik & Roman Bórik).
 
 TODO
 
