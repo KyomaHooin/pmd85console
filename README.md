@@ -1,11 +1,7 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
-
-Original code by Martin Bórik & Roman Bórik
-
-https://github.com/mborik/GPMD85Emulator
+Raspberry Pi 1A+ Tesla PMD-85 retro-cosole(original code by Martin Bórik & Roman Bórisk).
 
 TODO
 
@@ -34,8 +30,8 @@ HARDWARE
 1x <a href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a>(5V 1.2A)
 1x <a href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS)
 1x <a href="https://www.czc.cz/gembird-cablexpert-kabel-hdmi-hdmi-0-5m-1-4-m-m-stineny-zlacene-kontakty-cerna/248060/produkt">HDMI cable</a>(0.5m)
-1 x MicroSD(2G)
-1 x Keyboard(Chicony KU-0108 100mA)
+1x MicroSD(2G)
+1x Keyboard(Chicony KU-0108 100mA)
 </pre>
 
 SOFTWARE REQUIREMENT
@@ -115,9 +111,9 @@ glestest.cpp => gcc `sdl-config --flags --libs` -lbcm_host -L/opt/vc/lib
 </pre>
 
 GPMD
-<pre>
 
-apt-get istall (libtool|autoconf|autotools-dev|pkg-config)
+<pre>
+apt-get istall (build-essential|libtool|autoconf|autotools-dev|pkg-config)
 
 bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 debug => ./configure --enable-trace
