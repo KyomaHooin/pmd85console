@@ -249,105 +249,33 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 {
 	SDL_LockMutex(displayModeMutex);
 	ReleaseVideoMode();
-
-	//dispMode = reqDispMode;
+	
+	dispMode = reqDispMode;
 	width384mode = reqWidth384;
 
-	//if (dispMode == DM_FULLSCREEN)
-	//	reqDispMode = DM_DOUBLESIZE;// fullscreen in-frame size
+	if (dispMode = DM_FULLSCREEN)
+		reqDispMode = DM_DOUBLESIZE;
 
-	//while (true) {
-	//	switch (reqDispMode) {
-	//		default:
-	//		case DM_NORMAL:
-	//			screenWidth  = (reqWidth384) ? 384 : 288;
-	//			screenHeight = 256;
-	//			break;
-
-	//		case DM_DOUBLESIZE:
-				screenWidth  = (reqWidth384) ? 768 : 576;
-				screenHeight = 512;
-	//			break;
-
-	//		case DM_TRIPLESIZE:
-	//			screenWidth  = (reqWidth384) ? 1152 : 864;
-	//			screenHeight = 768;
-	//			break;
-
-	//		case DM_QUADRUPLESIZE:
-	//			screenWidth  = (reqWidth384) ? 1536 : 1152;
-	//			screenHeight = 1024;
-	//			break;
-	//	}
-
-		//if (dispMode == DM_FULLSCREEN) {// <-- double cannot overflow
-		//	if (screenWidth > gdc.w || screenHeight + STATUSBAR_HEIGHT > gdc.h) {
-		//		if (reqDispMode == DM_QUADRUPLESIZE)
-		//			reqDispMode = DM_TRIPLESIZE;
-		//		else if (reqDispMode == DM_TRIPLESIZE)
-		//			reqDispMode = DM_DOUBLESIZE;
-		//		else if (reqDispMode == DM_DOUBLESIZE)
-		//			reqDispMode = DM_NORMAL;
-		//		else {
-		//			dispMode = DM_NORMAL;
-		//			break;
-		//		}
-
-		//		continue;
-		//	}
-		//}
-
-	//	break;
-	//}
+	screenWidth  = (reqWidth384) ? 768 : 576;
+	screenHeight = 512;
 
 	bufferWidth  = (reqWidth384) ? 384 : 288;
 	bufferHeight = 256;
 
 	screenRect = new SDL_Rect;
 
-	//if (dispMode == DM_FULLSCREEN) {
-		screenRect->w = screenWidth;
-		screenRect->h = screenHeight;
+	screenRect->w = screenWidth;
+	screenRect->h = screenHeight;
 
-		screenHeight += STATUSBAR_HEIGHT;
-		screenRect->x = (gdc.w - screenWidth) / 2;
-		screenRect->y = (gdc.h - screenHeight) / 2;
+	screenHeight += STATUSBAR_HEIGHT;
+	screenRect->x = (gdc.w - screenWidth) / 2;
+	screenRect->y = (gdc.h - screenHeight) / 2;
 
-		screenWidth   = gdc.w;
-		screenHeight  = gdc.h;
+	screenWidth   = gdc.w;
+	screenHeight  = gdc.h;
 
-		debug("Screen", "Full-screen mode: %dx%d -> viewport: %dx%d",
-				screenWidth, screenHeight, screenRect->w, screenRect->h);
-
-		//SDL_SetWindowFullscreen(gdc.window, SDL_WINDOW_FULLSCREEN_DESKTOP);// <-- full-screen already
-	//}
-	//else {
-	//	screenRect->x = borderSize;
-	//	screenRect->y = borderSize;
-	//	screenRect->w = screenWidth;
-	//	screenRect->h = screenHeight;
-
-	//	screenWidth  += (borderSize * 2);
-	//	screenHeight += (borderSize * 2) + STATUSBAR_HEIGHT;
-
-	//	debug("Screen", "Windowed mode: %dx%d -> viewport: %dx%d",
-	//			screenWidth, screenHeight, screenRect->w, screenRect->h);
-
-	//	SDL_SetWindowFullscreen(gdc.window, 0);
-	//	SDL_SetWindowSize(gdc.window, screenWidth, screenHeight);
-	//}
-
-	//SDL_Event event;
-	//int waitForResize = WEAK_REFRESH_TIME;
-	//while (--waitForResize > 0) {
-	//	if (SDL_PollEvent(&event) &&
-	//		event.type == SDL_WINDOWEVENT &&
-	//		event.window.windowID == gdc.windowID &&
-	//		event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-	//			break;
-
-	//	SDL_Delay(1);
-	//}
+	debug("Screen", "Full-screen mode: %dx%d -> viewport: %dx%d",
+		screenWidth, screenHeight, screenRect->w, screenRect->h);
 
 	if (SDL_RenderSetLogicalSize(gdc.renderer, screenWidth, screenHeight) != 0)
 		error("Screen", "Unable to change screen resolution\n%s", SDL_GetError());
@@ -382,24 +310,24 @@ void ScreenPMD85::PrepareScreen()
 	SDL_SetRenderDrawColor(gdc.renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(gdc.renderer);
 
-	SDL_Rect *r = new SDL_Rect(*screenRect);
-	SDL_SetRenderDrawColor(gdc.renderer, 16, 16, 16, SDL_ALPHA_OPAQUE);
+	//SDL_Rect *r = new SDL_Rect(*screenRect);
+	//SDL_SetRenderDrawColor(gdc.renderer, 16, 16, 16, SDL_ALPHA_OPAQUE);
 
-	if (dispMode == DM_FULLSCREEN || borderSize > 0) {
-		int i = GetMultiplier() * 2;
-		r->x -= i;
-		r->y -= i;
-		r->w += i * 2;
-		r->h += i * 2;
+	//if (dispMode == DM_FULLSCREEN || borderSize > 0) {
+	//	int i = GetMultiplier() * 2;
+	//	r->x -= i;
+	//	r->y -= i;
+	//	r->w += i * 2;
+	//	r->h += i * 2;
 
-		SDL_RenderDrawRect(gdc.renderer, r);
-	}
-	else {
-		int y = screenHeight - STATUSBAR_HEIGHT;
-		SDL_RenderDrawLine(gdc.renderer, r->x, y, r->x + r->w, y);
-	}
+	//	SDL_RenderDrawRect(gdc.renderer, r);
+	//}
+	//else {
+	//	int y = screenHeight - STATUSBAR_HEIGHT;
+	//	SDL_RenderDrawLine(gdc.renderer, r->x, y, r->x + r->w, y);
+	//}
 
-	delete r;
+	//delete r;
 }
 //-----------------------------------------------------------------------------
 void ScreenPMD85::PrepareScanliner()
