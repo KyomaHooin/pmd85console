@@ -6,14 +6,18 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
+
+-2717 + 384 drop
+
 -Game menu.
--Emulator.cpp 257 bool FullRedrawExpected = true;
--multithread dispmanx + bcm_host(Amiberry)
--Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
+-threaded dispmanx + bcm_host(Amiberry)
 -3D case
+
 -RetrpPie/ libretro tune(?)
 -SDL "utility libs"(?)
 -CPU govenor tune(?)
+-Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
+-Emulator.cpp 257 bool FullRedrawExpected = true;
 </pre>
 
 BUG
