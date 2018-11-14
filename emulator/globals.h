@@ -170,7 +170,7 @@ typedef bool _Bool;
 #define SNAP_BLOCK_LEN      16384
 #define SNAP_HEADER_LEN     56
 //-----------------------------------------------------------------------------
-enum TComputerModel { CM_UNKNOWN = -1, CM_V1 = 0, CM_V2, CM_V2A, CM_V3, CM_MATO, CM_ALFA, CM_ALFA2, CM_C2717, CM_LAST = CM_C2717 };
+enum TComputerModel { CM_UNKNOWN = -1, CM_V1 = 0, CM_V2, CM_V2A, CM_V3, CM_MATO, CM_C2717, CM_LAST = CM_C2717 };
 enum TAutoStopType { AS_OFF = 0, AS_NEXTHEAD, AS_CURSOR };
 enum TGpioPort { GP_GPIO_0 = 0, GP_GPIO_1, GP_GPIO_BOTH };
 enum TJoyType { JT_NONE = -1, JT_KEYS = 0, JT_AXES, JT_POV, JT_BUTTONS };

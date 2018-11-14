@@ -939,10 +939,7 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 				memory = new ChipMemory3(romSize);     // 64 kB RAM, 8 kB ROM
 			break;
 
-		
-		case CM_ALFA :// will be removed..
-		case CM_ALFA2 :
-		case CM_MATO :
+		case CM_MATO :// will remove
 		case CM_C2717 :
 			delete[] romBuff;
 			return;
@@ -979,13 +976,10 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 		TapeBrowser->SetIfTape(ifTape);
 
 		// set proper tape interface ports in CPU
-		if (model == CM_ALFA || model == CM_ALFA2)
-			cpu->AddDevice(IIF_TAPE_ADR_A, IIF_TAPE_MASK_A, ifTape, true);
-		else
-			cpu->AddDevice(IIF_TAPE_ADR, IIF_TAPE_MASK, ifTape, true);
+		cpu->AddDevice(IIF_TAPE_ADR, IIF_TAPE_MASK, ifTape, true);
 
 		// pin tape interface signal to timer
-		if (model != CM_V1 && model != CM_ALFA) {
+		if (model != CM_V1) {
 			ifTimer->Counters[((model == CM_C2717) ? 0 : 1)].OnOutChange.connect(ifTape, &IifTape::TapeClockService23);
 			ifTimer->EnableUsartClock(true);
 		}
@@ -1350,8 +1344,6 @@ void TEmulator::PrepareSnapshot(char *fileName, BYTE *flag)
 			switch (model) {
 				case CM_V1:
 				case CM_V2:
-				case CM_ALFA:
-				case CM_ALFA2:
 				case CM_MATO:
 					memory->GetMem(src, 0x8000, monitorLength);
 					break;

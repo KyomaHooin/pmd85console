@@ -116,10 +116,6 @@ TSettings::TSettings()
 			model->type = CM_V3;
 		else if (strcmp(n->key, "Model-Mato") == 0)
 			model->type = CM_MATO;
-		else if (strcmp(n->key, "Model-Alfa") == 0)
-			model->type = CM_ALFA;
-		else if (strcmp(n->key, "Model-Alfa2") == 0)
-			model->type = CM_ALFA2;
 		else if (strcmp(n->key, "Model-C2717") == 0)
 			model->type = CM_C2717;
 		else {
@@ -805,12 +801,6 @@ void TSettings::storeSettings()
 								break;
 							case CM_MATO:
 								buf = (char *) "Model-Mato";
-								break;
-							case CM_ALFA:
-								buf = (char *) "Model-Alfa";
-								break;
-							case CM_ALFA2:
-								buf = (char *) "Model-Alfa2";
 								break;
 							case CM_C2717:
 								buf = (char *) "Model-C2717";
