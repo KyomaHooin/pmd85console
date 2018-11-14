@@ -32,7 +32,7 @@ HARDWARE
 1x Keyboard(Chicony KU-0108 100mA)
 </pre>
 
-SOFTWARE REQUIREMENT
+SOFTWARE
 
 <pre>
 Fake KMS driver => GLES2.0 + Dispmanx
