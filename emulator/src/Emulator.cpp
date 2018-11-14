@@ -920,8 +920,6 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 			return;
 
 		case CM_V1 :    // PMD 85-1
-		case CM_ALFA :  // Didaktik Alfa
-		case CM_ALFA2 : // Didaktik Alfa 2
 		case CM_V2 :    // PMD 85-2
 			memory = new ChipMemory12(romSize);    // 48 kB RAM, x kB ROM
 			break;
@@ -939,17 +937,6 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 				memory = new ChipMemory3Ex(romSize);  // 256 kB RAM, 8 kB ROM
 			else
 				memory = new ChipMemory3(romSize);     // 64 kB RAM, 8 kB ROM
-			break;
-
-		case CM_MATO :  // Mato
-			romSize = 16;
-			memory = new ChipMemory12(romSize);    // 48 kB RAM, 16kB ROM
-			break;
-
-		case CM_C2717 :  // CONSUL 2717
-			romSize = 16;
-			memory = new ChipMemoryC2717(romSize); // 64 kB RAM, 16 kB ROM
-			memory->SetRemapped(true);
 			break;
 	}
 
