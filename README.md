@@ -6,10 +6,10 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
--Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
 -Game menu.
 -Emulator.cpp 257 bool FullRedrawExpected = true;
 -multithread dispmanx + bcm_host(Amiberry)
+-Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
 -3D case
 -RetrpPie/ libretro tune(?)
 -SDL "utility libs"(?)
@@ -37,7 +37,7 @@ HARDWARE
 SOFTWARE
 
 <pre>
-Fake KMS driver => GLES2.0 + Dispmanx
+Fake KMS driver + Dispmanx
 SDL 2.0.x
 GPMD85Emulator
 </pre>
