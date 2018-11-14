@@ -409,22 +409,10 @@ void SystemPIO::ScanKeyboard(BYTE *KeyBuffer)
  */
 void SystemPIO::ReadKeyboardB()
 {
-	BYTE val, col;
+	BYTE val;
 
-	if (model == CM_MATO) {
-		col = PeripheralReadByte(PP_PortA);
-		val = 0;
-		for (int xx = 0; xx < 7; xx++) {
-			if ((col & 1) == 0)
-				val |= KeyColumns[xx];
-			col >>= 1;
-		}
-		val |= KeyColumns[7];
-		val = (BYTE) (~val);
-	}
-	else
-		val = (BYTE) ((~KeyColumns[PeripheralReadByte(PP_PortA) & 0x0F] & 0x1F)
-			| (~ShiftStopCtrl & 0x60));
+	val = (BYTE) ((~KeyColumns[PeripheralReadByte(PP_PortA) & 0x0F] & 0x1F)
+		| (~ShiftStopCtrl & 0x60));
 
 	PeripheralWriteByte(PP_PortB, val);
 }
