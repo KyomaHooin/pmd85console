@@ -254,7 +254,7 @@ void TEmulator::BaseTimerCallback()
 		return;
 
 	thisTime = SDL_GetTicks();
-	bool fullRedrawExpected = false;
+	bool fullRedrawExpected = true;
 
 	// blinking toggle
 	if (blinkCounter >= 500) {
