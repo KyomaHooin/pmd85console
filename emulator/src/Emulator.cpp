@@ -462,175 +462,21 @@ bool TEmulator::TestHotkeys()
 		i = key & 0x01FF;
 
 		switch (i) {
-			case SDL_SCANCODE_1:	// SCREEN SIZE 1x1
-				ActionSizeChange(1);
-				break;
-
-			case SDL_SCANCODE_2:	// SCREEN SIZE 2x2
-				ActionSizeChange(2);
-				break;
-
-			case SDL_SCANCODE_3:	// SCREEN SIZE 3x3
-				ActionSizeChange(3);
-				break;
-
-			case SDL_SCANCODE_4:	// SCREEN SIZE 4x4
-				ActionSizeChange(4);
-				break;
-
-			case SDL_SCANCODE_5:	// SCANLINER: LCD EMULATION
-				video->SetLcdMode(true);
-				video->SetHalfPassMode(HP_OFF);
-				Settings->Screen->lcdMode = true;
-				Settings->Screen->halfPass = HP_OFF;
-				break;
-
-			case SDL_SCANCODE_6:	// SCANLINER: HALFPASS 0%
-				video->SetLcdMode(false);
-				video->SetHalfPassMode(HP_0);
-				Settings->Screen->lcdMode = false;
-				Settings->Screen->halfPass = HP_0;
-				break;
-
-			case SDL_SCANCODE_7:	// SCANLINER: HALFPASS 25%
-				video->SetLcdMode(false);
-				video->SetHalfPassMode(HP_25);
-				Settings->Screen->lcdMode = false;
-				Settings->Screen->halfPass = HP_25;
-				break;
-
-			case SDL_SCANCODE_8:	// SCANLINER: HALFPASS 50%
-				video->SetLcdMode(false);
-				video->SetHalfPassMode(HP_50);
-				Settings->Screen->lcdMode = false;
-				Settings->Screen->halfPass = HP_50;
-				break;
-
-			case SDL_SCANCODE_9:	// SCANLINER: HALFPASS 75%
-				video->SetLcdMode(false);
-				video->SetHalfPassMode(HP_75);
-				Settings->Screen->lcdMode = false;
-				Settings->Screen->halfPass = HP_75;
-				break;
-
 			case SDL_SCANCODE_0:	// SCANLINER: PIXEL PRECISE
 				video->SetLcdMode(false);
 				video->SetHalfPassMode(HP_OFF);
 				Settings->Screen->lcdMode = false;
 				Settings->Screen->halfPass = HP_OFF;
 				break;
-
-			case SDL_SCANCODE_F:	// FULL-SCREEN
-			case SDL_SCANCODE_RETURN:
-				if (Settings->Screen->size == DM_FULLSCREEN)
-					ActionSizeChange((int) Settings->Screen->realsize);
-				else
-					ActionSizeChange(0);
-				return true;
-
-			case SDL_SCANCODE_M:	// MONO/STANDARD MODES
-				if (video->GetColorProfile() == CP_STANDARD) {
-					video->SetColorProfile(CP_MONO);
-					Settings->Screen->colorProfile = CP_MONO;
-				}
-				else {
-					video->SetColorProfile(CP_STANDARD);
-					Settings->Screen->colorProfile = CP_STANDARD;
-				}
-				// perform full redraw of the screen...
-				video->FillBuffer(memory->GetVramPointer());
-				break;
-
-			case SDL_SCANCODE_C:	// COLOR MODES
-				if (video->GetColorProfile() == CP_COLOR) {
-					video->SetColorProfile(CP_COLORACE);
-					Settings->Screen->colorProfile = CP_COLORACE;
-				}
-				else {
-					video->SetColorProfile(CP_COLOR);
-					Settings->Screen->colorProfile = CP_COLOR;
-				}
-				// perform full redraw of the screen...
-				video->FillBuffer(memory->GetVramPointer());
-				break;
-
-			case SDL_SCANCODE_P:	// PLAY/STOP TAPE
-				ActionTapePlayStop();
-				break;
-
-			case SDL_SCANCODE_T:	// TAPE BROWSER
-				ActionTapeBrowser();
-				break;
-
 			case SDL_SCANCODE_F1:	// MAIN MENU
 				ActionPlayPause(false, false);
 				GUI->MenuOpen(UserInterface::GUI_TYPE_MENU);
 				break;
-
-			case SDL_SCANCODE_F2:	// LOAD/SAVE TAPE
-				if (key & KM_SHIFT)
-					ActionTapeSave();
-				else
-					ActionTapeLoad();
-				break;
-
-			case SDL_SCANCODE_F3:	// PLAY/PAUSE
-				if (key & KM_SHIFT)
-					ActionSpeedChange();
-				else
-					ActionPlayPause();
-				break;
-
 			case SDL_SCANCODE_F4:	// EXIT
 				ActionExit();
 				break;
-
-			case SDL_SCANCODE_F5:	// RESET
-				if (key & KM_SHIFT)
-					ActionHardReset();
-				else
-					ActionReset();
-				break;
-
-			case SDL_SCANCODE_F6:	// DISK IMAGES
-				ActionPlayPause(false, false);
-				GUI->MenuOpen(UserInterface::GUI_TYPE_MENU, gui_p32_images_menu);
-				break;
-
-			case SDL_SCANCODE_F7:	// LOAD/SAVE SNAPSHOT
-				if (key & KM_SHIFT)
-					ActionSnapSave();
-				else
-					ActionSnapLoad();
-				break;
-
 			case SDL_SCANCODE_F8:	// SOUND ON/OFF
 				ActionSound((key & KM_SHIFT) ? -1 : Settings->Sound->mute);
-				break;
-
-			case SDL_SCANCODE_F9:	// MODEL SELECT/MEMORY MENU
-				ActionPlayPause(false, false);
-				if (key & KM_SHIFT)
-					GUI->MenuOpen(UserInterface::GUI_TYPE_MENU, gui_mem_menu);
-				else
-					GUI->MenuOpen(UserInterface::GUI_TYPE_MENU, gui_machine_menu);
-				break;
-
-			case SDL_SCANCODE_F10:	// PERIPHERALS
-				ActionPlayPause(false, false);
-				GUI->MenuOpen(UserInterface::GUI_TYPE_MENU, gui_pers_menu);
-				break;
-
-			case SDL_SCANCODE_F11:	// MEMORY BLOCK READ/WRITE
-				ActionPlayPause(false, false);
-				if (key & KM_SHIFT)
-					GUI->MenuOpen(UserInterface::GUI_TYPE_MENU, gui_memblock_write_menu);
-				else
-					GUI->MenuOpen(UserInterface::GUI_TYPE_MENU, gui_memblock_read_menu);
-				break;
-
-			case SDL_SCANCODE_F12:	// DEBUGGER
-				ActionDebugger();
 				break;
 		}
 	}
