@@ -309,25 +309,6 @@ void ScreenPMD85::PrepareScreen()
 {
 	SDL_SetRenderDrawColor(gdc.renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(gdc.renderer);
-
-	//SDL_Rect *r = new SDL_Rect(*screenRect);
-	//SDL_SetRenderDrawColor(gdc.renderer, 16, 16, 16, SDL_ALPHA_OPAQUE);
-
-	//if (dispMode == DM_FULLSCREEN || borderSize > 0) {
-	//	int i = GetMultiplier() * 2;
-	//	r->x -= i;
-	//	r->y -= i;
-	//	r->w += i * 2;
-	//	r->h += i * 2;
-
-	//	SDL_RenderDrawRect(gdc.renderer, r);
-	//}
-	//else {
-	//	int y = screenHeight - STATUSBAR_HEIGHT;
-	//	SDL_RenderDrawLine(gdc.renderer, r->x, y, r->x + r->w, y);
-	//}
-
-	//delete r;
 }
 //-----------------------------------------------------------------------------
 void ScreenPMD85::PrepareScanliner()
