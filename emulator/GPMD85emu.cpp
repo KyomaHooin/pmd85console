@@ -79,6 +79,10 @@ int main(int argc, char** argv)
 	Emulator = new TEmulator();
 	Emulator->ProcessSettings(-1);
 
+
+	// Game selector
+	// ...
+
 	SDL_ShowWindow(gdc.window);
 	SDL_Delay(WEAK_REFRESH_TIME);
 
