@@ -6,4 +6,5 @@
 #
 
 script -q -c "/usr/local/bin/GPMD85emu" /dev/null
+# halt
 
