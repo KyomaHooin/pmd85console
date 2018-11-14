@@ -6,6 +6,8 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
+-Emulator.cpp 257 bool FullRedrawExpected = true;
+-key press console leak
 -center viewport(double)
 -flashload
 -progress / run ico drop
