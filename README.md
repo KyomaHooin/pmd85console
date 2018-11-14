@@ -6,18 +6,20 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
+-Game menu.
 -Emulator.cpp 257 bool FullRedrawExpected = true;
--progress / run ico drop
--multithread dispmanx(Amiberry)
+-multithread dispmanx + bcm_host(Amiberry)
+-3D case
+-RetrpPie/ libretro tune(?)
+-SDL "utility libs"(?)
+-CPU govenor tune(?)
+</pre>
+
+BUG
+
+<pre>
 -snd flood alsa lib pcm.c:(snd_pcm_recover) underrun occured
 -mesa loader: failed to retrieve device information
--CPU govenor tune(?)
--Amiberry path = bcm_init.h + dispmanx thread
--bcm_host_init() + bcm_host_deinit()
--RetrpPie tune(?)
--glxgears/glestest.c test
--SDL "utility libs"(?)
--3D case
 </pre>
 
 HARDWARE
