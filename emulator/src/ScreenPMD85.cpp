@@ -254,7 +254,7 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 	width384mode = reqWidth384;
 
 	if (dispMode == DM_FULLSCREEN)
-		reqDispMode = DM_QUADRUPLESIZE;
+		reqDispMode = DM_DOUBLESIZE;// fullscreen in-frame size
 
 	while (true) {
 		switch (reqDispMode) {
@@ -280,22 +280,22 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 				break;
 		}
 
-		if (dispMode == DM_FULLSCREEN) {
-			if (screenWidth > gdc.w || screenHeight + STATUSBAR_HEIGHT > gdc.h) {
-				if (reqDispMode == DM_QUADRUPLESIZE)
-					reqDispMode = DM_TRIPLESIZE;
-				else if (reqDispMode == DM_TRIPLESIZE)
-					reqDispMode = DM_DOUBLESIZE;
-				else if (reqDispMode == DM_DOUBLESIZE)
-					reqDispMode = DM_NORMAL;
-				else {
-					dispMode = DM_NORMAL;
-					break;
-				}
+		//if (dispMode == DM_FULLSCREEN) {// <-- double cannot overflow
+		//	if (screenWidth > gdc.w || screenHeight + STATUSBAR_HEIGHT > gdc.h) {
+		//		if (reqDispMode == DM_QUADRUPLESIZE)
+		//			reqDispMode = DM_TRIPLESIZE;
+		//		else if (reqDispMode == DM_TRIPLESIZE)
+		//			reqDispMode = DM_DOUBLESIZE;
+		//		else if (reqDispMode == DM_DOUBLESIZE)
+		//			reqDispMode = DM_NORMAL;
+		//		else {
+		//			dispMode = DM_NORMAL;
+		//			break;
+		//		}
 
-				continue;
-			}
-		}
+		//		continue;
+		//	}
+		//}
 
 		break;
 	}
@@ -319,7 +319,7 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 		debug("Screen", "Full-screen mode: %dx%d -> viewport: %dx%d",
 				screenWidth, screenHeight, screenRect->w, screenRect->h);
 
-		SDL_SetWindowFullscreen(gdc.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		//SDL_SetWindowFullscreen(gdc.window, SDL_WINDOW_FULLSCREEN_DESKTOP);// <-- full-screen already
 	}
 	else {
 		screenRect->x = borderSize;
