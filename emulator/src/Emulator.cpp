@@ -938,6 +938,13 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 			else
 				memory = new ChipMemory3(romSize);     // 64 kB RAM, 8 kB ROM
 			break;
+
+		case CM_ALFA :// will be removed..
+		case CLM_ALFA2 :
+		case CM_MATO :
+		case CM_c2717 :
+			delete[] romBuff;
+			return;
 	}
 
 	// Set split 8kB ROM (on 8000h and A000h)
