@@ -280,8 +280,6 @@ static GUI_MENU_ENTRY gui_machine_menu[] = {
 	{ MI_RADIO, "PMD 85-\a3", NULL, SDL_SCANCODE_3, NULL, ccb_machine, dcb_machine_state, true, false, CM_V3 },
 	{ MI_SEPARATOR },
 	{ MI_RADIO, "\aConsul 2717", NULL, SDL_SCANCODE_C, NULL, ccb_machine, dcb_machine_state, true, false, CM_C2717 },
-	{ MI_SEPARATOR },
-	{ MI_RADIO, "\aMa\213o", NULL, SDL_SCANCODE_M, NULL, ccb_machine, dcb_machine_state, true, false, CM_MATO },
 	{ MENU_END }
 };
 static GUI_MENU_ENTRY gui_mem_menu[] = {

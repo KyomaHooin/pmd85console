@@ -25,9 +25,6 @@ SystemPIO::SystemPIO(TComputerModel model, ChipMemory *memory) : ChipPIO8255(fal
 
 	PrepareSample.disconnect_all();
 
-	if (model == CM_MATO)
-		OnCpuReadC.connect(this, &SystemPIO::ReadKeyboardC);
-
 	OnCpuReadB.connect(this, &SystemPIO::ReadKeyboardB);
 	OnCpuWriteCL.connect(this, &SystemPIO::WriteSound);
 	OnCpuWriteCH.connect(this, &SystemPIO::WritePaging);
@@ -360,101 +357,41 @@ void SystemPIO::ScanKeyboard(BYTE *KeyBuffer)
 	}
 
 	int bi = 0;
-	if (model == CM_MATO) { // ********** MATO **********
-		while (KeyMapMato[bi].vkey) {
-			if (KeyBuffer[KeyMapMato[bi].vkey])
-				KeyColumns[KeyMapMato[bi].column] |= KeyMapMato[bi].rowmask;
-			else
-				KeyColumns[KeyMapMato[bi].column] &= ~KeyMapMato[bi].rowmask;
-			bi++;
-		}
-
-		// BackSpace
-		if (KeyBuffer[SDL_SCANCODE_BACKSPACE] && !KeyBuffer[SDL_SCANCODE_LEFT])
-			KeyColumns[6] |= 16;
-
-		// EOL
-		if (KeyBuffer[SDL_SCANCODE_RETURN] || KeyBuffer[SDL_SCANCODE_KP_ENTER])
-			KeyColumns[7] |= 0x80;
+	// ********** PMD 85 **********
+	while (KeyMap[bi].vkey) {
+		if (KeyBuffer[KeyMap[bi].vkey])
+			KeyColumns[KeyMap[bi].column] |= KeyMap[bi].rowmask;
 		else
-			KeyColumns[7] &= ~0x80;
-
-		// STOP
-		if (KeyBuffer[SDL_SCANCODE_ESCAPE])
-			ShiftStopCtrl |= 0x10;
-		else
-			ShiftStopCtrl &= ~0x10;
-
-		// SHF
-		if (KeyBuffer[SDL_SCANCODE_LSHIFT] || KeyBuffer[SDL_SCANCODE_RSHIFT])
-			ShiftStopCtrl |= 0x20;
-		else
-			ShiftStopCtrl &= ~0x20;
-
-		// CNT
-		if (KeyBuffer[SDL_SCANCODE_LCTRL] || KeyBuffer[SDL_SCANCODE_RCTRL])
-			ShiftStopCtrl |= 0x40;
-		else
-			ShiftStopCtrl &= ~0x40;
-
-		// control keys and numeric keypad
-		if (extMato == true) {
-			if (KeyBuffer[SDL_SCANCODE_LSHIFT] || KeyBuffer[SDL_SCANCODE_RSHIFT])
-				bi = 36;
-			else
-				bi = 0;
-
-			while (KeyMapMatoExt[bi].vkey) {
-				if (KeyBuffer[KeyMapMatoExt[bi].vkey]) {
-					KeyColumns[KeyMapMatoExt[bi].column] |= (KeyMapMatoExt[bi].rowmask & 127);
-					if (bi >= 15)
-						ShiftStopCtrl |= 0x40;  // CNT
-					if (KeyMapMatoExt[bi].rowmask & 128)
-						ShiftStopCtrl |= 0x20;  // SHF
-					if (bi >= 36)
-						ShiftStopCtrl &= ~0x20;
-				}
-				bi++;
-			}
-		}
-
+			KeyColumns[KeyMap[bi].column] &= ~KeyMap[bi].rowmask;
+		bi++;
 	}
-	else {  // ********** PMD 85 **********
-		while (KeyMap[bi].vkey) {
-			if (KeyBuffer[KeyMap[bi].vkey])
-				KeyColumns[KeyMap[bi].column] |= KeyMap[bi].rowmask;
-			else
-				KeyColumns[KeyMap[bi].column] &= ~KeyMap[bi].rowmask;
-			bi++;
-		}
 
-		// BackSpace
-		if (KeyBuffer[SDL_SCANCODE_BACKSPACE] && !KeyBuffer[SDL_SCANCODE_LEFT])
-			KeyColumns[12] |= 4;
+	// BackSpace
+	if (KeyBuffer[SDL_SCANCODE_BACKSPACE] && !KeyBuffer[SDL_SCANCODE_LEFT])
+		KeyColumns[12] |= 4;
 
-		// SHIFT
-		if (KeyBuffer[SDL_SCANCODE_LSHIFT] || KeyBuffer[SDL_SCANCODE_RSHIFT])
-			ShiftStopCtrl |= 0x20;
-		else
-			ShiftStopCtrl &= ~0x20;
+	// SHIFT
+	if (KeyBuffer[SDL_SCANCODE_LSHIFT] || KeyBuffer[SDL_SCANCODE_RSHIFT])
+		ShiftStopCtrl |= 0x20;
+	else
+		ShiftStopCtrl &= ~0x20;
 
-		// STOP
-		if (KeyBuffer[SDL_SCANCODE_ESCAPE] || KeyBuffer[SDL_SCANCODE_LCTRL] || KeyBuffer[SDL_SCANCODE_RCTRL])
-			ShiftStopCtrl |= 0x40;
-		else
-			ShiftStopCtrl &= ~0x40;
+	// STOP
+	if (KeyBuffer[SDL_SCANCODE_ESCAPE] || KeyBuffer[SDL_SCANCODE_LCTRL] || KeyBuffer[SDL_SCANCODE_RCTRL])
+		ShiftStopCtrl |= 0x40;
+	else
+		ShiftStopCtrl &= ~0x40;
 
-		// numeric keypad
-		if (numpad == true) {
-			bi = 0;
-			while (KeyMapNumpad[bi].vkey) {
-				if (KeyBuffer[KeyMapNumpad[bi].vkey]) {
-					KeyColumns[KeyMapNumpad[bi].column] |= (KeyMapNumpad[bi].rowmask & 31);
-					if (KeyMapNumpad[bi].rowmask & 32)
-						ShiftStopCtrl |= 0x20;
-				}
-				bi++;
+	// numeric keypad
+	if (numpad == true) {
+		bi = 0;
+		while (KeyMapNumpad[bi].vkey) {
+			if (KeyBuffer[KeyMapNumpad[bi].vkey]) {
+				KeyColumns[KeyMapNumpad[bi].column] |= (KeyMapNumpad[bi].rowmask & 31);
+				if (KeyMapNumpad[bi].rowmask & 32)
+					ShiftStopCtrl |= 0x20;
 			}
+			bi++;
 		}
 	}
 
@@ -541,35 +478,25 @@ void SystemPIO::WriteSound()
 {
 	BYTE beep = PeripheralReadByte(PP_PortC);
 
-	if (model == CM_MATO) {
-		PrepareSample(CHNL_SPEAKER, beep & 6, currentTicks);
-
-		if (beep & 6)
-			ledState |= LED_YELLOW;
-		else
-			ledState &= ~LED_YELLOW;
-	}
-	else {
 #ifdef BEEP_FREQ_SEPARATED
-		bool out = (beep & 4) || ((beep & 2) && state4kh) || ((beep & 1) && state1kh);
+	bool out = (beep & 4) || ((beep & 2) && state4kh) || ((beep & 1) && state1kh);
 #else
-		bool out = (beep & 4)
-		       || ((beep & 2) && (videoCounter & R7_MASK))
-		       || ((beep & 1) && (videoCounter & R9_MASK));
+	bool out = (beep & 4)
+	       || ((beep & 2) && (videoCounter & R7_MASK))
+	       || ((beep & 1) && (videoCounter & R9_MASK));
 #endif
 
-		PrepareSample(CHNL_SPEAKER, out, currentTicks);
+	PrepareSample(CHNL_SPEAKER, out, currentTicks);
 
-		if (out)
-			ledState |= LED_YELLOW;
-		else
-			ledState &= ~LED_YELLOW;
+	if (out)
+		ledState |= LED_YELLOW;
+	else
+		ledState &= ~LED_YELLOW;
 
-		if (beep & 8)
-			ledState |= LED_RED;
-		else
-			ledState &= ~LED_RED;
-	}
+	if (beep & 8)
+		ledState |= LED_RED;
+	else
+		ledState &= ~LED_RED;
 }
 //---------------------------------------------------------------------------
 /**

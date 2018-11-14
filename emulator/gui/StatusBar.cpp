@@ -162,8 +162,6 @@ void UserInterface::SetComputerModel(TComputerModel model)
 			modelName = "M3"; break;
 		case CM_C2717:
 			modelName = "C\215\216\217"; break;
-		case CM_MATO:
-			modelName = "Ma\213o"; break;
 		default:
 			break;
 	}

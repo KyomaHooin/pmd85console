@@ -130,7 +130,7 @@ const char *dcb_kbd_nums_state(GUI_MENU_ENTRY *ptr)
 const char *dcb_kbd_mato_state(GUI_MENU_ENTRY *ptr)
 {
 	ptr->state = Settings->Keyboard->useMatoCtrl;
-	ptr->enabled = (Settings->CurrentModel->type == CM_MATO);
+	//ptr->enabled = (Settings->CurrentModel->type == CM_MATO);
 	return "for Ma\213o";
 }
 //-----------------------------------------------------------------------------

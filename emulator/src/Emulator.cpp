@@ -336,7 +336,7 @@ void TEmulator::CpuTimerCallback()
 			cpu->SetPC(0xFFF0);
 
 		// tape flash loading - ROM routine entry-point mapping
-		if (pc == loader && model != CM_V1 && model != CM_MATO &&
+		if (pc == loader && model != CM_V1 &&
 		          ifTape && ifTape->IsFlashLoadOn()) {
 
 			BYTE byte = 0;
@@ -939,8 +939,7 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 				memory = new ChipMemory3(romSize);     // 64 kB RAM, 8 kB ROM
 			break;
 
-		case CM_MATO :// will remove
-		case CM_C2717 :
+		case CM_C2717 :// will remove
 			delete[] romBuff;
 			return;
 	}
@@ -957,41 +956,39 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 	systemPIO->PrepareSample.connect(sound, &SoundDriver::PrepareSample);
 	cpu->AddDevice(SYSTEM_PIO_ADR, SYSTEM_PIO_MASK, systemPIO, true);
 
-	if (model != CM_MATO) {
-		// Sound - 1kHz and 4kHz frequencies
-		cpu->TCyclesListeners.connect(systemPIO, &SystemPIO::SoundService);
+	// Sound - 1kHz and 4kHz frequencies
+	cpu->TCyclesListeners.connect(systemPIO, &SystemPIO::SoundService);
 
-		// GPIO interface
-		ifGpio = new IifGPIO();
-		cpu->AddDevice(IIF_GPIO_ADR, IIF_GPIO_MASK, ifGpio, true);
+	// GPIO interface
+	ifGpio = new IifGPIO();
+	cpu->AddDevice(IIF_GPIO_ADR, IIF_GPIO_MASK, ifGpio, true);
 
-		// Timer interface
-		ifTimer = new IifTimer(model);
-		cpu->AddDevice(IIF_TIMER_ADR, IIF_TIMER_MASK, ifTimer, false);
-		cpu->TCyclesListeners.connect(ifTimer, &IifTimer::ITimerService);
+	// Timer interface
+	ifTimer = new IifTimer(model);
+	cpu->AddDevice(IIF_TIMER_ADR, IIF_TIMER_MASK, ifTimer, false);
+	cpu->TCyclesListeners.connect(ifTimer, &IifTimer::ITimerService);
 
-		// Tape interface
-		ifTape = new IifTape(model);
-		ifTape->PrepareSample.connect(sound, &SoundDriver::PrepareSample);
-		TapeBrowser->SetIfTape(ifTape);
+	// Tape interface
+	ifTape = new IifTape(model);
+	ifTape->PrepareSample.connect(sound, &SoundDriver::PrepareSample);
+	TapeBrowser->SetIfTape(ifTape);
 
-		// set proper tape interface ports in CPU
-		cpu->AddDevice(IIF_TAPE_ADR, IIF_TAPE_MASK, ifTape, true);
+	// set proper tape interface ports in CPU
+	cpu->AddDevice(IIF_TAPE_ADR, IIF_TAPE_MASK, ifTape, true);
 
-		// pin tape interface signal to timer
-		if (model != CM_V1) {
-			ifTimer->Counters[((model == CM_C2717) ? 0 : 1)].OnOutChange.connect(ifTape, &IifTape::TapeClockService23);
-			ifTimer->EnableUsartClock(true);
-		}
-
-		// pin tape interface signal to CPU
-		cpu->TCyclesListeners.connect(ifTape, &IifTape::TapeClockService123);
-
-		// registering the extended memory 256k mapper
-		if (ramExpansion256k)
-			cpu->AddDevice(MM256_REG_ADR, MM256_REG_MASK,
-					dynamic_cast<PeripheralDevice *>(memory), true);
+	// pin tape interface signal to timer
+	if (model != CM_V1) {
+		ifTimer->Counters[((model == CM_C2717) ? 0 : 1)].OnOutChange.connect(ifTape, &IifTape::TapeClockService23);
+		ifTimer->EnableUsartClock(true);
 	}
+
+	// pin tape interface signal to CPU
+	cpu->TCyclesListeners.connect(ifTape, &IifTape::TapeClockService123);
+
+	// registering the extended memory 256k mapper
+	if (ramExpansion256k)
+		cpu->AddDevice(MM256_REG_ADR, MM256_REG_MASK,
+				dynamic_cast<PeripheralDevice *>(memory), true);
 
 	// disable Consul 2717 extended screen mode if was enabled
 	if (model != CM_C2717)
@@ -1344,7 +1341,6 @@ void TEmulator::PrepareSnapshot(char *fileName, BYTE *flag)
 			switch (model) {
 				case CM_V1:
 				case CM_V2:
-				case CM_MATO:
 					memory->GetMem(src, 0x8000, monitorLength);
 					break;
 				case CM_V2A:
