@@ -6,7 +6,6 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
-
 -2717 + 384 drop
 -Game menu test code + BMP
 -threaded dispmanx + bcm_host(Amiberry)
