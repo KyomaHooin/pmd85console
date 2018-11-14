@@ -192,7 +192,7 @@ void ScreenPMD85::RefreshDisplay()
 	if (scanlinerMode)
 		SDL_RenderCopy(gdc.renderer, scanlinerTexture, NULL, screenRect);
 
-	GUI->RedrawStatusBar();
+	//GUI->RedrawStatusBar();
 	if (GUI->InMenu())
 		SDL_RenderCopy(gdc.renderer, GUI->defaultTexture, NULL, screenRect);
 
@@ -286,16 +286,16 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 	if (!screenTexture)
 		error("Screen", "Unable to create screen texture\n%s", SDL_GetError());
 
-	int midOfStatus = SDL_max(1,
-			(screenHeight - screenRect->h - screenRect->y - STATUSBAR_HEIGHT) / 2);
+	//int midOfStatus = SDL_max(1,
+	//		(screenHeight - screenRect->h - screenRect->y - STATUSBAR_HEIGHT) / 2);
 
-	GUI->statusRect = new SDL_Rect(*screenRect);
-	GUI->statusRect->x += STATUSBAR_SPACING;
-	GUI->statusRect->y += screenRect->h + midOfStatus;
-	GUI->statusRect->w -= (2 * STATUSBAR_SPACING);
-	GUI->statusRect->h  = STATUSBAR_HEIGHT;
+	//GUI->statusRect = new SDL_Rect(*screenRect);
+	//GUI->statusRect->x += STATUSBAR_SPACING;
+	//GUI->statusRect->y += screenRect->h + midOfStatus;
+	//GUI->statusRect->w -= (2 * STATUSBAR_SPACING);
+	//GUI->statusRect->h  = STATUSBAR_HEIGHT;
 
-	GUI->InitStatusBarTexture();
+	//GUI->InitStatusBarTexture();
 	GUI->InitDefaultTexture(bufferWidth, bufferHeight);
 
 	PrepareScanliner();
