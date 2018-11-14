@@ -120,7 +120,8 @@ for start/stop of tape emulator use `[f]+P` hotkey
 FILES
 
 <pre>
-emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
+              emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
+pmd85emu_games_vpbg.zip - Origina VBG games binaries.
 </pre>
 
 SOURCE
