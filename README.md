@@ -6,7 +6,6 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
--rect border(?)
 -Emulator.cpp 257 bool FullRedrawExpected = true;
 -progress / run ico drop
 -multithread dispmanx(Amiberry)
