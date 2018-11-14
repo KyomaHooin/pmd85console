@@ -938,10 +938,6 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 			else
 				memory = new ChipMemory3(romSize);     // 64 kB RAM, 8 kB ROM
 			break;
-
-		case CM_C2717 :// will remove
-			delete[] romBuff;
-			return;
 	}
 
 	// Set split 8kB ROM (on 8000h and A000h)
@@ -978,7 +974,7 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 
 	// pin tape interface signal to timer
 	if (model != CM_V1) {
-		ifTimer->Counters[((model == CM_C2717) ? 0 : 1)].OnOutChange.connect(ifTape, &IifTape::TapeClockService23);
+		ifTimer->Counters[1].OnOutChange.connect(ifTape, &IifTape::TapeClockService23);
 		ifTimer->EnableUsartClock(true);
 	}
 
@@ -991,8 +987,7 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 				dynamic_cast<PeripheralDevice *>(memory), true);
 
 	// disable Consul 2717 extended screen mode if was enabled
-	if (model != CM_C2717)
-		systemPIO->width384 = 1;
+	systemPIO->width384 = 1;
 
 	monitorLength = romSize * KB;
 	if (fileSize > 0)
@@ -1241,7 +1236,7 @@ void TEmulator::ProcessSnapshot(char *fileName, BYTE *flag)
 		}
 
 		// block 8000h - BFFFh
-		if (model == CM_V2A || model == CM_V3 || model == CM_C2717) {
+		if (model == CM_V2A || model == CM_V3) {
 			len = (int) *((WORD *) (buf + 26));
 			if (len > 0) {
 				if (ReadFromFile(fileName, offset, len, src) != len)
@@ -1344,7 +1339,6 @@ void TEmulator::PrepareSnapshot(char *fileName, BYTE *flag)
 					memory->GetMem(src, 0x8000, monitorLength);
 					break;
 				case CM_V2A:
-				case CM_C2717:
 					memory->GetMem(src, 0x8000, monitorLength);
 					break;
 				case CM_V3:
@@ -1399,7 +1393,7 @@ void TEmulator::PrepareSnapshot(char *fileName, BYTE *flag)
 		offset += len;
 
 		// block 8000h - 0BFFFh
-		if (model == CM_V2A || model == CM_V3 || model == CM_C2717) {
+		if (model == CM_V2A || model == CM_V3) {
 			memory->GetMem(src, 32768, SNAP_BLOCK_LEN);
 			if (Settings->Snapshot->saveCompressed)
 				len = PackBlock(dest, src, SNAP_BLOCK_LEN);
@@ -1620,16 +1614,8 @@ bool TEmulator::ProcessRawFile(bool save)
 		if (length > 0) {
 			bool oldRemap = false;
 
-			if (model == CM_C2717) {
-				oldRemap = memory->IsRemapped();
-				memory->SetRemapped(Settings->MemoryBlock->remapping);
-			}
-
 			for (int i = 0; i < length; i++)
 				memory->WriteByte(start + i, *(buff + i));
-
-			if (model == CM_C2717)
-				memory->SetRemapped(oldRemap);
 		}
 		else
 			ret = false;
@@ -1639,24 +1625,16 @@ bool TEmulator::ProcessRawFile(bool save)
 		bool oldRemap = false;
 		buff = new BYTE[length];
 
-		if (model == CM_V2A || model == CM_V3 || model == CM_C2717) {
+		if (model == CM_V2A || model == CM_V3) {
 			oldPage = memory->GetPage();
 			memory->SetPage((BYTE) Settings->MemoryBlock->rom);
-
-			if (model == CM_C2717) {
-				oldRemap = memory->IsRemapped();
-				memory->SetRemapped(Settings->MemoryBlock->remapping);
-			}
 		}
 
 		for (int i = 0; i < length; i++)
 			*(buff + i) = memory->ReadByte(start + i);
 
-		if (model == CM_V2A || model == CM_V3 || model == CM_C2717) {
+		if (model == CM_V2A || model == CM_V3) {
 			memory->SetPage(oldPage);
-
-			if (model == CM_C2717)
-				memory->SetRemapped(oldRemap);
 		}
 
 		if (WriteToFile(fn, 0, length, buff, true) < 0)

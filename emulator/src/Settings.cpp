@@ -114,8 +114,6 @@ TSettings::TSettings()
 			model->type = CM_V2A;
 		else if (strcmp(n->key, "Model-3") == 0)
 			model->type = CM_V3;
-		else if (strcmp(n->key, "Model-C2717") == 0)
-			model->type = CM_C2717;
 		else {
 			warning("Settings", "Unknown model '%s' definition!", n->key);
 			delete model;
@@ -796,9 +794,6 @@ void TSettings::storeSettings()
 								break;
 							case CM_V3:
 								buf = (char *) "Model-3";
-								break;
-							case CM_C2717:
-								buf = (char *) "Model-C2717";
 								break;
 							default:
 								break;

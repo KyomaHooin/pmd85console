@@ -340,15 +340,14 @@ const char *dcb_blk_hexa_state(GUI_MENU_ENTRY *ptr)
 const char *dcb_blk_roma_state(GUI_MENU_ENTRY *ptr)
 {
 	ptr->enabled = (Settings->CurrentModel->type == CM_V2A
-	             || Settings->CurrentModel->type == CM_V3
-	             || Settings->CurrentModel->type == CM_C2717);
+	             || Settings->CurrentModel->type == CM_V3);
 	ptr->state = Settings->MemoryBlock->rom;
 	return NULL;
 }
 //-----------------------------------------------------------------------------
 const char *dcb_blk_rmap_state(GUI_MENU_ENTRY *ptr)
 {
-	ptr->enabled = (Settings->CurrentModel->type == CM_C2717);
+	ptr->enabled = (false);
 	ptr->state = Settings->MemoryBlock->remapping;
 	return NULL;
 }

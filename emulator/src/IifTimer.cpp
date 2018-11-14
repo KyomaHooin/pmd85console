@@ -106,17 +106,9 @@ void IifTimer::ITimerService(int ticks, int dur)
 	// Timer T1 - clock for USART - PMD 85
 	// Timer T0 - clock for USART - C2717
 	if (ctUsartOn == true) {
-		if (model == CM_C2717) {
-			for (int ii = 0; ii < dur; ii++) {
-				PeripheralSetClock(CT_0, true);
-				PeripheralSetClock(CT_0, false);
-			}
-		}
-		else {
-			for (int ii = 0; ii < dur; ii++) {
-				PeripheralSetClock(CT_1, true);
-				PeripheralSetClock(CT_1, false);
-			}
+		for (int ii = 0; ii < dur; ii++) {
+			PeripheralSetClock(CT_1, true);
+			PeripheralSetClock(CT_1, false);
 		}
 	}
 
