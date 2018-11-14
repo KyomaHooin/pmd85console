@@ -6,6 +6,7 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
+-Mato pcb_kbd_mato_state() (remain drop..)
 -Game menu.
 -Emulator.cpp 257 bool FullRedrawExpected = true;
 -multithread dispmanx + bcm_host(Amiberry)
