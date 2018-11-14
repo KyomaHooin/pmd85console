@@ -73,24 +73,11 @@ int main(int argc, char** argv)
 
 	SDL_ShowCursor(SDL_DISABLE);
 
-	//SDL_Surface *icon = SDL_LoadBMP(LocateResource("icon.bmp", false));
-	//if (icon) {
-	//	SDL_SetColorKey(icon, SDL_TRUE, SDL_MapRGB(icon->format, 255, 0, 255));
-	//	SDL_SetWindowIcon(gdc.window, icon);
-	//	SDL_FreeSurface(icon);
-	//}
-	//else
-	//	warning("", "Can't load icon resource file");
-
 //---------------------------------------------------------------------------------------
 	debug(NULL, "Initialization process started...");
 
 	Emulator = new TEmulator();
 	Emulator->ProcessSettings(-1);
-
-	//if (Settings->Screen->position.x >= 0 || Settings->Screen->position.y >= 0)
-	//	SDL_SetWindowPosition(gdc.window,
-	//			Settings->Screen->position.x, Settings->Screen->position.y);
 
 	SDL_ShowWindow(gdc.window);
 	SDL_Delay(WEAK_REFRESH_TIME);
