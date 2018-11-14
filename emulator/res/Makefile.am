@@ -5,6 +5,8 @@ AUTOMAKE_OPTIONS = foreign
 RES = \
 	base.fnt \
 	default.conf \
+	games-vbg.ptp \
+	games-vbg.p32 \
 	statusbar.bmp
 
 pkgdata_DATA = $(RES)

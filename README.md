@@ -6,13 +6,8 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
--Set ptp/p32 default.
--Pack res/games to build.
--Fullscreen faked
+-rect border(?)
 -Emulator.cpp 257 bool FullRedrawExpected = true;
--key press console leak
--center viewport(double)
--flashload
 -progress / run ico drop
 -multithread dispmanx(Amiberry)
 -snd flood alsa lib pcm.c:(snd_pcm_recover) underrun occured
@@ -127,7 +122,6 @@ FILES
 
 <pre>
 emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
-    game/ - Game binaries by VBG Software.
 </pre>
 
 SOURCE
