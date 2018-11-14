@@ -88,9 +88,9 @@ int main(int argc, char** argv)
 	Emulator = new TEmulator();
 	Emulator->ProcessSettings(-1);
 
-	if (Settings->Screen->position.x >= 0 || Settings->Screen->position.y >= 0)
-		SDL_SetWindowPosition(gdc.window,
-				Settings->Screen->position.x, Settings->Screen->position.y);
+	//if (Settings->Screen->position.x >= 0 || Settings->Screen->position.y >= 0)
+	//	SDL_SetWindowPosition(gdc.window,
+	//			Settings->Screen->position.x, Settings->Screen->position.y);
 
 	SDL_ShowWindow(gdc.window);
 	SDL_Delay(WEAK_REFRESH_TIME);
