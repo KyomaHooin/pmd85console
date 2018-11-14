@@ -250,35 +250,35 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 	SDL_LockMutex(displayModeMutex);
 	ReleaseVideoMode();
 
-	dispMode = reqDispMode;
+	//dispMode = reqDispMode;
 	width384mode = reqWidth384;
 
-	if (dispMode == DM_FULLSCREEN)
-		reqDispMode = DM_DOUBLESIZE;// fullscreen in-frame size
+	//if (dispMode == DM_FULLSCREEN)
+	//	reqDispMode = DM_DOUBLESIZE;// fullscreen in-frame size
 
-	while (true) {
-		switch (reqDispMode) {
-			default:
-			case DM_NORMAL:
-				screenWidth  = (reqWidth384) ? 384 : 288;
-				screenHeight = 256;
-				break;
+	//while (true) {
+	//	switch (reqDispMode) {
+	//		default:
+	//		case DM_NORMAL:
+	//			screenWidth  = (reqWidth384) ? 384 : 288;
+	//			screenHeight = 256;
+	//			break;
 
-			case DM_DOUBLESIZE:
+	//		case DM_DOUBLESIZE:
 				screenWidth  = (reqWidth384) ? 768 : 576;
 				screenHeight = 512;
-				break;
+	//			break;
 
-			case DM_TRIPLESIZE:
-				screenWidth  = (reqWidth384) ? 1152 : 864;
-				screenHeight = 768;
-				break;
+	//		case DM_TRIPLESIZE:
+	//			screenWidth  = (reqWidth384) ? 1152 : 864;
+	//			screenHeight = 768;
+	//			break;
 
-			case DM_QUADRUPLESIZE:
-				screenWidth  = (reqWidth384) ? 1536 : 1152;
-				screenHeight = 1024;
-				break;
-		}
+	//		case DM_QUADRUPLESIZE:
+	//			screenWidth  = (reqWidth384) ? 1536 : 1152;
+	//			screenHeight = 1024;
+	//			break;
+	//	}
 
 		//if (dispMode == DM_FULLSCREEN) {// <-- double cannot overflow
 		//	if (screenWidth > gdc.w || screenHeight + STATUSBAR_HEIGHT > gdc.h) {
@@ -297,15 +297,15 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 		//	}
 		//}
 
-		break;
-	}
+	//	break;
+	//}
 
 	bufferWidth  = (reqWidth384) ? 384 : 288;
 	bufferHeight = 256;
 
 	screenRect = new SDL_Rect;
 
-	if (dispMode == DM_FULLSCREEN) {
+	//if (dispMode == DM_FULLSCREEN) {
 		screenRect->w = screenWidth;
 		screenRect->h = screenHeight;
 
@@ -320,34 +320,34 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 				screenWidth, screenHeight, screenRect->w, screenRect->h);
 
 		//SDL_SetWindowFullscreen(gdc.window, SDL_WINDOW_FULLSCREEN_DESKTOP);// <-- full-screen already
-	}
-	else {
-		screenRect->x = borderSize;
-		screenRect->y = borderSize;
-		screenRect->w = screenWidth;
-		screenRect->h = screenHeight;
+	//}
+	//else {
+	//	screenRect->x = borderSize;
+	//	screenRect->y = borderSize;
+	//	screenRect->w = screenWidth;
+	//	screenRect->h = screenHeight;
 
-		screenWidth  += (borderSize * 2);
-		screenHeight += (borderSize * 2) + STATUSBAR_HEIGHT;
+	//	screenWidth  += (borderSize * 2);
+	//	screenHeight += (borderSize * 2) + STATUSBAR_HEIGHT;
 
-		debug("Screen", "Windowed mode: %dx%d -> viewport: %dx%d",
-				screenWidth, screenHeight, screenRect->w, screenRect->h);
+	//	debug("Screen", "Windowed mode: %dx%d -> viewport: %dx%d",
+	//			screenWidth, screenHeight, screenRect->w, screenRect->h);
 
-		SDL_SetWindowFullscreen(gdc.window, 0);
-		SDL_SetWindowSize(gdc.window, screenWidth, screenHeight);
-	}
+	//	SDL_SetWindowFullscreen(gdc.window, 0);
+	//	SDL_SetWindowSize(gdc.window, screenWidth, screenHeight);
+	//}
 
-	SDL_Event event;
-	int waitForResize = WEAK_REFRESH_TIME;
-	while (--waitForResize > 0) {
-		if (SDL_PollEvent(&event) &&
-			event.type == SDL_WINDOWEVENT &&
-			event.window.windowID == gdc.windowID &&
-			event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-				break;
+	//SDL_Event event;
+	//int waitForResize = WEAK_REFRESH_TIME;
+	//while (--waitForResize > 0) {
+	//	if (SDL_PollEvent(&event) &&
+	//		event.type == SDL_WINDOWEVENT &&
+	//		event.window.windowID == gdc.windowID &&
+	//		event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+	//			break;
 
-		SDL_Delay(1);
-	}
+	//	SDL_Delay(1);
+	//}
 
 	if (SDL_RenderSetLogicalSize(gdc.renderer, screenWidth, screenHeight) != 0)
 		error("Screen", "Unable to change screen resolution\n%s", SDL_GetError());
