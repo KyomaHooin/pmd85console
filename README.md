@@ -8,8 +8,7 @@ TODO
 <pre>
 
 -2717 + 384 drop
-
--Game menu.
+-Game menu test code + BMP
 -threaded dispmanx + bcm_host(Amiberry)
 -3D case
 
@@ -133,5 +132,5 @@ pmd85emu_games_vpbg.zip - Origina VBG games binaries.
 
 SOURCE
 
-https://github.com/KyomaHooin/GPMD85Emulator
+https://github.com/KyomaHooin/pmd85console
 
