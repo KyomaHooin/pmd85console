@@ -1612,8 +1612,6 @@ bool TEmulator::ProcessRawFile(bool save)
 		length = ReadFromFile(fn, 0, length, buff);
 
 		if (length > 0) {
-			bool oldRemap = false;
-
 			for (int i = 0; i < length; i++)
 				memory->WriteByte(start + i, *(buff + i));
 		}
@@ -1622,7 +1620,6 @@ bool TEmulator::ProcessRawFile(bool save)
 	}
 	else {
 		int oldPage = -1;
-		bool oldRemap = false;
 		buff = new BYTE[length];
 
 		if (model == CM_V2A || model == CM_V3) {
