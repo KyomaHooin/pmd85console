@@ -6,8 +6,8 @@ Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
 TODO
 
 <pre>
+-center viewport(double)
 -flashload
--border + inner border fix
 -progress / run ico drop
 -multithread dispmanx(Amiberry)
 -snd flood alsa lib pcm.c:(snd_pcm_recover) underrun occured
@@ -89,11 +89,11 @@ SDL
 <pre>
 wget --no-check-certificate https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 
-apt-get install libfreetype6-dev libgles2-mesa-dev libgbm-dev libudev-dev libasound2-dev liblzma-dev
+apt-get install libgles2-mesa-dev libgbm-dev libudev-dev libasound2-dev liblzma-dev
 
 autogen.sh
 ./configure --enable-video-kmsdrm --disable-video-opengl --disable-video-x11 --disable-video-rpi
-make -j4
+make
 make install
 
 glestest.c
