@@ -11,7 +11,6 @@ TODO
 -Game menu test code + BMP
 -threaded dispmanx + bcm_host(Amiberry)
 -3D case
-
 -RetrpPie/ libretro tune(?)
 -SDL "utility libs"(?)
 -CPU govenor tune(?)
