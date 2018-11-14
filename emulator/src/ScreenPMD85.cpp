@@ -253,7 +253,7 @@ void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
 	dispMode = reqDispMode;
 	width384mode = reqWidth384;
 
-	if (dispMode = DM_FULLSCREEN)
+	if (dispMode == DM_FULLSCREEN)
 		reqDispMode = DM_DOUBLESIZE;
 
 	screenWidth  = (reqWidth384) ? 768 : 576;
