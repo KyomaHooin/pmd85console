@@ -1,7 +1,7 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro-cosole.
+Raspberry Pi 1A+ Tesla PMD-85 retro cosole.
 
 TODO
 
@@ -10,11 +10,11 @@ TODO
 -Game menu test code + BMP
 -threaded dispmanx + bcm_host(Amiberry)
 -3D case
+-Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
+-Emulator.cpp 257 bool FullRedrawExpected = true;
 -RetrpPie/ libretro tune(?)
 -SDL "utility libs"(?)
 -CPU govenor tune(?)
--Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
--Emulator.cpp 257 bool FullRedrawExpected = true;
 </pre>
 
 BUG
@@ -29,10 +29,10 @@ HARDWARE
 <pre>
 1x <a href="http://rpishop.cz/248-raspberry-pi-1a">Raspberry</a>(1A+)
 1x <a href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a>(5V 1.2A)
-1x <a href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS)
+1x <a href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS/50-75mA)
 1x <a href="https://www.czc.cz/gembird-cablexpert-kabel-hdmi-hdmi-0-5m-1-4-m-m-stineny-zlacene-kontakty-cerna/248060/produkt">HDMI cable</a>(0.5m)
-1x MicroSD(2G)
-1x Keyboard(Chicony KU-0108 100mA)
+1x MicroSD(2GB)
+1x Keyboard(Chicony KU-0108s/100mA)
 </pre>
 
 SOFTWARE
@@ -108,7 +108,7 @@ glestest.c
 glestest.cpp => gcc `sdl-config --flags --libs` -lbcm_host -L/opt/vc/lib
 </pre>
 
-GPMD
+PMD
 
 <pre>
 apt-get istall autoconf
