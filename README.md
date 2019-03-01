@@ -89,7 +89,6 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 /etc/rc.local:
 
 /usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
-
 </pre>
 
 SDL
@@ -120,10 +119,6 @@ make
 make install
 
 bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
-
-function `[f]` keys are any of Alt, Win, Mac or Meta keys
-main menu appear with `[f]+F1` or with the "menu key"
-for start/stop of tape emulator use `[f]+P` hotkey
 </pre>
 
 FILES
