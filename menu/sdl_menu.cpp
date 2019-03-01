@@ -1,10 +1,43 @@
 #include <SDL.h>
 #include <stdio.h>
+#include <string.h>
 
 const int MENU_SCREEN_WIDTH = 576;
 const int MENU_SCREEN_HEIGHT = 532;
+const int GAME_SLOT_WIDTH = 286;
+const int GAME_SLOT_HEIGHT = 130;
+const int GAME_SLOT_OFFSET = 3;
+
+const char *gamefn[4] = {"flappy","boulder","manic","fred"};
+const char *gametext[4] = {"Flappy","Boulder Dash","Manic Miner","Fred"};
+
+SDL_Rect DrawBorder(int pos, bool hightlight = true) {
+	SDL_Rect border; 
+//	if hightligh set border_high else set border_default
+//	redraw_border(pos)
+	return border;
+}
+
+
+void DrawGameRect() {
+	for (int i = 0; i < 4; i++) {
+		printf("Image: %s \n", gamefn[i]);
+		//create border
+		//create surface
+		//load image
+		//..
+		//destroy surface
+	}
+//		draw rect
+//		draw pic
+//		draw text
+	return;
+}
 
 int main(int argc, char* args[]) {
+
+	DrawGameRect();
+	return 0 ;
 
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
@@ -54,19 +87,5 @@ int main(int argc, char* args[]) {
 	}	
 	SDL_Quit();
 	return 0;
-}
-
-void DrawGameRect() {
-//	for 'pic,text, pos' ' in dict' do
-//		draw rect
-//		draw pic
-//		draw text
-	return;
-}
-
-void DrawBorder(int pos, bool hightlight = true) {
-//	if hightligh set border_high else set border_default
-//	redraw_border(pos)
-	return;
 }
 
