@@ -103,9 +103,7 @@ autogen.sh
 make
 make install
 
-glestest.c
-
-glestest.cpp => gcc `sdl-config --cflags --libs` -lbcm_host -L/opt/vc/lib
+SDL + bcm_host_init() => gcc `sdl-config --cflags --libs` -lbcm_host -L/opt/vc/lib
 </pre>
 
 PMD
