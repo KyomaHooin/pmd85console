@@ -105,7 +105,7 @@ make install
 
 glestest.c
 
-glestest.cpp => gcc `sdl-config --flags --libs` -lbcm_host -L/opt/vc/lib
+glestest.cpp => gcc `sdl-config --cflags --libs` -lbcm_host -L/opt/vc/lib
 </pre>
 
 PMD
