@@ -76,15 +76,20 @@ apt-get install libgl1-mesa-dri
 raspi-config > Advanced > GPU mem > 128
 raspi-config > Advanced > Overclocking > Medium
 
-sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|plymouth|rsync|triggerhappy|nfs-client.target|rc-local|systemd-timesyncd]
+sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|plymouth|rsync|triggerhappy|nfs-client.target|systemd-timesyncd]
 
 apt-get update
-apt-get install vim git
+apt-get install vim git ntpdate
 
 /etc/fstab:
 
 tmpfs	/tmp	tmpfs	defaults,noatime,nosuid,size=5m	0	0
 tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
+
+/etc/rc.local:
+
+/usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
+
 </pre>
 
 SDL
