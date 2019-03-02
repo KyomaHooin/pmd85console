@@ -7,7 +7,6 @@ TODO
 
 <pre>
 -2717 + 384 drop
--Game menu test code + BMP
 -threaded dispmanx + bcm_host(Amiberry)
 -3D case
 -Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
