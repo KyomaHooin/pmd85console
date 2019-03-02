@@ -8,7 +8,6 @@ TODO
 <pre>
 -2717 + 384 drop
 -threaded dispmanx + bcm_host(Amiberry)
--3D case
 -Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
 -Emulator.cpp 257 bool FullRedrawExpected = true;
 -RetrpPie/ libretro tune(?)
@@ -122,6 +121,7 @@ FILES
 
 <pre>
               emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
+              openscad/ - 3D printable case code.
 pmd85emu_games_vpbg.zip - Origina VBG games binaries.
 </pre>
 
