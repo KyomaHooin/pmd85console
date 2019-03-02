@@ -4,40 +4,63 @@
 
 const int MENU_SCREEN_WIDTH = 576;
 const int MENU_SCREEN_HEIGHT = 532;
-const int GAME_SLOT_WIDTH = 286;
-const int GAME_SLOT_HEIGHT = 130;
-const int GAME_SLOT_OFFSET = 3;
+const int MENU_TEXT_OFFSET = 20;
 
-const char *gamefn[4] = {"flappy","boulder","manic","fred"};
+//const int GAME_SLOT_WIDTH = 286;
+//const int GAME_SLOT_HEIGHT = 130;
+const int GAME_SLOT_OFFSET = 3;
+const int GAME_SLOT_IMG_OFFSET = 3;
+const int GAME_SLOT_IMG_SIZE = 174;
+
+const char *gamefn[4] = {"flappy.bmp","boulder.bmp","manic.bmp","fred.bmp"};
 const char *gametext[4] = {"Flappy","Boulder Dash","Manic Miner","Fred"};
 
-SDL_Rect DrawBorder(int pos, bool hightlight = true) {
-	SDL_Rect border; 
-//	if hightligh set border_high else set border_default
-//	redraw_border(pos)
-	return border;
-}
+void DrawGameRect(SDL_Renderer *renderer, SDL_Rect border) {
 
-
-void DrawGameRect() {
 	for (int i = 0; i < 4; i++) {
-		printf("Image: %s \n", gamefn[i]);
-		//create border
-		//create surface
-		//load image
-		//..
-		//destroy surface
+		char imgpath[40] = "/usr/local/share/gpmd85emu/";
+		strcat(imgpath,gamefn[i]);
+
+		//	printf("Image: %s \n", imgpath);
+		SDL_Rect slot_rect, img_rect;
+		SDL_Surface *gameimg = SDL_LoadBMP(imgpath);
+		SDL_Texture *imgtexture = SDL_CreateTextureFromSurface(renderer,gameimg);
+		SDL_FreeSurface(gameimg);
+
+		slot_rect.w = (MENU_SCREEN_WIDTH - 4*GAME_SLOT_OFFSET) / 2;
+		slot_rect.h = (MENU_SCREEN_HEIGHT - 4*GAME_SLOT_OFFSET) / 2;
+		img_rect.w = GAME_SLOT_IMG_SIZE;
+		img_rect.h = GAME_SLOT_IMG_SIZE;
+
+		switch(i) {
+			case 0:
+				slot_rect.x = border.w + GAME_SLOT_OFFSET;
+				slot_rect.y = border.h + GAME_SLOT_OFFSET;
+				img_rect.x = slot_rect.x + GAME_SLOT_IMG_OFFSET;
+				img_rect.y = slot_rect.y + (slot_rect.h - img_rect.w) / 2;
+			case 1:
+				slot_rect.x = border.w + slot_rect.w + 3*GAME_SLOT_OFFSET;
+				slot_rect.y = border.h + GAME_SLOT_OFFSET;
+				img_rect.x = slot_rect.x + GAME_SLOT_IMG_OFFSET;
+				img_rect.y = slot_rect.y + (slot_rect.h - img_rect.w) / 2;
+			case 2:
+				slot_rect.x = border.w + GAME_SLOT_OFFSET;
+				slot_rect.y = border.h + slot_rect.h + 3*GAME_SLOT_OFFSET;
+				img_rect.x = slot_rect.x + GAME_SLOT_IMG_OFFSET;
+				img_rect.y = slot_rect.y + (slot_rect.h - img_rect.w) / 2;
+			case 3:
+				slot_rect.x = border.w + slot_rect.w + 3*GAME_SLOT_OFFSET;
+				slot_rect.y = border.h + slot_rect.h + 3*GAME_SLOT_OFFSET;
+				img_rect.x = slot_rect.x + GAME_SLOT_IMG_OFFSET;
+				img_rect.y = slot_rect.y + (slot_rect.h - img_rect.w) / 2;
+		}
+		SDL_RenderDrawRect(renderer,&slot_rect);// slot border
+		SDL_RenderCopy(renderer,imgtexture, NULL, &img_rect); // game img texture
 	}
-//		draw rect
-//		draw pic
-//		draw text
 	return;
 }
 
 int main(int argc, char* args[]) {
-
-	DrawGameRect();
-	return 0 ;
 
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
@@ -69,17 +92,19 @@ int main(int argc, char* args[]) {
 
 			SDL_ShowCursor(SDL_DISABLE);
 
-			border.x = (fullscreen.h - MENU_SCREEN_HEIGHT) / 2;
-			border.y = (fullscreen.w - MENU_SCREEN_WIDTH) / 2;
+			border.x = (fullscreen.w - MENU_SCREEN_WIDTH) / 2;
+			border.y = (fullscreen.h - MENU_SCREEN_HEIGHT) / 2;
 			border.w = MENU_SCREEN_WIDTH; 
 			border.h = MENU_SCREEN_HEIGHT;
 
-			SDL_SetRenderDrawColor(renderer,0,0,0,255); //black
+			SDL_SetRenderDrawColor(renderer,0,0,0,255);// black
 			SDL_RenderClear(renderer);
-			SDL_SetRenderDrawColor(renderer,255,255,255,255); //white
-			SDL_RenderDrawRect(renderer,&border);
-			SDL_RenderPresent(renderer);
+			SDL_SetRenderDrawColor(renderer,255,255,255,255);// white
+		
+			SDL_RenderDrawRect(renderer,&border);// menu border
+			DrawGameRect(renderer,border); // slot border + game BMP image
 
+			SDL_RenderPresent(renderer);
 			SDL_Delay(5000);
 			SDL_DestroyRenderer(renderer);
 		}
