@@ -1,6 +1,5 @@
 #include <SDL.h>
 #include <stdio.h>
-#include <string.h>
 
 const int MENU_SCREEN_WIDTH = 576;
 const int MENU_SCREEN_HEIGHT = 532;
