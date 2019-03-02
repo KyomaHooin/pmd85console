@@ -1,7 +1,7 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro cosole 3D case.
+Raspberry Pi console 3D case.
 
 FILES
 

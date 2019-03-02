@@ -6,18 +6,18 @@ Modified emulator <a href="https://github.com/mborik/GPMD85Emulator">code</a> by
 FILES
 
 <pre>
-      AUTHORS - Original authors.
-  config.h.in - Configure file.
- configure.ac - Configure file.
-      COPYING - Licensing.
-    globals.h - Global define.
-GPMD85emu.cpp - Main program.
          gui/ - GUI code.
-  Makefile.am - Makefile.
          res/ - Resource files.
          rom/ - ROM/RMM module binary.
-    sigslot.h - Simple multi-threading library by Sarah Thompson (c) 2000
          src/ - Program source code.
+      AUTHORS - Original authors.
+      COPYING - Licensing.
+GPMD85emu.cpp - Main program.
+  Makefile.am - Makefile.
+  config.h.in - Configure file.
+ configure.ac - Configure file.
+    globals.h - Global define.
+    sigslot.h - Simple multi-threading library by Sarah Thompson (c) 2000
 </pre>
 
 SOURCE
