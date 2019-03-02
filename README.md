@@ -6,6 +6,8 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole.
 TODO
 
 <pre>
+-plymouth PMD (c) spashscreen
+-menu border fading + event
 -2717 + 384 drop
 -threaded dispmanx + bcm_host(Amiberry)
 -Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
