@@ -5,9 +5,16 @@ const int MENU_SCREEN_WIDTH = 576;
 const int MENU_SCREEN_HEIGHT = 532;
 const int GAME_SLOT = 200;
 const int GAME_SLOT_IMG= 174;
+const int FADE_INTERVAL = 300;
 
 const char *gamefn[4] = {"flappy.bmp","boulder.bmp","manic.bmp","fred.bmp"};
 const char *gametext[4] = {"Flappy","Boulder Dash","Manic Miner","Fred"};
+const int grayfade[4] = {0,16,32,255};
+
+//void HighlightBorder(int i) {
+//		SDL_SetRenderDrawColor(renderer,grayfade[i],grayfade[i],grayfade[i],255);
+//		SDL_RenderDrawRect(renderer,&slot_border);
+//} 
 
 void RenderGameMenu(SDL_Renderer *renderer, SDL_Rect border) {
 	for (int i = 0; i < 4; i++) {
@@ -81,6 +88,18 @@ int main(int argc, char* args[]) {
 			printf("Renderer init ok.\n");
 
 			SDL_ShowCursor(SDL_DISABLE);
+		
+			//event loop
+			//SDL_Event = event;
+			//now = SDL_GetTicks();
+			//int default_border = 0;
+			//while()
+			//	if(now + FADE_INTERVAL > SDL_GetTicks()) {
+			//		Highlight(default_border);
+			//		now = SDL_GetTicks();
+			//		SDL_RenderPresent(renderer);
+			//	}
+			//}
 
 			border.x = (fullscreen.w - MENU_SCREEN_WIDTH) / 2;
 			border.y = (fullscreen.h - MENU_SCREEN_HEIGHT) / 2;
