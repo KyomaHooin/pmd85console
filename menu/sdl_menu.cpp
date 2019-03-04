@@ -6,19 +6,15 @@ int main(int argc, char* args[]) {
 
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
-	//SDL_Texture* texture = NULL;
+	SDL_Surface* bmp = NULL;
+	SDL_Texture* image = NULL;
+	SDL_Texture* menu = NULL;
 
-	//SDL_Rect rect;
-	//rect.x = 0;
-	//rect.y = 0;
-	//rect.w = fullscreen.w;
-	//rect.h = fullscreen.h;
-
+	SDL_Rect img_rect;
 	SDL_RendererInfo driver;
 	SDL_DisplayMode fullscreen;
 
-	//BCM host init
-	bcm_host_init();
+	bcm_host_init();// ?
 
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) != 0) return 1;
 
@@ -40,25 +36,34 @@ int main(int argc, char* args[]) {
 	renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	if(renderer == NULL) printf("Renderer init error.\n");
 
-	//texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, fullscreen.w, fullscreen.h);
-	//if(texture == NULL) printf("Texture init error.\n");
+	image = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, fullscreen.w, fullscreen.h);
+	if(image == NULL) printf("Texture init error.\n");
+
+	menu = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, fullscreen.w, fullscreen.h);
+	if(menu == NULL) printf("Texture init error.\n");
 
 	printf("Resolution: %d x %d \n",fullscreen.w, fullscreen.h);
 
-	//rect.x = 0;
-	//rect.y = 0;
-	//rect.w = fullscreen.w;
-	//rect.h = fullscreen.h;
-
 	SDL_ShowCursor(SDL_DISABLE);
 
+	img_rect.x = (fullscreen.w - 174) / 2;
+	img_rect.y = (fullscreen.h - 174) / 2;
+	img_rect.h = 174;
+	img_rect.w = 174;
+
+	bmp = SDL_LoadBMP("/usr/local/share/pmd85emu/flappy.bmp");
+	image = SDL_CreateTextureFromSurface(renderer, bmp);
+	SDL_FreeSurface(bmp);
+
 	SDL_ShowWindow(window);
-	SDL_RenderPresent(renderer);// Why?
+	SDL_RenderPresent(renderer);// ?
 
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
-	SDL_RenderClear(renderer);
-	//SDL_RenderCopy(renderer, texture, NULL, NULL);	
-	SDL_RenderPresent(renderer);
+	SDL_RenderClear(renderer);// slrscr	
+
+	SDL_SetRenderTarget(renderer,image);// set target texture
+	SDL_RenderCopy(renderer, image, NULL, &img_rect);// copy image to targer
+	//SDL_RenderPresent(renderer);
 
 	SDL_Delay(5000);
 	//SDL_DestroyTexture(texture);
