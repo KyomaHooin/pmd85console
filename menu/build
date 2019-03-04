@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gcc `sdl2-config --cflags --libs` -lbcm_host -L/opt/vc/lib -I/opt/vc/include -o sdl_menu sdl_menu.cpp
+
