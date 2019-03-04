@@ -1,125 +1,63 @@
 #include <SDL.h>
 #include <stdio.h>
 
-const int MENU_SCREEN_WIDTH = 576;
-const int MENU_SCREEN_HEIGHT = 532;
-const int GAME_SLOT = 200;
-const int GAME_SLOT_IMG= 174;
-const int FADE_INTERVAL = 300;
-
-const char *gamefn[4] = {"flappy.bmp","boulder.bmp","manic.bmp","fred.bmp"};
-const char *gametext[4] = {"Flappy","Boulder Dash","Manic Miner","Fred"};
-const int grayfade[4] = {0,16,32,255};
-
-//void HighlightBorder(int i) {
-//		SDL_SetRenderDrawColor(renderer,grayfade[i],grayfade[i],grayfade[i],255);
-//		SDL_RenderDrawRect(renderer,&slot_border);
-//} 
-
-void RenderGameMenu(SDL_Renderer *renderer, SDL_Rect border) {
-	for (int i = 0; i < 4; i++) {
-		char imgpath[40] = "/usr/local/share/gpmd85emu/";
-		strcat(imgpath,gamefn[i]);
-		//printf("Image: %s \n", imgpath);
-		SDL_Rect slot_border, img_border;
-		SDL_Surface *gameimg = SDL_LoadBMP(imgpath);
-		SDL_Texture *imgtexture = SDL_CreateTextureFromSurface(renderer,gameimg);
-		SDL_FreeSurface(gameimg);
-		
-		slot_border.w = GAME_SLOT;
-		slot_border.h = GAME_SLOT;
-		img_border.w = GAME_SLOT_IMG;
-		img_border.h = GAME_SLOT_IMG;
-
-		int slot_offset_x = (border.w - 2*GAME_SLOT) / 3;
-		int slot_offset_y = (border.h - 2*GAME_SLOT) / 3;
-
-		switch(i) {
-			case 0:
-				slot_border.x = border.x + slot_offset_x;
-				slot_border.y = border.y + slot_offset_y;
-			case 1:
-				slot_border.x = border.x + 2*slot_offset_x + GAME_SLOT;
-				slot_border.y = border.y + slot_offset_y;
-			case 2:
-				slot_border.x = border.x + slot_offset_x;
-				slot_border.y = border.y + 2*slot_offset_y + GAME_SLOT;
-			case 3:
-				slot_border.x = border.x + 2*slot_offset_x + GAME_SLOT;
-				slot_border.y = border.y + 2*slot_offset_y + GAME_SLOT;
-		}
-		img_border.x = slot_border.x + (GAME_SLOT - GAME_SLOT_IMG)/2;
-		img_border.y = slot_border.y + (GAME_SLOT - GAME_SLOT_IMG)/2;
-		
-		SDL_RenderDrawRect(renderer,&slot_border);
-		SDL_RenderCopy(renderer,imgtexture, NULL, &img_border);
-	}
-	return;
-}
-
 int main(int argc, char* args[]) {
 
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
-	SDL_Rect border;
+	SDL_Texture* texture = NULL;
+	SDL_Rect* screen = NULL;
+
+	SDL_RendererInfo driver;
 	SDL_DisplayMode fullscreen;
 
-	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
-		printf("Video init error.\n");
-	}
-	printf("Video init ok.\n");
 
-	if(SDL_GetDesktopDisplayMode(0,&fullscreen) != 0) { printf("Get resoultion failed.");
-	} else {
-		printf("Resolution %d x %d \n",fullscreen.w, fullscreen.h);
-	}
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) != 0) return 1;
 
-	window = SDL_CreateWindow("Menu",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		       	MENU_SCREEN_WIDTH, MENU_SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP);
-	if(window == NULL) {
-		printf("Window init error.\n");
-	} else {
-		printf("Window init ok.\n");
-	
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-		if(renderer == NULL) {
-			printf("Renderer init error.\n");
-		} else {
-			printf("Renderer init ok.\n");
+	if(SDL_GetRenderDriverInfo(0,&driver) != 0) printf("Failed to get driver info.");
 
-			SDL_ShowCursor(SDL_DISABLE);
-		
-			//event loop
-			//SDL_Event = event;
-			//now = SDL_GetTicks();
-			//int default_border = 0;
-			//while()
-			//	if(now + FADE_INTERVAL > SDL_GetTicks()) {
-			//		Highlight(default_border);
-			//		now = SDL_GetTicks();
-			//		SDL_RenderPresent(renderer);
-			//	}
-			//}
+	//printf("Drivers: %i\n\n",SDL_GetNumRenderDrivers());
+	printf("Current driver: %s\n",driver.name);
+	printf("      Software: %c\n",(driver.flags & SDL_RENDERER_SOFTWARE) ? 'x': ' ');
+	printf("   Accelerated: %c\n",(driver.flags & SDL_RENDERER_ACCELERATED) ? 'x': ' ');
+	printf("  Presentvsync: %c\n",(driver.flags & SDL_RENDERER_PRESENTVSYNC) ? 'x': ' ');
+	printf(" Targettexture: %c\n",(driver.flags & SDL_RENDERER_TARGETTEXTURE) ? 'x': ' ');
 
-			border.x = (fullscreen.w - MENU_SCREEN_WIDTH) / 2;
-			border.y = (fullscreen.h - MENU_SCREEN_HEIGHT) / 2;
-			border.w = MENU_SCREEN_WIDTH; 
-			border.h = MENU_SCREEN_HEIGHT;
+	if(SDL_GetDesktopDisplayMode(0,&fullscreen) != 0) printf("Get resoultion failed.");
 
-			SDL_SetRenderDrawColor(renderer,0,0,0,255);// black
-			SDL_RenderClear(renderer);
-			SDL_SetRenderDrawColor(renderer,255,255,255,255);// white
-		
-			SDL_RenderDrawRect(renderer,&border);
-			RenderGameMenu(renderer,border);
+	window = SDL_CreateWindow("Menu",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 200, 200, 0);
 
-			SDL_RenderPresent(renderer);
-			SDL_Delay(10000);
-			SDL_DestroyRenderer(renderer);
-		}
-		SDL_DestroyWindow(window);
-	}	
+	if(window == NULL) printf("Window init error.\n");
+
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+	if(renderer == NULL) printf("Renderer init error.\n");
+
+	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,SDL_TEXTUREACCESS_STATIC, fullscreen.w, fullscreen.h);
+
+	if(texture == NULL) printf("Texture init error.\n");
+
+	printf("Resolution: %d x %d \n",fullscreen.w, fullscreen.h);
+
+	//screen.h = fullscreen.h / 2;
+	//screen.w = fullscreen.w / 2;
+	//screen.x = 0;
+	//screen.y = 0;
+
+	SDL_ShowCursor(SDL_DISABLE);
+	SDL_Delay(100);
+
+	SDL_SetRenderDrawColor(renderer,255,255,255,255);
+	SDL_RenderClear(renderer);
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
+	SDL_RenderPresent(renderer);
+
+	SDL_Delay(5000);
+	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 	SDL_Quit();
+
 	return 0;
 }
 
