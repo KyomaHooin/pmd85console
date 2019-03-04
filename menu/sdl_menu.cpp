@@ -51,7 +51,7 @@ int main(int argc, char* args[]) {
 	img_rect.h = 174;
 	img_rect.w = 174;
 
-	bmp = SDL_LoadBMP("/usr/local/share/pmd85emu/flappy.bmp");
+	bmp = SDL_LoadBMP("/usr/local/share/gpmd85emu/flappy.bmp");
 	image = SDL_CreateTextureFromSurface(renderer, bmp);
 	SDL_FreeSurface(bmp);
 
@@ -61,12 +61,13 @@ int main(int argc, char* args[]) {
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	SDL_RenderClear(renderer);// slrscr	
 
-	SDL_SetRenderTarget(renderer,image);// set target texture
+	SDL_SetRenderTarget(renderer,menu);// set target texture
 	SDL_RenderCopy(renderer, image, NULL, &img_rect);// copy image to targer
 	//SDL_RenderPresent(renderer);
 
 	SDL_Delay(5000);
-	//SDL_DestroyTexture(texture);
+	SDL_DestroyTexture(image);
+	SDL_DestroyTexture(menu);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
