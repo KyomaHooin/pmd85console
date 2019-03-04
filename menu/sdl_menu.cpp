@@ -39,8 +39,8 @@ int main(int argc, char* args[]) {
 	image = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, fullscreen.w, fullscreen.h);
 	if(image == NULL) printf("Texture init error.\n");
 
-	menu = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, fullscreen.w, fullscreen.h);
-	if(menu == NULL) printf("Texture init error.\n");
+	//menu = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, fullscreen.w, fullscreen.h);
+	//if(menu == NULL) printf("Texture init error.\n");
 
 	printf("Resolution: %d x %d \n",fullscreen.w, fullscreen.h);
 
@@ -61,13 +61,13 @@ int main(int argc, char* args[]) {
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	SDL_RenderClear(renderer);// slrscr	
 
-	SDL_SetRenderTarget(renderer,menu);// set target texture
+	//SDL_SetRenderTarget(renderer,menu);// set target texture
 	SDL_RenderCopy(renderer, image, NULL, &img_rect);// copy image to targer
 	//SDL_RenderPresent(renderer);
 
 	SDL_Delay(5000);
 	SDL_DestroyTexture(image);
-	SDL_DestroyTexture(menu);
+	//SDL_DestroyTexture(menu);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
