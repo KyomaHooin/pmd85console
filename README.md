@@ -6,14 +6,12 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole.
 TODO
 
 <pre>
--plymouth PMD (c) spashscreen
--menu border fading + event
+-plymouth PMD (c) splash
 -2717 + 384 drop
 -threaded dispmanx + bcm_host(Amiberry)
 -Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
 -Emulator.cpp 257 bool FullRedrawExpected = true;
 -RetrpPie/ libretro tune(?)
--SDL "utility libs"(?)
 -CPU govenor tune(?)
 </pre>
 
@@ -102,8 +100,6 @@ autogen.sh
 ./configure --enable-video-kmsdrm --disable-video-opengl --disable-video-x11 --disable-video-rpi
 make
 make install
-
-SDL + bcm_host_init() => gcc `sdl-config --cflags --libs` -lbcm_host -L/opt/vc/lib
 </pre>
 
 PMD
