@@ -68,11 +68,8 @@ int main(int argc, char* args[]) {
 
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
-	SDL_Surface* bmp = NULL;
-	SDL_Texture* image = NULL;
-	SDL_Texture* menu = NULL;
+	SDL_Event e;
 
-	SDL_Rect img_rect;
 	SDL_RendererInfo driver;
 	SDL_DisplayMode fullscreen;
 
@@ -106,8 +103,11 @@ int main(int argc, char* args[]) {
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	SDL_RenderClear(renderer);// clrscr	
 
+	//default
 	RenderMenuImage(renderer);
 	RenderMenuBorder(renderer);
+
+	//event loop code..
 
 	SDL_RenderPresent(renderer);
 
