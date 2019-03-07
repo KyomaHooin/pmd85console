@@ -1,3 +1,7 @@
+//
+// 1360x768 Sony TV
+//
+
 #include <SDL.h>
 #include <stdio.h>
 #include <bcm_host.h>
@@ -7,11 +11,12 @@ const int MENU_HEIGHT = 300;
 const int MENU_BORDER_WIDTH = 200;
 const int MENU_BORDER_HEIGHT = 260;
 const int MENU_SPACING = 20;
-const int MENU_BORDER_W_OFFSET = (MENU_WIDTH -5 * MENU_SPACING - 4 * MENU_BORDER_WIDTH) / 2 ;
-const int MENU_BORDER_H_OFFSET = (MENU_HEIGHT - 2 * MENU_SPACING - MENU_BORDER_HEIGHT) / 2 ;
+const int MENU_BORDER_X = (1360 - MENU_WIDTH) / 2;
+const int MENU_BORDER_Y = (768 - MENU_HEIGHT) / 2 ;
 const int MENU_IMAGE = 174;
 const int MENU_IMAGE_OFFSET = (MENU_BORDER_WIDTH - MENU_IMAGE) / 2;
-const int greyfade[4] = {0, 169, 221, 255};// dark to white
+const int grey[4] = {0, 25, 100, 255};// dark to white
+//const int greyfade[5] = {0, 25, 100, 170, 255};// dark to white
 const char *gamefn[4] {
 		"/usr/local/share/gpmd85emu/flappy.bmp",
 		"/usr/local/share/gpmd85emu/boulder.bmp",
@@ -19,56 +24,67 @@ const char *gamefn[4] {
 		"/usr/local/share/gpmd85emu/fred.bmp"
 	};
 
-int RenderMenuBorder(SDL_Renderer *renderer) {
+void Highlight(SDL_Renderer *renderer, int game, int color) {
 	SDL_Rect border_rect;
 
 	border_rect.w = MENU_BORDER_WIDTH;
 	border_rect.h = MENU_BORDER_HEIGHT;
 
-	SDL_SetRenderDrawColor(renderer, 169, 169, 169, 255);
+	SDL_SetRenderDrawColor(renderer, grey[color], grey[color], grey[color], 255);
 
-	for (int i=0; i < 4; i++) {
-		border_rect.x = MENU_BORDER_W_OFFSET + MENU_SPACING + i * (MENU_BORDER_WIDTH + MENU_SPACING)  ;
-		border_rect.y = MENU_BORDER_H_OFFSET + MENU_SPACING;
+	border_rect.x = MENU_BORDER_X + MENU_SPACING + game * (MENU_BORDER_WIDTH + MENU_SPACING);
+	border_rect.y = MENU_BORDER_Y + MENU_SPACING;
 
-		SDL_RenderDrawRect(renderer,&border_rect);
-	}
-	return 0;
+	SDL_RenderDrawRect(renderer,&border_rect);
+	SDL_RenderPresent(renderer);
 }
 
-int RenderMenuImage(SDL_Renderer *renderer) {
+void RenderMenuDefault(SDL_Renderer *renderer) {
 	SDL_Surface* bmp = NULL;
 	SDL_Texture* image = NULL;
-	SDL_Rect img_rect;
+	SDL_Rect img_rect,border_rect;
 
 	img_rect.w = MENU_IMAGE;
 	img_rect.h = MENU_IMAGE;
+	border_rect.w = MENU_BORDER_WIDTH;
+	border_rect.h = MENU_BORDER_HEIGHT;
+
+	SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);// border color
 
 	image = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, MENU_IMAGE, MENU_IMAGE);
 	if(image == NULL) {
 		printf("Image texture init error.\n");
-		return 1;
 	}
 
 	for (int i=0; i < 4; i++) {
 		bmp = SDL_LoadBMP(gamefn[i]);
 		image = SDL_CreateTextureFromSurface(renderer, bmp);
-		img_rect.x = MENU_BORDER_W_OFFSET + MENU_SPACING + MENU_IMAGE_OFFSET + i * (MENU_BORDER_WIDTH + MENU_SPACING);
-		img_rect.y = MENU_BORDER_H_OFFSET + MENU_SPACING + MENU_IMAGE_OFFSET;
+		img_rect.x = MENU_BORDER_X + MENU_SPACING + MENU_IMAGE_OFFSET + i * (MENU_BORDER_WIDTH + MENU_SPACING);
+		img_rect.y = MENU_BORDER_Y + MENU_SPACING + MENU_IMAGE_OFFSET;
 
 		SDL_RenderCopy(renderer, image, NULL, &img_rect);
+
+		border_rect.x = MENU_BORDER_X + MENU_SPACING + i * (MENU_BORDER_WIDTH + MENU_SPACING);
+		border_rect.y = MENU_BORDER_Y + MENU_SPACING;
+
+		SDL_RenderDrawRect(renderer,&border_rect);
 	}
 
+	SDL_RenderPresent(renderer);
 	SDL_FreeSurface(bmp);
 	SDL_DestroyTexture(image);
-	return 0;
 }
 
 int main(int argc, char* args[]) {
 
+	bool quit = false;
+	int game = 0;
+	int color = 0;
+	unsigned int nextTime;
+
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
-	SDL_Event e;
+	SDL_Event event;
 
 	SDL_RendererInfo driver;
 	SDL_DisplayMode fullscreen;
@@ -103,15 +119,41 @@ int main(int argc, char* args[]) {
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	SDL_RenderClear(renderer);// clrscr	
 
-	//default
-	RenderMenuImage(renderer);
-	RenderMenuBorder(renderer);
+	RenderMenuDefault(renderer);
 
-	//event loop code..
+	while(1) {
+		nextTime = SDL_GetTicks() + 500;//highlight delay 500ms
+		while(SDL_PollEvent(&event)) {
+			switch(event.type) {
+				case SDL_KEYDOWN:
+					if (event.key.keysym.sym == SDLK_LEFT) {
+						(game != 0) ? game-- : game = 3;
+						printf("Left pressed. Game: %i ", game);
+					}
+					if (event.key.keysym.sym == SDLK_RIGHT) {
+						(game == 3) ? game = 0 : game++;
+						printf("Right pressed. Game: %i ", game);
+					}
+					if (event.key.keysym.sym == SDLK_RETURN) {
+						quit = true;
+						printf("Enter Game: %i\n", game);
 
-	SDL_RenderPresent(renderer);
+				       	}
+					break;
+				default:
+					break;
+			}
+		}
 
-	SDL_Delay(10000);
+		if (quit) { break; }
+
+		printf("Highlighting, game: %i color: %i\n", game, color);
+		Highlight(renderer, game, color);
+		(color == 3) ? color = 0 : color++;
+	
+		while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
+	}
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
