@@ -38,7 +38,7 @@ SOFTWARE
 
 <pre>
 Fake KMS driver + Dispmanx
-SDL 2.0.x
+SDL 2.0.x + SDL2_ttf
 GPMD85Emulator
 </pre>
 
@@ -99,6 +99,12 @@ apt-get install libgles2-mesa-dev libgbm-dev libudev-dev libasound2-dev liblzma-
 
 autogen.sh
 ./configure --enable-video-kmsdrm --disable-video-opengl --disable-video-x11 --disable-video-rpi
+make
+make install
+
+wget --no-check-certificate https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz
+autogen.sh
+./configure
 make
 make install
 </pre>
