@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <bcm_host.h>
 
+//--- DEF ---
+
 const int MENU_WIDTH = 900;
 const int MENU_HEIGHT = 300;
 const int MENU_BORDER_WIDTH = 200;
@@ -16,13 +18,14 @@ const int MENU_BORDER_Y = (768 - MENU_HEIGHT) / 2 ;
 const int MENU_IMAGE = 174;
 const int MENU_IMAGE_OFFSET = (MENU_BORDER_WIDTH - MENU_IMAGE) / 2;
 const int grey[4] = {0, 25, 100, 255};// dark to white
-//const int greyfade[5] = {0, 25, 100, 170, 255};// dark to white
 const char *gamefn[4] {
 		"/usr/local/share/gpmd85emu/flappy.bmp",
 		"/usr/local/share/gpmd85emu/boulder.bmp",
 		"/usr/local/share/gpmd85emu/manic.bmp",
 		"/usr/local/share/gpmd85emu/fred.bmp"
 	};
+
+//--- FUNC ---
 
 void Highlight(SDL_Renderer *renderer, int game, int color) {
 	SDL_Rect border_rect;
@@ -69,39 +72,36 @@ void RenderMenuDefault(SDL_Renderer *renderer) {
 
 		SDL_RenderDrawRect(renderer,&border_rect);
 	}
-
 	SDL_RenderPresent(renderer);
 	SDL_FreeSurface(bmp);
 	SDL_DestroyTexture(image);
 }
 
-int main(int argc, char* args[]) {
+//--- MAIN ---
 
+int main(int argc, char* args[]) {
 	bool quit = false;
-	int game = 0;
-	int color = 0;
+	int game = 0, color = 0;
 	unsigned int nextTime;
 
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
 	SDL_Event event;
 
-	SDL_RendererInfo driver;
-	SDL_DisplayMode fullscreen;
+	//SDL_RendererInfo driver;
+	//SDL_DisplayMode fullscreen;
 
 	bcm_host_init();// ?
 
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) != 0) return 1;
+	//if(SDL_GetRenderDriverInfo(0,&driver) != 0) printf("Failed to get driver info.");
 
-	if(SDL_GetRenderDriverInfo(0,&driver) != 0) printf("Failed to get driver info.");
-
-	printf("Current driver: %s\n",driver.name);
-	printf("      Software: %c\n",(driver.flags & SDL_RENDERER_SOFTWARE) ? 'x': ' ');
-	printf("   Accelerated: %c\n",(driver.flags & SDL_RENDERER_ACCELERATED) ? 'x': ' ');
-	printf("  Presentvsync: %c\n",(driver.flags & SDL_RENDERER_PRESENTVSYNC) ? 'x': ' ');
-	printf(" Targettexture: %c\n",(driver.flags & SDL_RENDERER_TARGETTEXTURE) ? 'x': ' ');
-
-	if(SDL_GetDesktopDisplayMode(0,&fullscreen) != 0) printf("Get resoultion failed.");
+	//printf("Current driver: %s\n",driver.name);
+	//printf("      Software: %c\n",(driver.flags & SDL_RENDERER_SOFTWARE) ? 'x': ' ');
+	//printf("   Accelerated: %c\n",(driver.flags & SDL_RENDERER_ACCELERATED) ? 'x': ' ');
+	//printf("  Presentvsync: %c\n",(driver.flags & SDL_RENDERER_PRESENTVSYNC) ? 'x': ' ');
+	//printf(" Targettexture: %c\n",(driver.flags & SDL_RENDERER_TARGETTEXTURE) ? 'x': ' ');
+	//if(SDL_GetDesktopDisplayMode(0,&fullscreen) != 0) printf("Get resoultion failed.");
 
 	window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 200, 200, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 	if(window == NULL) printf("Window init error.\n");
@@ -111,15 +111,14 @@ int main(int argc, char* args[]) {
 	renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	if(renderer == NULL) printf("Renderer init error.\n");
 
-	printf("Resolution: %d x %d \n",fullscreen.w, fullscreen.h);
+	//printf("Resolution: %d x %d \n",fullscreen.w, fullscreen.h);
 
 	SDL_ShowWindow(window);
 	SDL_RenderPresent(renderer);// ?
-
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	SDL_RenderClear(renderer);// clrscr	
 
-	RenderMenuDefault(renderer);
+	RenderMenuDefault(renderer);//menu default
 
 	while(1) {
 		nextTime = SDL_GetTicks() + 500;//highlight delay 500ms
@@ -137,7 +136,6 @@ int main(int argc, char* args[]) {
 					if (event.key.keysym.sym == SDLK_RETURN) {
 						quit = true;
 						printf("Enter Game: %i\n", game);
-
 				       	}
 					break;
 				default:
@@ -153,12 +151,10 @@ int main(int argc, char* args[]) {
 	
 		while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
 	}
-
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 	bcm_host_deinit();
-
 	return 0;
 }
 
