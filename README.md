@@ -6,8 +6,6 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole.
 TODO
 
 <pre>
--plymouth PMD (c) splash
--2717 + 384 drop
 -threaded dispmanx + bcm_host(Amiberry)
 -Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
 -Emulator.cpp 257 bool FullRedrawExpected = true;
@@ -70,15 +68,19 @@ minicom -D /dev/ttyUSB0 -b 115200
 
 raspi-config > Advanced > GL Driver > Enable Fake KMS
 
+apt-get update
 apt-get install libgl1-mesa-dri
 
 raspi-config > Advanced > GPU mem > 128
 raspi-config > Advanced > Overclocking > Medium
 
-sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|plymouth|rsync|triggerhappy|nfs-client.target|systemd-timesyncd]
+sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|rsync|triggerhappy|nfs-client.target|systemd-timesyncd]
 
-apt-get update
-apt-get install vim git ntpdate
+apt-get install vim git ntpdate plymouth-themes
+
+/boot/cmdline.txt:
+
+logo.nologo quiet
 
 /etc/fstab:
 
