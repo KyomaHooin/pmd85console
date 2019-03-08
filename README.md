@@ -78,6 +78,10 @@ sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|rsync|triggerhappy|nfs-c
 
 apt-get install vim git ntpdate plymouth-themes
 
+cp -r theme/* /usr/share/plymouth/themes/
+
+plymouth-set-default-theme pmd85
+
 /boot/cmdline.txt:
 
 logo.nologo quiet
