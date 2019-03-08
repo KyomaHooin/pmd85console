@@ -94,6 +94,7 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 /etc/rc.local:
 
 /usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
+/root/menu/sdl_menu > /dev/null 2>&1 &
 </pre>
 
 SDL
