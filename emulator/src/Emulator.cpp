@@ -917,18 +917,12 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 			break;
 
 		case CM_V2A : // PMD 85-2A
-			if (ramExpansion256k)
-				memory = new ChipMemory2AEx(romSize); // 256 kB RAM, x kB ROM
-			else
-				memory = new ChipMemory2A(romSize);    // 64 kB RAM, x kB ROM
+			memory = new ChipMemory2A(romSize);    // 64 kB RAM, x kB ROM
 			break;
 
 		case CM_V3 :  // PMD 85-3
 			romSize = 8;
-			if (ramExpansion256k)
-				memory = new ChipMemory3Ex(romSize);  // 256 kB RAM, 8 kB ROM
-			else
-				memory = new ChipMemory3(romSize);     // 64 kB RAM, 8 kB ROM
+			memory = new ChipMemory3(romSize);     // 64 kB RAM, 8 kB ROM
 			break;
 	}
 

@@ -43,10 +43,7 @@ noinst_HEADERS = \
 	ChipMemory.h \
 	ChipMemory12.h \
 	ChipMemory2A.h \
-	ChipMemory2AEx.h \
 	ChipMemory3.h \
-	ChipMemory3Ex.h \
-	ChipMemoryC2717.h \
 	ChipPIO8255.h \
 	ChipPIT8253.h \
 	ChipUSART8251.h \

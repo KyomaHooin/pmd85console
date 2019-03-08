@@ -39,7 +39,7 @@ ScreenPMD85::ScreenPMD85(TDisplayMode dispMode, int border)
 	SetColorProfile(CP_STANDARD);
 
 	displayModeMutex = SDL_CreateMutex();
-	InitVideoMode(dispMode, false);
+	InitVideoMode(dispMode);
 }
 //-----------------------------------------------------------------------------
 ScreenPMD85::~ScreenPMD85()
