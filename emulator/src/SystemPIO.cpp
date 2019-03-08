@@ -30,7 +30,6 @@ SystemPIO::SystemPIO(TComputerModel model, ChipMemory *memory) : ChipPIO8255(fal
 	OnCpuWriteCH.connect(this, &SystemPIO::WritePaging);
 
 	ledState = 0;
-	width384 = 0;
 	ShiftStopCtrl = 0;
 	for (int ii = 0; ii < (int) sizeof(KeyColumns); ii++)
 		KeyColumns[ii] = 0;

@@ -65,7 +65,6 @@ public:
 	sigslot::signal3<int, bool, int> PrepareSample;
 
 	BYTE ledState;
-	BYTE width384;
 	bool exchZY;
 	bool numpad;
 	bool extMato;

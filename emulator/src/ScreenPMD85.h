@@ -49,9 +49,6 @@ public:
 	inline void SetDisplayMode(TDisplayMode dispMode)
 		{ SetDisplayMode(dispMode, borderSize / BORDER_MULTIPLIER); }
 
-	void SetWidth384(bool mode384);
-	inline bool IsWidth384() { return width384mode; }
-
 	void SetHalfPassMode(THalfPassMode halfPass);
 	inline THalfPassMode GetHalfPassMode() { return halfPass; }
 
@@ -88,7 +85,6 @@ private:
 	bool blinkState;
 	bool blinkingEnabled;
 	bool lcdMode;
-	bool width384mode;
 
 	TDisplayMode dispMode;
 	TColorProfile colorProfile;
@@ -100,7 +96,7 @@ private:
 	const SCANLINER_DEF *scanliner;
 	int scanlinerMode;
 
-	void InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384);
+	void InitVideoMode(TDisplayMode reqDispMode);
 	void ReleaseVideoMode();
 	void PrepareScreen();
 	void PrepareScanliner();

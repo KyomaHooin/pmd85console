@@ -93,15 +93,7 @@ void ScreenPMD85::SetDisplayMode(TDisplayMode dm, int border)
 	if (dispMode == dm)
 		return;
 
-	InitVideoMode(dm, width384mode);
-}
-//---------------------------------------------------------------------------
-void ScreenPMD85::SetWidth384(bool mode384)
-{
-	if (width384mode == mode384)
-		return;
-
-	InitVideoMode(dispMode, mode384);
+	InitVideoMode(dm);
 }
 //---------------------------------------------------------------------------
 void ScreenPMD85::SetHalfPassMode(THalfPassMode hp)
@@ -207,7 +199,7 @@ void ScreenPMD85::FillBuffer(BYTE *videoRam, bool needRedraw)
 		return;
 
 	bool colorace = (colorProfile == CP_COLORACE);
-	int i, w, h = bufferHeight, c2717 = (width384mode ? 0 : 0x40);
+	int i, w, h = bufferHeight;
 	BYTE a[4] = { pAttr[0], pAttr[1], pAttr[2], pAttr[3] }, b, c, d, e;
 
 	if (blinkingEnabled && blinkState)
@@ -228,12 +220,10 @@ void ScreenPMD85::FillBuffer(BYTE *videoRam, bool needRedraw)
 				c = (e & 0xC0) >> 6;
 				c = pAttr[d | c | ((d & c) ? 0 : 4)];
 			}
-			else if (c2717)
-				c = a[d];
 			else
 				c = *a;
 
-			for (d = 0x01; d != c2717; d <<= 1)
+			for (d = 0x01; d != 0x40; d <<= 1)
 				*ptr++ = palette[((b & d) ? c : 0)];
 		}
 
@@ -245,21 +235,20 @@ void ScreenPMD85::FillBuffer(BYTE *videoRam, bool needRedraw)
 	SDL_UnlockMutex(displayModeMutex);
 }
 //---------------------------------------------------------------------------
-void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode, bool reqWidth384)
+void ScreenPMD85::InitVideoMode(TDisplayMode reqDispMode)
 {
 	SDL_LockMutex(displayModeMutex);
 	ReleaseVideoMode();
 	
 	dispMode = reqDispMode;
-	width384mode = reqWidth384;
 
 	if (dispMode == DM_FULLSCREEN)
 		reqDispMode = DM_DOUBLESIZE;
 
-	screenWidth  = (reqWidth384) ? 768 : 576;
+	screenWidth  = 576;
 	screenHeight = 512;
 
-	bufferWidth  = (reqWidth384) ? 384 : 288;
+	bufferWidth  = 288;
 	bufferHeight = 256;
 
 	screenRect = new SDL_Rect;

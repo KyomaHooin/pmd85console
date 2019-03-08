@@ -266,17 +266,9 @@ void TEmulator::BaseTimerCallback()
 		blinkCounter += (thisTime - lastTick);
 
 	if (isRunning) {
-		if (systemPIO) {
+		if (systemPIO)
 			systemPIO->ScanKeyboard(keyBuffer);
-
-			// detection of Consul 2717 extended screen mode 384x256...
-			BYTE flag = systemPIO->width384;
-			if ((flag & 1) && (bool)(flag & 0xFE) != video->IsWidth384()) {
-				video->SetWidth384(flag & 0xFE);
-				systemPIO->width384 = (flag & 0xFE);
-			}
-		}
-
+	
 		// status bar icon with priority: ifTape > PMD 32 > none
 		BYTE icon = (ifTape) ? ifTape->GetTapeIcon() : 0;
 		if (!icon && pmd32 && pmd32->diskIcon)
@@ -986,9 +978,6 @@ void TEmulator::SetComputerModel(bool fromSnap, int snapRomLen, BYTE *snapRom)
 		cpu->AddDevice(MM256_REG_ADR, MM256_REG_MASK,
 				dynamic_cast<PeripheralDevice *>(memory), true);
 
-	// disable Consul 2717 extended screen mode if was enabled
-	systemPIO->width384 = 1;
-
 	monitorLength = romSize * KB;
 	if (fileSize > 0)
 		memory->PutRom(romBuff, monitorLength);
@@ -1195,7 +1184,6 @@ void TEmulator::ProcessSnapshot(char *fileName, BYTE *flag)
 			systemPIO->WriteToDevice(SYSTEM_REG_CWR, *(buf + 30), 0);
 			systemPIO->WriteToDevice(SYSTEM_REG_C, *(buf + 31), 0);
 			systemPIO->WriteToDevice(SYSTEM_REG_A, *(buf + 32), 0);
-			systemPIO->ReadFromDevice(SYSTEM_REG_B, 0); // set for C2717 repagination
 		}
 
 		if (ifGpio)

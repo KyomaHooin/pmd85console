@@ -17,10 +17,7 @@ libGPMD85emu_core_a_SOURCES = \
 	ChipMemory.cpp \
 	ChipMemory12.cpp \
 	ChipMemory2A.cpp \
-	ChipMemory2AEx.cpp \
 	ChipMemory3.cpp \
-	ChipMemory3Ex.cpp \
-	ChipMemoryC2717.cpp \
 	ChipPIO8255.cpp \
 	ChipPIT8253.cpp \
 	ChipUSART8251.cpp \
