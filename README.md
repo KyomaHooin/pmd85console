@@ -84,7 +84,7 @@ plymouth-set-default-theme pmd85
 
 /boot/cmdline.txt:
 
-logo.nologo quiet
+logo.nologo quiet loglevel=3 plymouth.ignore-serial-console plymouth.enable=0 splash 
 
 /etc/fstab:
 
