@@ -14,16 +14,8 @@
 #include "savestate.h"
 #include "picasso96.h"
 #include "amiberry_gfx.h"
-
 #include <png.h>
-#ifdef USE_SDL1
-#include <SDL_image.h>
-#include <SDL_gfxPrimitives.h>
-#include <SDL_ttf.h>
-#endif
-#ifdef ANDROIDSDL
-#include <SDL_screenkeyboard.h>
-#endif
+
 #ifdef USE_DISPMANX
 #include "bcm_host.h"
 #include "threaddep/thread.h"
@@ -37,10 +29,6 @@ static uae_thread_id display_tid = nullptr;
 static smp_comm_pipe *volatile display_pipe = nullptr;
 static uae_sem_t display_sem = nullptr;
 static bool volatile display_thread_busy = false;
-#endif
-
-#ifdef ANDROIDSDL
-#include <android/log.h>
 #endif
 
 static int display_width;
@@ -119,9 +107,6 @@ static void *display_thread(void *unused)
 		255 /*alpha 0->255*/ , 	0
 	};
 	uint32_t vc_image_ptr;
-#ifdef USE_SDL1
-	SDL_Surface *dummy_screen;
-#endif
 	int width, height, depth;
 	float want_aspect, real_aspect, scale;
 	SDL_Rect viewport;
@@ -195,14 +180,8 @@ static void *display_thread(void *unused)
 				rgb_mode = VC_IMAGE_RGB565;
 			}
 
-#ifdef USE_SDL1
-			dummy_screen = SDL_SetVideoMode(width, height, depth, SDL_SWSURFACE | SDL_FULLSCREEN);
-			screen = SDL_CreateRGBSurface(SDL_HWSURFACE, width, height, depth,
-				dummy_screen->format->Rmask, dummy_screen->format->Gmask, dummy_screen->format->Bmask, dummy_screen->format->Amask);
-			SDL_FreeSurface(dummy_screen);
-#elif USE_SDL2
 			screen = SDL_CreateRGBSurface(0, display_width, display_height, depth, 0, 0, 0, 0);
-#endif
+		
 			vc_dispmanx_display_get_info(dispmanxdisplay, &dispmanxdinfo);
 
 			dispmanxresource_amigafb_1 = vc_dispmanx_resource_create(rgb_mode, width, height, &vc_image_ptr);
@@ -312,35 +291,6 @@ static void *display_thread(void *unused)
 
 int graphics_setup(void)
 {
-#ifdef PICASSO96
-	picasso_init_resolutions();
-	InitPicasso96();
-#endif
-#ifdef USE_SDL1
-	const SDL_VideoInfo* sdl_video_info = SDL_GetVideoInfo();
-	can_have_linedouble = sdl_video_info->current_h >= 540;
-
-	VCHI_INSTANCE_T vchi_instance;
-	VCHI_CONNECTION_T *vchi_connection;
-	TV_DISPLAY_STATE_T tvstate;
-
-	if (vchi_initialise(&vchi_instance) == 0) {
-		if (vchi_connect(nullptr, 0, vchi_instance) == 0)
-		{
-			vc_vchi_tv_init(vchi_instance, &vchi_connection, 1);
-			if (vc_tv_get_display_state(&tvstate) == 0)
-			{
-				HDMI_PROPERTY_PARAM_T property;
-				property.property = HDMI_PROPERTY_PIXEL_CLOCK_TYPE;
-				vc_tv_hdmi_get_property(&property);
-				const float frame_rate = property.param1 == HDMI_PIXEL_CLOCK_TYPE_NTSC ? tvstate.display.hdmi.frame_rate * (1000.0f / 1001.0f) : tvstate.display.hdmi.frame_rate;
-				host_hz = int(frame_rate);
-			}
-			vc_vchi_tv_stop();
-			vchi_disconnect(vchi_instance);
-		}
-	}
-#elif USE_SDL2
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
 		SDL_Log("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -393,7 +343,6 @@ int graphics_setup(void)
 	const auto should_be_zero = SDL_GetCurrentDisplayMode(0, &current);
 	if (should_be_zero == 0)
 		host_hz = current.refresh_rate;
-#endif
 
 	currprefs.gfx_apmode[1].gfx_refreshrate = host_hz;
 
@@ -475,71 +424,6 @@ void graphics_subshutdown()
 #endif
 }
 
-#ifdef ANDROIDSDL
-void update_onscreen()
-{
-	SDL_ANDROID_SetScreenKeyboardFloatingJoystick(changed_prefs.floatingJoystick);
-	if (changed_prefs.onScreen == 0)
-	{
-		SDL_ANDROID_SetScreenKeyboardShown(0);
-	}
-	else
-	{
-		SDL_ANDROID_SetScreenKeyboardShown(1);
-		SDL_Rect pos_textinput, pos_dpad, pos_button1, pos_button2, pos_button3, pos_button4, pos_button5, pos_button6;
-		pos_textinput.x = changed_prefs.pos_x_textinput*(SDL_ListModes(NULL, 0)[0]->w / (float)480);
-		pos_textinput.y = changed_prefs.pos_y_textinput*(SDL_ListModes(NULL, 0)[0]->h / (float)360);
-		pos_textinput.h = SDL_ListModes(NULL, 0)[0]->h / (float)10;
-		pos_textinput.w = pos_textinput.h;
-		SDL_ANDROID_SetScreenKeyboardButtonPos(SDL_ANDROID_SCREENKEYBOARD_BUTTON_TEXT, &pos_textinput);
-		pos_dpad.x = changed_prefs.pos_x_dpad*(SDL_ListModes(NULL, 0)[0]->w / (float)480);
-		pos_dpad.y = changed_prefs.pos_y_dpad*(SDL_ListModes(NULL, 0)[0]->h / (float)360);
-		pos_dpad.h = SDL_ListModes(NULL, 0)[0]->h / (float)2.5;
-		pos_dpad.w = pos_dpad.h;
-		SDL_ANDROID_SetScreenKeyboardButtonPos(SDL_ANDROID_SCREENKEYBOARD_BUTTON_DPAD, &pos_dpad);
-		pos_button1.x = changed_prefs.pos_x_button1*(SDL_ListModes(NULL, 0)[0]->w / (float)480);
-		pos_button1.y = changed_prefs.pos_y_button1*(SDL_ListModes(NULL, 0)[0]->h / (float)360);
-		pos_button1.h = SDL_ListModes(NULL, 0)[0]->h / (float)5;
-		pos_button1.w = pos_button1.h;
-		SDL_ANDROID_SetScreenKeyboardButtonPos(SDL_ANDROID_SCREENKEYBOARD_BUTTON_0, &pos_button1);
-		pos_button2.x = changed_prefs.pos_x_button2*(SDL_ListModes(NULL, 0)[0]->w / (float)480);
-		pos_button2.y = changed_prefs.pos_y_button2*(SDL_ListModes(NULL, 0)[0]->h / (float)360);
-		pos_button2.h = SDL_ListModes(NULL, 0)[0]->h / (float)5;
-		pos_button2.w = pos_button2.h;
-		SDL_ANDROID_SetScreenKeyboardButtonPos(SDL_ANDROID_SCREENKEYBOARD_BUTTON_1, &pos_button2);
-		pos_button3.x = changed_prefs.pos_x_button3*(SDL_ListModes(NULL, 0)[0]->w / (float)480);
-		pos_button3.y = changed_prefs.pos_y_button3*(SDL_ListModes(NULL, 0)[0]->h / (float)360);
-		pos_button3.h = SDL_ListModes(NULL, 0)[0]->h / (float)5;
-		pos_button3.w = pos_button3.h;
-		SDL_ANDROID_SetScreenKeyboardButtonPos(SDL_ANDROID_SCREENKEYBOARD_BUTTON_2, &pos_button3);
-		pos_button4.x = changed_prefs.pos_x_button4*(SDL_ListModes(NULL, 0)[0]->w / (float)480);
-		pos_button4.y = changed_prefs.pos_y_button4*(SDL_ListModes(NULL, 0)[0]->h / (float)360);
-		pos_button4.h = SDL_ListModes(NULL, 0)[0]->h / (float)5;
-		pos_button4.w = pos_button4.h;
-		SDL_ANDROID_SetScreenKeyboardButtonPos(SDL_ANDROID_SCREENKEYBOARD_BUTTON_3, &pos_button4);
-		pos_button5.x = changed_prefs.pos_x_button5*(SDL_ListModes(NULL, 0)[0]->w / (float)480);
-		pos_button5.y = changed_prefs.pos_y_button5*(SDL_ListModes(NULL, 0)[0]->h / (float)360);
-		pos_button5.h = SDL_ListModes(NULL, 0)[0]->h / (float)5;
-		pos_button5.w = pos_button5.h;
-		SDL_ANDROID_SetScreenKeyboardButtonPos(SDL_ANDROID_SCREENKEYBOARD_BUTTON_4, &pos_button5);
-		pos_button6.x = changed_prefs.pos_x_button6*(SDL_ListModes(NULL, 0)[0]->w / (float)480);
-		pos_button6.y = changed_prefs.pos_y_button6*(SDL_ListModes(NULL, 0)[0]->h / (float)360);
-		pos_button6.h = SDL_ListModes(NULL, 0)[0]->h / (float)5;
-		pos_button6.w = pos_button6.h;
-		SDL_ANDROID_SetScreenKeyboardButtonPos(SDL_ANDROID_SCREENKEYBOARD_BUTTON_5, &pos_button6);
-
-		SDL_ANDROID_SetScreenKeyboardButtonShown(SDL_ANDROID_SCREENKEYBOARD_BUTTON_TEXT, changed_prefs.onScreen_textinput);
-		SDL_ANDROID_SetScreenKeyboardButtonShown(SDL_ANDROID_SCREENKEYBOARD_BUTTON_DPAD, changed_prefs.onScreen_dpad);
-		SDL_ANDROID_SetScreenKeyboardButtonShown(SDL_ANDROID_SCREENKEYBOARD_BUTTON_0, changed_prefs.onScreen_button1);
-		SDL_ANDROID_SetScreenKeyboardButtonShown(SDL_ANDROID_SCREENKEYBOARD_BUTTON_1, changed_prefs.onScreen_button2);
-		SDL_ANDROID_SetScreenKeyboardButtonShown(SDL_ANDROID_SCREENKEYBOARD_BUTTON_2, changed_prefs.onScreen_button3);
-		SDL_ANDROID_SetScreenKeyboardButtonShown(SDL_ANDROID_SCREENKEYBOARD_BUTTON_3, changed_prefs.onScreen_button4);
-		SDL_ANDROID_SetScreenKeyboardButtonShown(SDL_ANDROID_SCREENKEYBOARD_BUTTON_4, changed_prefs.onScreen_button5);
-		SDL_ANDROID_SetScreenKeyboardButtonShown(SDL_ANDROID_SCREENKEYBOARD_BUTTON_5, changed_prefs.onScreen_button6);
-	}
-}
-#endif
-
 #ifdef USE_SDL2
 // Check if the requested Amiga resolution can be displayed with the current Screen mode as a direct multiple
 // Based on this we make the decision to use Linear (smooth) or Nearest Neighbor (pixelated) scaling
@@ -559,9 +443,6 @@ static void open_screen(struct uae_prefs* p)
 		max_uae_height = 1080;
 	}
 
-#ifdef ANDROIDSDL
-	update_onscreen();
-#endif
 	if (screen_is_picasso)
 	{
 		display_width = picasso_vidinfo.width ? picasso_vidinfo.width : 640;
@@ -955,23 +836,7 @@ static int init_colors()
 */
 static int get_display_depth()
 {
-#ifdef USE_SDL1
-	const SDL_VideoInfo *vid_info;
-	auto depth = 0;
-
-	if ((vid_info = SDL_GetVideoInfo()))
-	{
-		depth = vid_info->vfmt->BitsPerPixel;
-
-		/* Don't trust the answer if it's 16 bits; the display
-		* could actually be 15 bits deep. We'll count the bits
-		* ourselves */
-		if (depth == 16)
-			depth = bits_in_mask(vid_info->vfmt->Rmask) + bits_in_mask(vid_info->vfmt->Gmask) + bits_in_mask(vid_info->vfmt->Bmask);
-	}
-#elif USE_SDL2
 	const int depth = screen->format->BytesPerPixel == 4 ? 32 : 16;
-#endif
 	return depth;
 }
 
@@ -1209,9 +1074,6 @@ bool vsync_switchmode(int hz)
 	if (hz != currVSyncRate)
 	{
 		currVSyncRate = hz;
-#ifdef USE_SDL1
-		black_screen_now();
-#endif
 		fpscounter_reset();
 		time_per_frame = 1000 * 1000 / (hz);
 		
@@ -1241,9 +1103,6 @@ bool target_graphics_buffer_update()
 
 	if (rate_changed)
 	{
-#ifdef USE_SDL1
-		black_screen_now();
-#endif
 		fpscounter_reset();
 		time_per_frame = 1000 * 1000 / currprefs.chipset_refreshrate;
 	}
@@ -1251,199 +1110,3 @@ bool target_graphics_buffer_update()
 	return true;
 }
 
-#ifdef PICASSO96
-
-int picasso_palette(struct MyCLUTEntry *clut)
-{
-	auto changed = 0;
-	for (auto i = 0; i < 256; i++)
-	{
-		int r = clut[i].Red;
-		int g = clut[i].Green;
-		int b = clut[i].Blue;
-		//auto v = CONVERT_RGB(r << 16 | g << 8 | b);
-		uae_u32 v = (doMask256(r, red_bits, red_shift)
-			| doMask256(g, green_bits, green_shift)
-			| doMask256(b, blue_bits, blue_shift))
-			| doMask256(0xff, alpha_bits, alpha_shift);
-		if (v != picasso_vidinfo.clut[i])
-		{
-			picasso_vidinfo.clut[i] = v;
-			changed = 1;
-		}
-	}
-	return changed;
-}
-
-static int resolution_compare(const void* a, const void* b)
-{
-	auto ma = (struct PicassoResolution *)a;
-	auto mb = (struct PicassoResolution *)b;
-	if (ma->res.width < mb->res.width)
-		return -1;
-	if (ma->res.width > mb->res.width)
-		return 1;
-	if (ma->res.height < mb->res.height)
-		return -1;
-	if (ma->res.height > mb->res.height)
-		return 1;
-	return ma->depth - mb->depth;
-}
-
-static void sortmodes()
-{
-	auto i = 0, idx = -1;
-	unsigned int pw = -1, ph = -1;
-	while (DisplayModes[i].depth >= 0)
-		i++;
-	qsort(DisplayModes, i, sizeof(struct PicassoResolution), resolution_compare);
-	for (i = 0; DisplayModes[i].depth >= 0; i++)
-	{
-		if (DisplayModes[i].res.height != ph || DisplayModes[i].res.width != pw)
-		{
-			ph = DisplayModes[i].res.height;
-			pw = DisplayModes[i].res.width;
-			idx++;
-		}
-		DisplayModes[i].residx = idx;
-	}
-}
-
-static void modes_list()
-{
-	auto i = 0;
-	while (DisplayModes[i].depth >= 0)
-	{
-		write_log("%d: %s (", i, DisplayModes[i].name);
-		auto j = 0;
-		while (DisplayModes[i].refresh[j] > 0)
-		{
-			if (j > 0)
-				write_log(",");
-			write_log("%d", DisplayModes[i].refresh[j]);
-			j++;
-		}
-		write_log(")\n");
-		i++;
-	}
-}
-
-void picasso_init_resolutions()
-{
-	auto count = 0;
-	char tmp[200];
-	int bits[] = { 8, 16, 32 };
-
-	Displays[0].primary = 1;
-	Displays[0].disabled = 0;
-	Displays[0].rect.left = 0;
-	Displays[0].rect.top = 0;
-	Displays[0].rect.right = 800;
-	Displays[0].rect.bottom = 480;
-	sprintf(tmp, "%s (%d*%d)", "Display", Displays[0].rect.right, Displays[0].rect.bottom);
-	Displays[0].name = my_strdup(tmp);
-	Displays[0].name2 = my_strdup("Display");
-
-	const auto md1 = Displays;
-	DisplayModes = md1->DisplayModes = xmalloc(struct PicassoResolution, MAX_PICASSO_MODES);
-	for (auto i = 0; i < MAX_SCREEN_MODES && count < MAX_PICASSO_MODES; i++)
-	{
-		for (auto bitdepth : bits)
-		{
-			const auto bit_unit = bitdepth + 1 & 0xF8;
-			const auto rgbFormat = 
-				bitdepth == 8 ? RGBFB_CLUT : 
-			bitdepth == 16 ? RGBFB_R5G6B5PC : RGBFB_R8G8B8A8;
-			auto pixelFormat = 1 << rgbFormat;
-			pixelFormat |= RGBFF_CHUNKY;
-			DisplayModes[count].res.width = x_size_table[i];
-			DisplayModes[count].res.height = y_size_table[i];
-			DisplayModes[count].depth = bit_unit >> 3;
-			DisplayModes[count].refresh[0] = 50;
-			DisplayModes[count].refresh[1] = 60;
-			DisplayModes[count].refresh[2] = 0;
-			DisplayModes[count].colormodes = pixelFormat;
-			sprintf(DisplayModes[count].name, "%dx%d, %d-bit",
-				DisplayModes[count].res.width, DisplayModes[count].res.height, DisplayModes[count].depth * 8);
-
-			count++;
-		}
-	}
-	DisplayModes[count].depth = -1;
-	sortmodes();
-	modes_list();
-	DisplayModes = Displays[0].DisplayModes;
-}
-#endif
-
-#ifdef PICASSO96
-void gfx_set_picasso_state(int on)
-{
-	if (on == screen_is_picasso)
-		return;
-
-	screen_is_picasso = on;
-	open_screen(&currprefs);
-	if (screen != nullptr)
-		picasso_vidinfo.rowbytes = screen->pitch;
-}
-
-void gfx_set_picasso_modeinfo(uae_u32 w, uae_u32 h, uae_u32 depth, RGBFTYPE rgbfmt)
-{
-	depth >>= 3;
-	if (unsigned(picasso_vidinfo.width) == w &&
-		unsigned(picasso_vidinfo.height) == h &&
-		unsigned(picasso_vidinfo.depth) == depth &&
-		picasso_vidinfo.selected_rgbformat == rgbfmt)
-		return;
-
-	picasso_vidinfo.selected_rgbformat = rgbfmt;
-	picasso_vidinfo.width = w;
-	picasso_vidinfo.height = h;
-	picasso_vidinfo.depth = screen->format->BitsPerPixel; // Native depth
-	picasso_vidinfo.extra_mem = 1;
-	picasso_vidinfo.rowbytes = screen->pitch;
-	picasso_vidinfo.pixbytes = screen->format->BytesPerPixel; // Native bytes
-	picasso_vidinfo.offset = 0;
-
-	if (screen_is_picasso)
-	{
-		open_screen(&currprefs);
-		if(screen != nullptr) {
-			picasso_vidinfo.rowbytes = screen->pitch;
-			picasso_vidinfo.rgbformat = 
-				screen->format->BytesPerPixel == 4 ? RGBFB_R8G8B8A8 : RGBFB_R5G6B5PC;
-		}
-	}
-}
-
-void gfx_set_picasso_colors(RGBFTYPE rgbfmt)
-{
-	alloc_colors_picasso(red_bits, green_bits, blue_bits, red_shift, green_shift, blue_shift, rgbfmt);
-}
-
-uae_u8* gfx_lock_picasso()
-{
-	if (screen == nullptr || screen_is_picasso == 0)
-		return nullptr;
-	if (SDL_MUSTLOCK(screen))
-		SDL_LockSurface(screen);
-
-	picasso_vidinfo.pixbytes = screen->format->BytesPerPixel;
-	picasso_vidinfo.rowbytes = screen->pitch;
-	return static_cast<uae_u8 *>(screen->pixels);
-}
-
-void gfx_unlock_picasso(const bool dorender)
-{
-	if (SDL_MUSTLOCK(screen))
-		SDL_UnlockSurface(screen);
-	
-	if (dorender)
-	{
-		render_screen(true);
-		show_screen(0);
-	}
-}
-
-#endif // PICASSO96

@@ -6,7 +6,6 @@
 #include <SDL_ttf.h>
 #include <stdio.h>
 #include <bcm_host.h>
-#include </root/menu/thread.h>
 
 //--- DEF ---
 
@@ -27,7 +26,7 @@ const char *gamefn[4] {
 		"/usr/local/share/gpmd85emu/manic.bmp",
 		"/usr/local/share/gpmd85emu/fred.bmp"
 	};
-const char *gametext[4] {"Flappy", "Boulder Dash", "Manic Miner", "Fred"};
+const char *gametext[4] {"Flappy", "Boulder\nDash", "Manic\nMiner", "Fred"};
 
 //--- FUNC ---
 
