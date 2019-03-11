@@ -6,6 +6,7 @@
 #include <SDL_ttf.h>
 #include <stdio.h>
 #include <bcm_host.h>
+#include </root/menu/thread.h>
 
 //--- DEF ---
 
@@ -37,7 +38,7 @@ void RenderText(SDL_Renderer *renderer) {
 	SDL_Rect text_rect;
 	SDL_Color text_color = {255,255,255};
 
-	font = TTF_OpenFont("atari.ttf", MENU_FONT_SIZE);
+	font = TTF_OpenFont("arcade.ttf", MENU_FONT_SIZE);
 	text_rect.h = MENU_FONT_SIZE;
 	for (int i=0; i < 4; i++) {
 		text_surface = TTF_RenderText_Solid(font, gametext[i], text_color);
