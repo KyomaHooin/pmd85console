@@ -134,6 +134,7 @@ FILES
 <pre>
               emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
               openscad/ - 3D printable case code.
+                  test/ - Test code.
 pmd85emu_games_vpbg.zip - Origina VBG games binaries.
 </pre>
 

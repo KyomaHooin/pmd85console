@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#gcc `sdl2-config --cflags --libs` -lSDL2_ttf -lbcm_host -L/opt/vc/lib -I/opt/vc/include -o menu menu.cpp
+gcc `sdl2-config --cflags --libs` -lSDL2_ttf -lbcm_host -L/opt/vc/lib -I/opt/vc/include -o screen screen.cpp
+
