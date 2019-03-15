@@ -158,8 +158,8 @@ int main(int argc, char** argv)
 			SDL_Delay(1);
 	}
 
-	SDL_GetWindowPosition(gdc.window,
-			&Settings->Screen->position.x, &Settings->Screen->position.y);
+	//SDL_GetWindowPosition(gdc.window,
+	//		&Settings->Screen->position.x, &Settings->Screen->position.y);
 
 	SDL_HideWindow(gdc.window);
 	debug("", "Main CPU loop terminated");
