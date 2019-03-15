@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 		error("", "Couldn't initialize window:\n\t%s", SDL_GetError());
 
 	gdc.windowID = SDL_GetWindowID(gdc.window);
-	gdc.renderer = SDL_CreateRenderer(gdc.window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	gdc.renderer = SDL_CreateRenderer(gdc.window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (!gdc.renderer)
 		error("", "Couldn't initialize renderer:\n\t%s", SDL_GetError());
