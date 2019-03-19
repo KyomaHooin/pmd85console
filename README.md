@@ -1,7 +1,7 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro cosole.
+Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Martin & Roman Borik <a href="https://github.com/mborik/GPMD85Emulator">GPMD85Emulator</a>.
 
 TODO
 
