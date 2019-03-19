@@ -244,8 +244,8 @@ void TEmulator::ProcessSettings(BYTE filter)
 //-----------------------------------------------------------------------------
 void TEmulator::BaseTimerCallback()
 {
-	static DWORD blinkCounter = 0;
-	static DWORD lastTick = 0;
+	//static DWORD blinkCounter = 0;
+	//static DWORD lastTick = 0;
 	static DWORD nextTick = SDL_GetTicks() + MEASURE_PERIOD;
 	static DWORD thisTime = 0;
 	static BYTE  frames = 0;
@@ -257,13 +257,13 @@ void TEmulator::BaseTimerCallback()
 	bool fullRedrawExpected = true;
 
 	// blinking toggle
-	if (blinkCounter >= 500) {
-		blinkCounter = 0;
-		fullRedrawExpected = true;
-		video->ToggleBlinkStatus();
-	}
-	else
-		blinkCounter += (thisTime - lastTick);
+	//if (blinkCounter >= 500) {
+	//	blinkCounter = 0;
+	//	fullRedrawExpected = true;
+	//	video->ToggleBlinkStatus();
+	//}
+	//else
+	//	blinkCounter += (thisTime - lastTick);
 
 	if (isRunning) {
 		if (systemPIO)
@@ -297,7 +297,7 @@ void TEmulator::BaseTimerCallback()
 
 	SDL_PushEvent(&exposeEvent);
 
-	lastTick = thisTime;
+	//lastTick = thisTime;
 	frames++;
 }
 //-----------------------------------------------------------------------------

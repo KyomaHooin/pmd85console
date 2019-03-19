@@ -198,12 +198,13 @@ void ScreenPMD85::FillBuffer(BYTE *videoRam, bool needRedraw)
 	if (!(videoRam && needRedraw && SDL_TryLockMutex(displayModeMutex) == 0))
 		return;
 
-	bool colorace = (colorProfile == CP_COLORACE);
+	//bool colorace = (colorProfile == CP_COLORACE);
 	int i, w, h = bufferHeight;
-	BYTE a[4] = { pAttr[0], pAttr[1], pAttr[2], pAttr[3] }, b, c, d, e;
+	//BYTE a[4] = { pAttr[0], pAttr[1], pAttr[2], pAttr[3] }, b, c, d, e;
+	BYTE a[4] = { pAttr[0], pAttr[1], pAttr[2], pAttr[3] }, b, c, d;
 
-	if (blinkingEnabled && blinkState)
-		a[2] = a[3] = 0;
+	//if (blinkingEnabled && blinkState)
+	//	a[2] = a[3] = 0;
 
 	DWORD *ptr;
 	BYTE *dst;
@@ -215,12 +216,12 @@ void ScreenPMD85::FillBuffer(BYTE *videoRam, bool needRedraw)
 			b = videoRam[i];
 			d = (b & 0xC0) >> 6;
 
-			if (colorace) {
-				e = videoRam[i + ((h & 1) ? 64 : -64)];
-				c = (e & 0xC0) >> 6;
-				c = pAttr[d | c | ((d & c) ? 0 : 4)];
-			}
-			else
+	//		if (colorace) {
+	//			e = videoRam[i + ((h & 1) ? 64 : -64)];
+	//			c = (e & 0xC0) >> 6;
+	//			c = pAttr[d | c | ((d & c) ? 0 : 4)];
+	//		}
+	//		else
 				c = *a;
 
 			for (d = 0x01; d != 0x40; d <<= 1)
