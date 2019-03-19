@@ -23,6 +23,8 @@ int main(int argc, char* args[]) {
 	SDL_DisplayMode fullscreen;
 	SDL_Rect screen_rect;
 
+	unsigned int now;
+
 	bcm_host_init();// ?
 
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) != 0) return 1;
@@ -49,7 +51,11 @@ int main(int argc, char* args[]) {
 	renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	if(renderer == NULL) printf("Renderer init error.\n");
 
-	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, screen_rect.w, screen_rect.h);
+	//set render scale qality
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,0);
+
+	//texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, screen_rect.w, screen_rect.h);
+	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, screen_rect.w, screen_rect.h);
 	if(texture == NULL) printf("Texture init error.\n");
 
 	SDL_SetRenderDrawColor(renderer,0,0,0,255);
@@ -59,10 +65,26 @@ int main(int argc, char* args[]) {
 	SDL_RenderSetViewport(renderer,&screen_rect);
 	SDL_ShowWindow(window);
 
-	//loop()
-	//
-	// - get time
-	// - update texture with random pixel data lock vs updatetexture
+	if (SDL_BYTEORDER == SDL_BIG_ENDIAN) printf("    Big endian.\n");
+	if (SDL_BYTEORDER == SDL_LIL_ENDIAN) printf("    Lil endian.\n");
+
+	now = SDL_GetTicks();
+
+	//pitch = row length
+	//pixel = pixel array ptr
+	
+	//int w, h;
+	//SDL_QueryTexture(texture,NULL,NULL,&w,&h);
+	//printf("Texture: %d px x %d px\n", w , h);
+
+	SDL_LockTexture(texture, screen_rect, pixel, pitch); 
+	//SDL_UnlockTexture(texture);
+
+	//SDL_UpdateTexture();
+
+
+	printf("         Delay: %d ms\n", SDL_GetTicks() - now);
+
 	// - update screen with texture
 	// - sleep CPU_EMU_CYCLE
 

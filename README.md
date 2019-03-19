@@ -6,10 +6,7 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Martin & Roman Bo
 TODO
 
 <pre>
--ARGB/RGBA_8888 test
 -threaded dispmanx + bcm_host(Amiberry)
--Mato dcb_kbd_mato_state() / dcb_blk_rmap_state() (remain mato/consul drop)
--Emulator.cpp 257 bool FullRedrawExpected = true;
 -RetrpPie/ libretro tune(?)
 -CPU govenor tune(?)
 </pre>
