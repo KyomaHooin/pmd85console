@@ -58,35 +58,44 @@ int main(int argc, char* args[]) {
 	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, screen_rect.w, screen_rect.h);
 	if(texture == NULL) printf("Texture init error.\n");
 
-	SDL_SetRenderDrawColor(renderer,0,0,0,255);
-	SDL_RenderClear(renderer);// clrscr
-	SDL_RenderPresent(renderer);
 
-	SDL_RenderSetViewport(renderer,&screen_rect);
 	SDL_ShowWindow(window);
 
 	if (SDL_BYTEORDER == SDL_BIG_ENDIAN) printf("    Big endian.\n");
 	if (SDL_BYTEORDER == SDL_LIL_ENDIAN) printf("    Lil endian.\n");
 
+	//CLRSCR
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);//set black
+	SDL_RenderClear(renderer);
+
+	//MOD PIX
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);// set white
+	SDL_RenderSetViewport(renderer,&screen_rect);// set viewport
+
 	now = SDL_GetTicks();
 
-	//pitch = row length
-	//pixel = pixel array ptr
+	int w, h, pitch;
+	void* pixels;
 	
-	//int w, h;
-	//SDL_QueryTexture(texture,NULL,NULL,&w,&h);
-	//printf("Texture: %d px x %d px\n", w , h);
+	Uint32 *upixels = (Uint32*) pixels;
 
-	SDL_LockTexture(texture, screen_rect, pixel, pitch); 
-	//SDL_UnlockTexture(texture);
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	printf ("Texture %d x %d pixel.\n", w ,h);
 
-	//SDL_UpdateTexture();
+	//Uint32 colorkey = SDL_MapRGB(SDL_AllocFormat(SDL_PIXELFORMAT_RGBA8888), 255, 255, 255);//white pixel
 
+	//SDL_LockTexture(texture, NULL, &pixels, &pitch); 
 
+	//for (int i=0; i < w * h; i++) {
+	//	upixels[i] = colorkey;// color all white
+	//}
+	//memcpy(pixels, upixels, (pitch / 4) * h);
+
+	//SDL_UnlockTexture(texture); // <- 12ms..
+	SDL_UpdateTexture(texture, NULL, &pixels, pitch);
+
+	SDL_RenderPresent(renderer);
 	printf("         Delay: %d ms\n", SDL_GetTicks() - now);
-
-	// - update screen with texture
-	// - sleep CPU_EMU_CYCLE
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
