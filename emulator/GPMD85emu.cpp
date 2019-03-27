@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 	gdc.format = desktop.format;
 	gdc.window = SDL_CreateWindow(PACKAGE_NAME,
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 256, 256,
-			SDL_WINDOW_HIDDEN | SDL_WINDOW_FULLSCREEN_DESKTOP);
+			SDL_WINDOW_HIDDEN | SDL_WINDOW_FULLSCREEN);
 
 	if (!gdc.window)
 		error("", "Couldn't initialize window:\n\t%s", SDL_GetError());
