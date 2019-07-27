@@ -1,0 +1,50 @@
+Summary: PMD 85 computer family simulator with games
+Name: simpmd
+Version: __VERSION__
+Release: 0
+License: ASL 2.0
+Group: Applications/Emulators
+URL: http://dsrg.mff.cuni.cz/~ceres/prj/SimPMD
+
+BuildRequires: SDL-devel
+BuildRequires: popt-devel
+Requires: SDL
+Requires: popt
+
+Source: simpmd-%{version}.tar.bz2
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+
+%description
+__DESCRIPTION__
+
+%prep
+%setup
+
+%build
+make PMD_BUILD=RELEASE PMD_SHARE=%{_datadir}/simpmd/ bin
+
+%install
+mkdir -p %{buildroot}/%{_bindir}
+cp bin/simpmd %{buildroot}/%{_bindir}/simpmd
+cp bin/mem2raw %{buildroot}/%{_bindir}/mem2raw
+cp bin/ptp2raw %{buildroot}/%{_bindir}/ptp2raw
+mkdir -p %{buildroot}/%{_datadir}/simpmd
+cp -r data/. %{buildroot}/%{_datadir}/simpmd
+ln -s $(readlink bin/M1 | sed "s/\.\.\/data\///g") %{buildroot}/%{_datadir}/simpmd/M1
+ln -s $(readlink bin/M2 | sed "s/\.\.\/data\///g") %{buildroot}/%{_datadir}/simpmd/M2
+
+%files
+%doc FAQ
+%doc ABOUT
+%doc README
+%doc COPYING
+%doc CREDITS
+%doc INSTALL
+%{_bindir}/simpmd
+%{_bindir}/mem2raw
+%{_bindir}/ptp2raw
+%{_datadir}/simpmd
+
+%clean
+rm -rf %{buildroot}
+

@@ -1,0 +1,5 @@
+The program is a full emulator of the PMD 85 line of computers. PMD 85 was
+manufactured around 1985 and sported the Intel 8080 processor with the
+accompanying peripheral chips running at 2 MHz, 48 kB RAM. It was
+the first machine of many computer hobbyists here and yes, I am
+honing my nostalgic streak by maintaining this project :-)

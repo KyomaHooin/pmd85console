@@ -1,0 +1,100 @@
+/*******************************************************************\
+|                        USAGE INSTRUCTIONS                         |
++-------------------------------------------------------------------+
+
+
+The simulator requires that files named M1 and M2, containing the
+binary images of the PMD 85-1 and PMD 85-2 ROM, are present in the
+prefix directory (release build) or the current directory (standard
+build).
+
+The --help command line option displays command line help.
+
+
++-------------------------------------------------------------------+
+| TESTED APPLICATIONS                                               |
++-------------------------------------------------------------------+
+
+------------+-------+--------+---------------------------------------
+APPLICATION | MODEL | STATUS | NOTES
+------------+-------+--------+---------------------------------------
+AUTO        |   1   |   OK   | MGLD 00, JUMP 2000
+BASIC-G     |   2   |   OK   | MGLD 00, JUMP 0000
+BLUDISTE    |   2   |   OK   | MGLD 00
+BOULD+3     |   2   |   OK   | MGLD 03
+BOULDER     |   1   |   OK   | MGLD 03
+CERES-1     |   2   |   OK   | MGLD 00
+COPPY       |   1   |   OK   | MGLD 00, JUMP 0000
+COPY        |   1   |   OK   | MGLD 00, JUMP 0000
+COPYCOPY    |   1   |   OK   | MGLD 00, JUMP 0000
+COPYPLUS    |   1   |   OK   | MGLD 00, JUMP 0100
+CROSSI      |   1   |   OK   | MGLD 00, JUMP 0000
+DAM+2       |   2   |   OK   | MGLD 00
+DAT-PMD     |   2   |   OK   | MGLD 01, JUMP 0000
+DDT         |   1   |   OK   | MGLD 00, JUMP 6000
+DOMCEKY     |   1   |   OK   | MGLD 00, JUMP 0000
+ELEKTRO     |   2   |   OK   | MGLD 00, JUMP 0000
+FERLAJT     |   1   |   OK   | MGLD 13
+FLAPPY      |   1   |   OK   | MGLD 03
+FLARE+      |   2   |   OK   | MGLD 00, JUMP 5000
+FRED        |   2   |   OK   | MGLD 03
+GALAXIA     |   1   |   OK   | MGLD 00
+GLUTTON     |   1   |   OK   | MGLD 00
+GR          |   2   |   OK   | MGLD 00
+GRAFIKA     |   2   |   OK   | MGLD 00
+GRED        |   2   |   OK   | MGLD 00
+GREDIT      |   1   |   OK   | MGLD 01, JUMP 0000
+GREP        |   2   |   OK   | MGLD 00
+HLIPA       |   1   |   OK   | MGLD 00, -o /dev/null --time-tape-output
+HORAC       |   1   | FAILED | MGLD 00, No Sound, Locks Up
+INVADERS    |   1   |   OK   | MGLD 00, JUMP 0100
+IPOWORD     |   1   |   OK   | MGLD 00
+JASON       |   2   |   OK   | MGLD 00
+KANKAN      |   1   |   OK   | MGLD 00, JUMP 0000
+KAREL       |   1   |   OK   | MGLD 00, JUMP 0000
+KAREL       |   2   |   OK   | MGLD 00
+KAREL3D     |   1   |   OK   | MGLD 00, JUMP 0000
+KARTOTEK    |   2   |   OK   | MGLD 00, JUMP 0030
+KASWORD     |   2   |   OK   | MGLD 00, JUMP 0000
+KURA        |   1   |   OK   | MGLD 00, JUMP 0000
+MANIC-1     |   1   |   OK   | MGLD 00
+MANIC-2     |   2   |   OK   | MGLD 03
+MESTO       |   1   |   OK   | MGLD 00, Konvalinka
+MRS         |   1   |   OK   | MGLD 00, JUMP 6000
+MTRON-1     |   1   |   OK   | MGLD 00
+MTRON-2     |   1   |   OK   | MGLD 00
+MTRON-3     |   1   |   OK   | MGLD 00
+MUR         |   1   |   OK   | MGLD 00, JUMP 0000
+MUSICA      |   2   |   OK   | MGLD 00
+OPTIMAX     |   2   |   OK   | MGLD 00, JUMP 0000
+PAMPUCH     |   1   |   OK   | MGLD 01
+PENETR      |   2   |   OK   | MGLD 03
+PEXESO      |   2   |   OK   | MGLD 00
+PISQORKY    |   2   |   OK   | MGLD 00
+POSTARIK    |   2   |   OK   | MGLD 00
+PUZZLE      |   1   |   OK   | MGLD 00, JUMP 0000
+RESRC2      |   2   |   OK   | MGLD 00
+ROBOTIK     |   1   |   OK   | MGLD 00, JUMP 0000
+SABOTER     |   2   |   OK   | MGLD 03
+SACH        |   1   |   OK   | MGLD 00, JUMP 0000
+SASKO       |   2   |   OK   | MGLD 00
+SP-DEMIS    |   1   |   OK   | MGLD 00
+SPACE-RA    |   1   |   OK   | MGLD 00
+SYSTEL      |   1   |   OK   | MGLD 00
+TANK        |   1   |   OK   | MGLD 00, JUMP 2000
+TENISS      |   2   |   OK   | MGLD 00, JUMP 7000
+TETRIS      |   2   |   OK   | MGLD 03
+TEXTEDIT    |   1   |   OK   | MGLD 00, JUMP 0000
+TRANSFER    |   2   |   OK   | MGLD 00, JUMP 0000
+VEGRAP3X    |   2   |   OK   | MGLD 00, JUMP 0000
+VMON        |   2   |   OK   | MGLD 00, JUMP E000
+WELL+2      |   2   | FAILED | MGLD 00, No Tape Input
+WILLY       |   1   |   OK   | MGLD 00
+ZABY        |   1   |   OK   | MGLD 00, JUMP 1500
+ZED         |   1   |   OK   | MGLD 00, JUMP 1000
+ZMRZLINY    |   2   |   OK   | MGLD 00
+------------+-------+--------+---------------------------------------
+
++-------------------------------------------------------------------+
+|     Copyright (C) 2008 Petr Tuma <petr.tuma@dsrg.mff.cuni.cz>     |
+\*******************************************************************/

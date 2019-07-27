@@ -1,0 +1,94 @@
+#!/usr/bin/python
+
+# RAWINFO
+#
+# Copyright 2010 Petr Tuma
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import sys
+import struct
+
+if len (sys.argv) != 2:
+    print "Dumps information from raw tape files."
+    print "Usage: %s <filename>" % sys.argv [0]
+    sys.exit (1)
+
+oInputFile = open (sys.argv [1], "r")
+sInputData = oInputFile.read ()
+oInputFile.close ()
+
+iAccounted = 0
+iPosition = 0
+iLength = len (sInputData)
+
+while iPosition < iLength:
+
+    # Find the next lead.
+
+    sLead = "\xFF"*16 + "\x00"*16 + "\x55"*16
+    iHeader = sInputData.find (sLead, iPosition)
+
+    if iHeader < 0: iHeader = iLength
+    bLast = (iHeader == iLength)
+
+    # Check if the next lead is a valid header.
+
+    bHeader = 0
+    iRemaining = iLength - iHeader
+    if iRemaining >= 3*16 + 15:
+        sHeaderData = sInputData [iHeader + 3*16 : iHeader + 3*16 + 15]
+        iHeaderNumber, sHeaderType, iHeaderStart, iHeaderLen, sHeaderName, iHeaderSum = struct.unpack ("BcHH8sB", sHeaderData)
+        iHeaderCheck = (sum ([ord (x) for x in sHeaderData]) - iHeaderSum) % 256
+        bHeader = (iHeaderSum == iHeaderCheck)
+
+    # Things are printed depending on situation.
+
+    if bHeader or bLast:
+
+        # Report if there was too much data between the last and this header.
+        if iAccounted < iHeader:
+            iUnaccounted = iHeader - iAccounted
+            print " - %04X (%d) unchecked data" % (iUnaccounted, iUnaccounted)
+
+        # Report if there was too little data between the last and this header.
+        if iAccounted > iHeader:
+            iOveraccounted = iAccounted - iHeader
+            print " - %04X (%d) missing data" % (iOveraccounted, iOveraccounted)
+
+    if bHeader:
+
+        # Print the header content.
+        print "%02d/%c %04X-%04X %s" % (iHeaderNumber, sHeaderType, iHeaderStart, iHeaderLen, sHeaderName)
+
+        # Check if correct data block follows header.
+        iRemaining = iLength - iHeader - 3*16 - 15
+        iWanted = iHeaderLen + 1
+
+        bData = 0
+        if iRemaining > iWanted:
+            sBlockData = sInputData [iHeader + 3*16 + 15 : iPosition + 3*16 + 15 + iWanted]
+            iBlockSum = ord (sInputData [iHeader + 3*16 + 15 + iWanted])
+            iBlockCheck = sum ([ord (x) for x in sBlockData]) % 256
+            bData = (iBlockSum == iBlockCheck)
+
+        if bData:
+            print " - %04X (%d) checked data" % (iWanted, iWanted)
+            iAccounted = iHeader + 3*16 + 15 + iWanted + 1
+        else:
+            iAccounted = iHeader + 3*16 + 15
+
+    # Continue scanning immediately after lead.
+    iPosition = iHeader + 3*16
+
+# That's all folks :-)

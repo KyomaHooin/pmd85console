@@ -130,6 +130,7 @@ bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 FILES
 
 <pre>
+                simpmd/ - Smaller PMD85 emulator from Petr Tuma.
               emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
               openscad/ - 3D printable case code.
                   test/ - Test code.

@@ -1,0 +1,1 @@
+sim_core.dep sim_core.o: sim_core.c sim_common.h

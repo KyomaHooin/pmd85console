@@ -1,0 +1,1 @@
+sim_display.dep sim_display.o: sim_display.c sim_common.h
