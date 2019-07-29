@@ -27,8 +27,8 @@ limitations under the License.
 
 #include <iostream>
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_thread.h>
+#include <SDL.h>
+#include <SDL_thread.h>
 
 #include "sim_common.h"
 

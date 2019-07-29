@@ -22,7 +22,7 @@ limitations under the License.
 #include <time.h>
 #include <stdint.h>
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 #include "sim_common.h"
 

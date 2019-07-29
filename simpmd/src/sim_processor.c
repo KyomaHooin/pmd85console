@@ -23,8 +23,8 @@ limitations under the License.
 #include <iomanip>
 #include <iostream>
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_endian.h>
+#include <SDL.h>
+#include <SDL_endian.h>
 
 #include "sim_common.h"
 

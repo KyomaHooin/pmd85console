@@ -24,7 +24,7 @@ limitations under the License.
 #include <utility>
 #include <iostream>
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 #include "sim_common.h"
 

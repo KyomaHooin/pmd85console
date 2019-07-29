@@ -24,7 +24,7 @@ limitations under the License.
 #include <unistd.h>
 #include <sys/types.h>
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 #include "sim_common.h"
 

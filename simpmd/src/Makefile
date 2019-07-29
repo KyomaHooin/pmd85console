@@ -8,9 +8,9 @@ PMD_BUILD ?= DEBUG
 PMD_SHARE ?=
 
 CC = g++
-CC_OPTS = -D PMD_SHARE=\"$(PMD_SHARE)\"
+CC_OPTS = -D PMD_SHARE=\"$(PMD_SHARE)\" -I/usr/local/include/SDL2
 LD = g++
-LD_OPTS = -lSDL -lpopt -lrt
+LD_OPTS = -lSDL2 -lpopt -lrt -L/usr/local/lib
 
 ifeq ($(PMD_BUILD), DEBUG)
 CC_OPTS += -O0 -g
