@@ -46,7 +46,7 @@ $(BIN)/simpmd: $(OO)
 
 # Dependencies
 
-include $(DD)
+-include $(DD)
 
 %.dep: %.c
 	$(CC) -MM $(CC_OPTS) -MT "$@ $(basename $@).o" -o $@ $<
