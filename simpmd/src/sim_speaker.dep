@@ -1,1 +1,0 @@
-sim_speaker.dep sim_speaker.o: sim_speaker.c sim_common.h

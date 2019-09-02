@@ -1,1 +1,0 @@
-sim_keyboard.dep sim_keyboard.o: sim_keyboard.c sim_common.h
