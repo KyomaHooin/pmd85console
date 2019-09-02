@@ -12,7 +12,8 @@ o REQUIREMENTS
   The simulator requires these libraries:
 
     - SDL
-    - popt
+    - popt -> libpopt-dev
+    - boost::program_options -> libboost-program-options-dev
 
 o COMPILATION
 
