@@ -1,0 +1,59 @@
+#!/usr/bin/python
+
+# MEM2RAW
+#
+# Copyright 2010 Petr Tuma
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import sys
+import struct
+
+if len (sys.argv) != 4:
+    print "Creates a raw tape file from a memory dump file"
+    print "Usage: %s <input filename> <output filename> <base address>" % sys.argv [0]
+    sys.exit (1)
+
+oInputFile = open (sys.argv [1], "r")
+sInputData = oInputFile.read ()
+oInputFile.close ()
+
+oOutputFile = open (sys.argv [2], "w")
+
+# Write the lead.
+oOutputFile.write ("\xFF"*16)
+oOutputFile.write ("\x00"*16)
+oOutputFile.write ("\x55"*16)
+
+# Write the header
+iHeaderNumber = 0
+sHeaderType = "?"
+iHeaderStart = int (sys.argv [3], 0)
+iHeaderLen = len (sInputData) - 1
+sHeaderName = "%-8.8s" % sys.argv [2]
+
+sHeaderData = struct.pack ("BcHH8s", \
+    iHeaderNumber, sHeaderType, \
+    iHeaderStart, iHeaderLen, \
+    sHeaderName)
+
+oOutputFile.write (sHeaderData)
+iHeaderSum = sum ([ord (c) for c in sHeaderData])
+oOutputFile.write (chr (iHeaderSum % 256))
+
+# Write the data.
+oOutputFile.write (sInputData)
+iInputSum = sum ([ord (c) for c in sInputData])
+oOutputFile.write (chr (iInputSum % 256))
+
+# That's all folks :-)
