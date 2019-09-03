@@ -204,7 +204,7 @@ if (bArgModelTwo) InitializePMD2 ();
 
   SDL_CheckZero (SDL_Init (SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_VIDEO));
 
-  CONInitialize ();
+  //CONInitialize ();
   CPUInitialize ();
   DSPInitialize ();
   KBDInitialize ();
@@ -215,7 +215,7 @@ if (bArgModelTwo) InitializePMD2 ();
   // Console thread is the last to run because user commands require functional simulator.
 
   CPUStartThread ();
-  CONStartThread ();
+  //CONStartThread ();
 
   // Event loop
 
@@ -229,6 +229,7 @@ if (bArgModelTwo) InitializePMD2 ();
       case SDL_KEYUP:
       case SDL_KEYDOWN:
         KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
+	printf("Key pressed!\n");
         break;
 //      case SDL_WINDOWEVENT_RESIZED:
 //        DSPResizeHandler ();
@@ -244,7 +245,7 @@ if (bArgModelTwo) InitializePMD2 ();
 
   // Console thread is the first to terminate because user commands require functional simulator.
 
-  CONTerminateThread ();
+  //CONTerminateThread ();
   CPUTerminateThread ();
 
   // Module shutdown
@@ -255,7 +256,7 @@ if (bArgModelTwo) InitializePMD2 ();
   KBDShutdown ();
   DSPShutdown ();
   CPUShutdown ();
-  CONShutdown ();
+  //CONShutdown ();
 
   SDL_Quit ();
 
