@@ -203,17 +203,20 @@ void DSPInitialize ()
     "SimPMD",
     SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
     PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,
-    SDL_WINDOW_RESIZABLE));
+    SDL_WINDOW_FULLSCREEN));
   SDL_CheckNotNull (pRenderer = SDL_CreateRenderer (
     pWindow,
-    -1, 0));
+    -1, SDL_RENDERER_ACCELERATED));
   SDL_CheckNotNull (pTexture = SDL_CreateTexture (
     pRenderer,
     SDL_PIXELFORMAT_RGB332,
     SDL_TEXTUREACCESS_STREAMING,
     PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT));
   SDL_CheckTrue (SDL_SetHint (
-    SDL_HINT_RENDER_SCALE_QUALITY, "best"));
+    SDL_HINT_RENDER_SCALE_QUALITY, 0));
+
+  // Disable cursor
+  SDL_ShowCursor(0);
 
   // Clear screen.
   SDL_CheckZero (SDL_SetRenderDrawColor (pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
