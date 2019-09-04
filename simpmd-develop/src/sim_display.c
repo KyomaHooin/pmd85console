@@ -212,8 +212,8 @@ void DSPInitialize ()
     SDL_PIXELFORMAT_RGB332,
     SDL_TEXTUREACCESS_STREAMING,
     PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT));
-  SDL_CheckTrue (SDL_SetHint (
-    SDL_HINT_RENDER_SCALE_QUALITY, 0));
+  //SDL_CheckTrue (SDL_SetHint (
+  //  SDL_HINT_RENDER_SCALE_QUALITY, 0));
 
   // Disable cursor
   SDL_ShowCursor(0);
