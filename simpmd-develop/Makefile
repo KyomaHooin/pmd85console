@@ -1,6 +1,6 @@
 .PHONY: all bin doc clean
 
-all: bin doc
+all: bin
 
 bin:
 	@$(MAKE) -C src

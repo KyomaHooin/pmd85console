@@ -156,7 +156,7 @@ int main (int iArgC, const char *apArgV [])
     ("pmd1,1", opt::bool_switch (&bArgModelOne), "Simulate PMD 85-1")
     ("pmd2,2", opt::bool_switch (&bArgModelTwo), "Simulate PMD 85-2");
   oFlagNames.add (DSPOptions ());
-  oFlagNames.add (SNDOptions ());
+  //oFlagNames.add (SNDOptions ());
   oFlagNames.add (TAPOptions ());
   oFlagNames.add (TIMOptions ());
 
@@ -208,7 +208,7 @@ if (bArgModelTwo) InitializePMD2 ();
   CPUInitialize ();
   DSPInitialize ();
   KBDInitialize ();
-  SNDInitialize ();
+  //SNDInitialize ();
   TAPInitialize ();
   TIMInitialize ();
 
@@ -252,7 +252,7 @@ if (bArgModelTwo) InitializePMD2 ();
 
   TIMShutdown ();
   TAPShutdown ();
-  SNDShutdown ();
+  //SNDShutdown ();
   KBDShutdown ();
   DSPShutdown ();
   CPUShutdown ();

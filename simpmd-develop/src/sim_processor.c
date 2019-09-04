@@ -1205,8 +1205,8 @@ void InstOUT ()
                 break;
     case 0xF4:  KBDWriteColumn (RegA);
                 break;
-    case 0xF6:  SNDWriteSpeaker (RegA);
-                break;
+   //case 0xF6:  SNDWriteSpeaker (RegA);
+   //             break;
   }
   iProcessorClock += 10;
 }
@@ -1358,7 +1358,7 @@ void CPUReset ()
 void *CPUThread (void *pArgs)
 {
   // Synchronize the simulated clock and the actual time.
-  SNDSynchronize ();
+  //SNDSynchronize ();
   TIMSynchronize ();
 
   while (__builtin_expect (!bTerminate, true))
