@@ -16,6 +16,9 @@
 # --tape-rate 2400
 # --precision (18432000 / 9) / 1000 
 #
+# ./run.sh > pmd.log
+#
 
-script -q -c "simpmd --pmd1 --tape-in /root/simpmd-develop/data/tapes/games-pmd1/FLAPPY" pmd.log
+script -q -c "/root/simpmd-develop/bin/simpmd --pmd1 --tape-in /root/simpmd-develop/data/tapes/games-pmd1/FLAPPY" /dev/null
+#./simpmd --pmd1 --tape-in /root/simpmd-develop/data/tapes/games-pmd1/FLAPPY > pmd.log 2>&1
 
