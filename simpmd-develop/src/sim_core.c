@@ -202,6 +202,7 @@ if (bArgModelTwo) InitializePMD2 ();
 
   // Module initialization
 
+  printf("Initializing..\n");
   SDL_CheckZero (SDL_Init (SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_VIDEO));
 
   //CONInitialize ();
@@ -223,13 +224,12 @@ if (bArgModelTwo) InitializePMD2 ();
 
   while (!SIMQueryShutdown ())
   {
-    SDL_WaitEvent (&sEvent);
+    SDL_PollEvent (&sEvent);
     switch (sEvent.type)
     {
       case SDL_KEYUP:
       case SDL_KEYDOWN:
         KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
-	printf("Key pressed!\n");
         break;
 //      case SDL_WINDOWEVENT_RESIZED:
 //        DSPResizeHandler ();
