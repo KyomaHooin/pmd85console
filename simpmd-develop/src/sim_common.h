@@ -26,8 +26,8 @@ limitations under the License.
 #include <iomanip>
 #include <iostream>
 
-#include <boost/program_options.hpp>
-namespace opt = boost::program_options;
+//#include <boost/program_options.hpp>
+//namespace opt = boost::program_options;
 
 #include <SDL2/SDL.h>
 
@@ -136,7 +136,7 @@ void CPUShutdown ();
 
 void DSPPaintHandler ();
 void DSPResizeHandler ();
-opt::options_description &DSPOptions ();
+//opt::options_description &DSPOptions ();
 void DSPInitialize ();
 void DSPShutdown ();
 
@@ -149,20 +149,20 @@ void KBDShutdown ();
 
 void SNDSynchronize ();
 void SNDWriteSpeaker (byte iData);
-opt::options_description &SNDOptions ();
+//opt::options_description &SNDOptions ();
 void SNDInitialize ();
 void SNDShutdown ();
 
 byte TAPReadData ();
 void TAPWriteData (byte iData);
 byte TAPReadStatus ();
-opt::options_description &TAPOptions ();
+//opt::options_description &TAPOptions ();
 void TAPInitialize ();
 void TAPShutdown ();
 
 void TIMSynchronize ();
 void TIMAdvance ();
-opt::options_description &TIMOptions ();
+//opt::options_description &TIMOptions ();
 void TIMInitialize ();
 void TIMShutdown ();
 

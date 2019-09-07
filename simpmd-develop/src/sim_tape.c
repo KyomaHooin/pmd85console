@@ -30,6 +30,10 @@ limitations under the License.
 
 /// Tape input names. What files to open as tape inputs.
 static std::vector <std::string> oArgTapeInputs;
+
+/// Default tape
+static std::string GameFlappy [] = {"/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY"};
+
 /// Tape output names. What files to open as tape outputs.
 static std::vector <std::string> oArgTapeOutputs;
 
@@ -212,17 +216,17 @@ byte TAPReadStatus ()
 //--------------------------------------------------------------------------
 // Initialization and shutdown
 
-opt::options_description &TAPOptions ()
-{
-  static opt::options_description options ("Tape module options");
-  options.add_options ()
-    ("tape-in,i", opt::value <std::vector <std::string>> (&oArgTapeInputs), "Files to open as tape inputs")
-    ("tape-out,o", opt::value <std::vector <std::string>> (&oArgTapeOutputs), "Files to open as tape outputs")
-    ("time-tape-input", opt::value <bool> (&bArgTimeTapeInput), "Simulate tape input timing")
-    ("time-tape-output", opt::value <bool> (&bArgTimeTapeOutput), "Simulate tape output timing")
-    ("tape-rate", opt::value <int> (&iArgTapeRate), "Tape rate [bps]");
-  return (options);
-}
+//opt::options_description &TAPOptions ()
+//{
+//  static opt::options_description options ("Tape module options");
+//  options.add_options ()
+//    ("tape-in,i", opt::value <std::vector <std::string>> (&oArgTapeInputs), "Files to open as tape inputs")
+//    ("tape-out,o", opt::value <std::vector <std::string>> (&oArgTapeOutputs), "Files to open as tape outputs")
+//    ("time-tape-input", opt::value <bool> (&bArgTimeTapeInput), "Simulate tape input timing")
+//    ("time-tape-output", opt::value <bool> (&bArgTimeTapeOutput), "Simulate tape output timing")
+//    ("tape-rate", opt::value <int> (&iArgTapeRate), "Tape rate [bps]");
+//  return (options);
+//}
 
 
 void TAPInitialize ()

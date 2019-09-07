@@ -185,25 +185,23 @@ Uint32 DSPPaintTimerCallback (Uint32 iInterval, void *pArgs)
 //--------------------------------------------------------------------------
 // Initialization and shutdown
 
-opt::options_description &DSPOptions ()
-{
-  static opt::options_description options ("Display module options");
-  options.add_options ()
-    ("zoom,z", opt::value<int> (&iArgZoom), "Initial screen zoom")
-    ("refresh", opt::value<int> (&iArgRefresh), "Screen refresh period [ms]");
-  return (options);
-}
+//opt::options_description &DSPOptions ()
+//{
+//  static opt::options_description options ("Display module options");
+//  options.add_options ()
+//    ("zoom,z", opt::value<int> (&iArgZoom), "Initial screen zoom")
+//    ("refresh", opt::value<int> (&iArgRefresh), "Screen refresh period [ms]");
+//  return (options);
+//}
 
 
 void DSPInitialize ()
 {
   // Initialize the video resources.
   // Drawing is done by updating texture.
-  SDL_CheckNotNull (pWindow = SDL_CreateWindow (
-    "SimPMD",
-    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-    PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,
-    SDL_WINDOW_FULLSCREEN));
+  SDL_CheckNotNull (pWindow = SDL_CreateWindow ("SimPMD",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
+   //PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,SDL_WINDOW_FULLSCREEN));
   SDL_CheckNotNull (pRenderer = SDL_CreateRenderer (
     pWindow,
     -1, SDL_RENDERER_ACCELERATED));

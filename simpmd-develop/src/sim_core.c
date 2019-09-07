@@ -151,30 +151,31 @@ int main (int iArgC, const char *apArgV [])
 {
   // Command line option parsing
 
-  opt::options_description oFlagNames ("Core options");
-  oFlagNames.add_options ()
-    ("pmd1,1", opt::bool_switch (&bArgModelOne), "Simulate PMD 85-1")
-    ("pmd2,2", opt::bool_switch (&bArgModelTwo), "Simulate PMD 85-2");
-  oFlagNames.add (DSPOptions ());
-  //oFlagNames.add (SNDOptions ());
-  oFlagNames.add (TAPOptions ());
-  oFlagNames.add (TIMOptions ());
+// opt::options_description oFlagNames ("Core options");
+//  oFlagNames.add_options ()
+//    ("pmd1,1", opt::bool_switch (&bArgModelOne), "Simulate PMD 85-1")
+//    ("pmd2,2", opt::bool_switch (&bArgModelTwo), "Simulate PMD 85-2");
+//  oFlagNames.add (DSPOptions ());
+//  oFlagNames.add (SNDOptions ());
+//  oFlagNames.add (TAPOptions ());
+//  oFlagNames.add (TIMOptions ());
 
-  opt::positional_options_description oFlagPositions;
-  oFlagPositions.add ("script", 1);
+//  opt::positional_options_description oFlagPositions;
+//  oFlagPositions.add ("script", 1);
 
-  opt::variables_map oFlagVariables;
-  opt::store (
-    opt::command_line_parser (iArgC, apArgV).
-    positional (oFlagPositions).
-    options (oFlagNames).
-    run (),
-    oFlagVariables);
-  opt::notify (oFlagVariables);
+//  opt::variables_map oFlagVariables;
+//  opt::store (
+//    opt::command_line_parser (iArgC, apArgV).
+//    positional (oFlagPositions).
+//    options (oFlagNames).
+//    run (),
+//    oFlagVariables);
+//  opt::notify (oFlagVariables);
 
 //!@#@!
-if (bArgModelOne) InitializePMD1 ();
-if (bArgModelTwo) InitializePMD2 ();
+InitializePMD1 ();
+//if (bArgModelOne) InitializePMD1 ();
+//if (bArgModelTwo) InitializePMD2 ();
 //#@!@#
 
 //  {

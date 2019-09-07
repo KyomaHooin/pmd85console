@@ -209,15 +209,15 @@ void SNDFillBufferCallback (void *pParameters, byte *pBuffer, int iLength)
 //--------------------------------------------------------------------------
 // Initialization and shutdown
 
-opt::options_description &SNDOptions ()
-{
-  static opt::options_description options ("Sound module options");
-  options.add_options ()
-    ("sampling-rate", opt::value<int> (&iArgSamplingRate), "Audio output sampling rate [hz]")
-    ("software-buffer", opt::value<int> (&iArgSoftwareBuffer), "Software audio buffer size [ms]")
-    ("hardware-buffer", opt::value<int> (&iArgHardwareBuffer), "Hardware audio buffer size [ms]");
-  return (options);
-}
+//opt::options_description &SNDOptions ()
+//{
+//  static opt::options_description options ("Sound module options");
+//  options.add_options ()
+//    ("sampling-rate", opt::value<int> (&iArgSamplingRate), "Audio output sampling rate [hz]")
+//    ("software-buffer", opt::value<int> (&iArgSoftwareBuffer), "Software audio buffer size [ms]")
+//    ("hardware-buffer", opt::value<int> (&iArgHardwareBuffer), "Hardware audio buffer size [ms]");
+//  return (options);
+//}
 
 
 void SNDInitialize ()

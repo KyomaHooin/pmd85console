@@ -114,13 +114,13 @@ void TIMSleep (int iTicks)
 //--------------------------------------------------------------------------
 // Initialization and shutdown
 
-opt::options_description &TIMOptions ()
-{
-  static opt::options_description options ("Timing module options");
-  options.add_options ()
-    ("precision", opt::value<int> (&iArgPrecision), "Clock synchronization period, 0 for no synchronization [ticks]");
-  return (options);
-}
+//opt::options_description &TIMOptions ()
+//{
+//  static opt::options_description options ("Timing module options");
+//  options.add_options ()
+//    ("precision", opt::value<int> (&iArgPrecision), "Clock synchronization period, 0 for no synchronization [ticks]");
+//  return (options);
+//}
 
 
 void TIMInitialize ()
