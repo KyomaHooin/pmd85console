@@ -10,7 +10,7 @@ PMD_SHARE ?=
 CC = g++
 CC_OPTS = -std=c++11 -D PMD_SHARE=\"$(PMD_SHARE)\"
 LD = g++
-LD_OPTS = -lSDL2 -lboost_program_options -lreadline -lpthread -lrt
+LD_OPTS = -lSDL2 -lpthread -lrt
 
 ifeq ($(PMD_BUILD), DEBUG)
 CC_OPTS += -O0 -g
@@ -32,7 +32,7 @@ clean:
 
 # Modules
 
-MM = sim_core sim_console sim_display sim_keyboard sim_processor sim_speaker sim_tape sim_timing
+MM = sim_core sim_display sim_keyboard sim_processor sim_speaker sim_tape sim_timing
 OO = $(addsuffix .o, $(MM))
 DD = $(addsuffix .dep, $(MM))
 
@@ -46,7 +46,7 @@ $(BIN)/simpmd: $(OO)
 
 # Dependencies
 
-include $(DD)
+-include $(DD)
 
 %.dep: %.c
 	$(CC) -MM $(CC_OPTS) -MT "$@ $(basename $@).o" -o $@ $<
