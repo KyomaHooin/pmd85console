@@ -6,13 +6,17 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma (c) 200
 TODO
 
 <pre>
--Perf. tunning
--Key-mapping
--Binaries
--Game Menu
--Binaries
--Splash Plymouth
--Box + Case
+-Performace tune
+-Key-binding
+-menu = game + kbd/pad setting + end
+
+-Binary
+-Bootloader
+-Splash Plymouth = boot + shutdown
+
+-3D Case
+-Paper Box
+-Gamepad
 
 -threaded dispmanx + bcm_host(Amiberry)
 -RetrpPie/ libretro tune(?)
