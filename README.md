@@ -1,11 +1,19 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Martin & Roman Borik <a href="https://github.com/mborik/GPMD85Emulator">GPMD85Emulator</a>.
+Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma (c) 2008<a href="https://github.com/ceresek/simpmd">simpmd</a>.
 
 TODO
 
 <pre>
+-Perf. tunning
+-Key-mapping
+-Binaries
+-Game Menu
+-Binaries
+-Splash Plymouth
+-Box + Case
+
 -threaded dispmanx + bcm_host(Amiberry)
 -RetrpPie/ libretro tune(?)
 -CPU govenor tune(?)
@@ -35,7 +43,7 @@ SOFTWARE
 <pre>
 Fake KMS driver + Dispmanx
 SDL 2.0.x + SDL2_ttf
-GPMD85Emulator
+simpmd
 </pre>
 
 RPI
@@ -74,7 +82,7 @@ raspi-config > Advanced > Overclocking > Medium
 
 sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|rsync|triggerhappy|nfs-client.target|systemd-timesyncd]
 
-apt-get install vim git ntpdate plymouth-themes
+apt-get install vim mc git ntpdate plymouth-themes
 
 cp -r theme/* /usr/share/plymouth/themes/
 
@@ -92,10 +100,10 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 /etc/rc.local:
 
 /usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
-/root/menu/sdl_menu > /dev/null 2>&1 &
+#/root/menu/sdl_menu > /dev/null 2>&1 &
 </pre>
 
-SDL
+SDL2
 
 <pre>
 wget --no-check-certificate https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
@@ -114,7 +122,16 @@ make
 make install
 </pre>
 
-PMD
+SIMPMD
+
+<pre>
+apt-get install libpopt-dev
+
+make clean
+make
+</pre>
+
+GPMD85Emualtor
 
 <pre>
 apt-get istall autoconf
@@ -130,10 +147,11 @@ bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 FILES
 
 <pre>
-                simpmd/ - Smaller PMD85 emulator from Petr Tuma.
               emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
               openscad/ - 3D printable case code.
-                  test/ - Test code.
+                simpmd/ - Small SDL PMD85 emulator from Petr Tuma.
+        simpmd-develop/ - Small rSDL2 PMD85 emulator from Petr Tuma.
+                  test/ - Menu/test code.
 pmd85emu_games_vpbg.zip - Origina VBG games binaries.
 </pre>
 
