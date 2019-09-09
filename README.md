@@ -1,7 +1,7 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma (c) 2008<a href="https://github.com/ceresek/simpmd">simpmd</a>.
+Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href="https://github.com/ceresek/simpmd">simpmd</a> (c) 2008.
 
 TODO
 
@@ -74,7 +74,7 @@ EOF
 
 minicom -D /dev/ttyUSB0 -b 115200
 
-[ctrl]+[A] > [Z] > 'o' > Serial port setup > Hardware flow-control > No  
+[ctrl] > [A] > [Z] > [O] > Serial port setup > [F]low control > Off  
 
 raspi-config > Advanced > GL Driver > Enable Fake KMS
 
@@ -88,13 +88,10 @@ sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|rsync|triggerhappy|nfs-c
 
 apt-get install vim mc git ntpdate plymouth-themes
 
-cp -r theme/* /usr/share/plymouth/themes/
-
-plymouth-set-default-theme pmd85
-
-/boot/cmdline.txt:
-
-logo.nologo quiet loglevel=3 plymouth.ignore-serial-console plymouth.enable=0 splash 
+#cp -r theme/* /usr/share/plymouth/themes/
+#plymouth-set-default-theme pmd85
+#/boot/cmdline.txt:
+#logo.nologo quiet loglevel=3 plymouth.ignore-serial-console plymouth.enable=0 splash 
 
 /etc/fstab:
 
@@ -151,12 +148,11 @@ bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 FILES
 
 <pre>
-              emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
-              openscad/ - 3D printable case code.
-                simpmd/ - Small SDL PMD85 emulator from Petr Tuma.
-        simpmd-develop/ - Small rSDL2 PMD85 emulator from Petr Tuma.
-                  test/ - Menu/test code.
-pmd85emu_games_vpbg.zip - Origina VBG games binaries.
+      emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
+      openscad/ - 3D printable case code.
+simpmd-develop/ - SDL2 PMD85 emulator source code by Petr Tuma.
+        simpmd/ - SDL PMD85 emulator source code by Petr Tuma.
+          test/ - Menu/test source code.
 </pre>
 
 SOURCE
