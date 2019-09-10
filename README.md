@@ -13,11 +13,11 @@ TODO
 -Binary
 -Bootloader
 -Splash Plymouth = boot + shutdown
--GPIO
 
 -3D Case
 -Paper Box
--Gamepad
+-MiniKKeyboard
+-LED
 
 -threaded dispmanx + bcm_host(Amiberry)
 -RetrpPie/ libretro tune(?)
@@ -103,6 +103,11 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 
 /usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
 #/root/menu/sdl_menu > /dev/null 2>&1 &
+
+# PWR LED GPIO 32 / ACT LED GPIO 36
+echo 'pwr_led_gpio=12'>> /boot/config.txt
+echo 'act_led_gpio=16' >> /boot/config.txt
+
 </pre>
 
 SDL2
