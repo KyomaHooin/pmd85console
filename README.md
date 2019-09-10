@@ -13,6 +13,7 @@ TODO
 -Binary
 -Bootloader
 -Splash Plymouth = boot + shutdown
+-GPIO
 
 -3D Case
 -Paper Box
