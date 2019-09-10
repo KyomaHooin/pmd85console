@@ -108,7 +108,7 @@ void KBDWriteColumn (byte iData)
  */
 void KBDEventHandler (const SDL_KeyboardEvent *pEvent)
 {
-  printf("%s key!\n",SDL_GetKeyName(pEvent->keysym.sym));
+  //printf("%s key!\n",SDL_GetKeyName(pEvent->keysym.sym));
   // Find the location of the key in the key map
   tKeyMap::iterator xLocation = oKeyMap.find (pEvent->keysym.sym);
   if (xLocation != oKeyMap.end ())

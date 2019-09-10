@@ -28,12 +28,15 @@ limitations under the License.
 //--------------------------------------------------------------------------
 // Command Line Options
 
+/// Default tape
+//static std::string GameFlappy [] = {"/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY"};
+//static std::string GameManic [] = {"/root/simpmd-develop/data/tapes/games-pmd1/MANIC-1"};
+//static std::string GameWilly [] = {"/root/simpmd-develop/data/tapes/games-pmd1/WILLY"};
+//static std::string GameBoulder [] = {"/root/simpmd-develop/data/tapes/games-pmd1/BOULDER"};
+
 /// Tape input names. What files to open as tape inputs.
 //static std::vector <std::string> oArgTapeInputs;
 static std::vector <std::string> oArgTapeInputs = {"/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY"};
-
-/// Default tape
-// static std::string GameFlappy [] = {"/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY"};
 
 /// Tape output names. What files to open as tape outputs.
 static std::vector <std::string> oArgTapeOutputs;

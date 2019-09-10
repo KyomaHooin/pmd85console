@@ -26,7 +26,7 @@ limitations under the License.
 
 /// Screen refresh. How many milliseconds per screen refresh.
 //static int iArgRefresh = 20;
-static int iArgRefresh = 100;
+static int iArgRefresh = 40;
 
 /// Initial screen zoom.
 static int iArgZoom = 3;

@@ -69,7 +69,7 @@ void TIMAdvance ()
     uint64 iNanos = sLastTime.tv_nsec + iSleep;
     sLastTime.tv_nsec = iNanos % 1000000000;
     sLastTime.tv_sec += iNanos / 1000000000;
-    //clock_nanosleep (CLOCK_MONOTONIC, TIMER_ABSTIME, &sLastTime, NULL);
+    clock_nanosleep (CLOCK_MONOTONIC, TIMER_ABSTIME, &sLastTime, NULL);
 
     // Update the last simulated clock.
     iLastClock = iProcessorClock;
