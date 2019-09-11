@@ -31,16 +31,16 @@ module top_mount(offsetX,offsetY,Thick) {
     }
 }
 
-module sink() { cylinder(h=1.5, r1=1.25, r2=2.35); }
+//module sink() { cylinder(h=1.5, r1=1.25, r2=2.35); }
 
 module usb_lip() {
-    translate([1, bottomThick/2,0])
+    translate([1, bottomThick/2, 1])
         rotate([90,0,0])
             rounded_rect(usbWidth, usbHeight, bottomThick/2, 1);
 }
 
 module micro_lip() {
-    translate([bottomThick/2, 1, 0])
+    translate([bottomThick/2, 1, 1])
         rotate([0,270,0])
             rounded_rect(microHeight+1, microLength, bottomThick/2, 1);
 }
@@ -52,8 +52,8 @@ module sd_lip() {
 
 module lip_lock_bottom() {
     difference() {
-        rounded_rect(bottomX+1, bottomY+1, 1, bottomThick);
-        rounded_rect(bottomX+1, bottomY+1, 1, bottomThick/2-0.125);
+        rounded_rect(bottomX, bottomY, 1, bottomThick);
+        rounded_rect(bottomX, bottomY, 1, bottomThick/2-0.125);
     }
 }
 
