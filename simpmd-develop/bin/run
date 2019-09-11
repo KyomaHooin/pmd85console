@@ -1,24 +1,7 @@
 #!/bin/bash
 #
-# Simpmd runner..
-#
-# --pmd1
-# --pmd2
-# --refresh 30
-# --zoom 3
-# --sampling-rate 48000
-# --software-buffer 100
-# --hardware-buffer 10
-# --tape-in ''
-# --tape-out ''
-# --time-tape-input 0
-# --time-tape-output 0
-# --tape-rate 2400
-# --precision (18432000 / 9) / 1000 
-#
-# ./run.sh > pmd.log
+# PMD85 - Simpmd console wrap
 #
 
-script -q -c "/root/simpmd-develop/bin/simpmd --pmd1 --tape-in /root/simpmd-develop/data/tapes/games-pmd1/FLAPPY" /dev/null
-#./simpmd --pmd1 --tape-in /root/simpmd-develop/data/tapes/games-pmd1/FLAPPY > pmd.log 2>&1
+script -q -c "/root/simpmd-develop/bin/simpmd" /dev/null
 
