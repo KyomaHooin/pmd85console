@@ -8,14 +8,15 @@ TODO
 
 <pre>
 -game menu
--exit [esc]
--LED
 -Binary
 -Bootloader
--Splash Plymouth = boot + shutdown
+-Splash = boot + shutdown
+-LED,UART
+
+-3D printable case
+-Polish + Sticker
 -Paper Box
 -MiniKKeyboard
--LED/UART,Heatsink
 </pre>
 
 BUG
@@ -141,10 +142,10 @@ FILES
 <pre>
       pmd85.png - Original 1985 computer.    
 
+          menu/ - Game menu source code.
       openscad/ - 3D printable case code.
 simpmd-develop/ - SDL2 PMD85 emulator source code by Petr Tuma.
          theme/ - Splash Plymouth theme.
-          test/ - Menu/test source code.
 </pre>
 
 SOURCE
