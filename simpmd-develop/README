@@ -8,9 +8,6 @@ binary images of the PMD 85-1 and PMD 85-2 ROM, are present in the
 prefix directory (release build) or the current directory (standard
 build).
 
-The --help command line option displays command line help.
-
-
 +-------------------------------------------------------------------+
 | TESTED APPLICATIONS                                               |
 +-------------------------------------------------------------------+
