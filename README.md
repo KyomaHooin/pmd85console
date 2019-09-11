@@ -1,5 +1,6 @@
+![PMD](https://github.com/kyomahooin/pmd85console/raw/master/pmd85.png "pmd85")
 
-DESCRIPTION
+ESCRIPTION
 
 Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href="https://github.com/ceresek/simpmd">simpmd</a> (c) 2008.
 
@@ -154,6 +155,8 @@ bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 FILES
 
 <pre>
+      pmd85.png - Original 1985 computer.    
+
       openscad/ - 3D printable case code.
 simpmd-develop/ - SDL2 PMD85 emulator source code by Petr Tuma.
          theme/ - Splash Plymouth theme.
