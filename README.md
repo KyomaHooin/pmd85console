@@ -6,9 +6,9 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
--Performace tune
 -Key-binding
 -menu = game + kbd/pad setting + end
+-SND/M2 test
 
 -Binary
 -Bootloader
@@ -17,7 +17,7 @@ TODO
 -3D Case
 -Paper Box
 -MiniKKeyboard
--LED
+-LED/UART,Heatsink
 
 -threaded dispmanx + bcm_host(Amiberry)
 -RetrpPie/ libretro tune(?)
@@ -154,10 +154,9 @@ bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 FILES
 
 <pre>
-      emulator/ - Modified PMD85 emulator source code by Martin Bórik & Roman Bórik.
       openscad/ - 3D printable case code.
 simpmd-develop/ - SDL2 PMD85 emulator source code by Petr Tuma.
-        simpmd/ - SDL PMD85 emulator source code by Petr Tuma.
+         theme/ - Splash Plymouth theme.
           test/ - Menu/test source code.
 </pre>
 
