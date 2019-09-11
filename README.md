@@ -36,8 +36,8 @@ HARDWARE
 1x <a href="https://www.aliexpress.com/item/New-High-Quality-USB-To-TTL-Serial-Module-FTDI-FT232RL-USB-3-3V-5V-To-TTL/32971767031.html">USB FTDI TTL/UART</a>(3.3V 6-pin)
 1x MicroSD(2GB)
 1x Keyboard(Chicony KU-0108s/100mA)
-1x <a href="https://www.ges.cz/cz/l-934gd-GES10700054.html">Green LED</a>(10mA 2.1V)
-1x <a href="https://www.ges.cz/cz/l-934id-GES10701762.html">Red LED</a>(10mA 2.1V)
+1x <a href="https://www.ges.cz/cz/l-934gd-GES10700054.html">Green LED</a>(10mA 2.2V)
+1x <a href="https://www.ges.cz/cz/l-934id-GES10701762.html">Red LED</a>(10mA 2V)
 1x <a href="https://www.ges.cz/cz/rm0207-120r-1-GES05300318.html">Rezistor 120R</a>
 1x <a href="https://www.ges.cz/cz/rm0207-150r-1-GES05300319.html">Rezistor 150R</a>
 </pre>
@@ -131,8 +131,6 @@ make install
 SIMPMD
 
 <pre>
-apt-get install libpopt-dev
-
 make clean
 make
 </pre>
