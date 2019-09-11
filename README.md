@@ -1,6 +1,6 @@
 ![PMD](https://github.com/kyomahooin/pmd85console/raw/master/pmd85.png "pmd85")
 
-ESCRIPTION
+DESCRIPTION
 
 Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href="https://github.com/ceresek/simpmd">simpmd</a> (c) 2008.
 
