@@ -174,6 +174,7 @@ int main (int iArgC, const char *apArgV [])
 
 //!@#@!
 InitializePMD1 ();
+//InitializePMD2 ();
 //if (bArgModelOne) InitializePMD1 ();
 //if (bArgModelTwo) InitializePMD2 ();
 //#@!@#

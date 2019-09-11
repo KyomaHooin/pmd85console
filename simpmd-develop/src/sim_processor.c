@@ -1205,8 +1205,8 @@ void InstOUT ()
                 break;
     case 0xF4:  KBDWriteColumn (RegA);
                 break;
-   //case 0xF6:  SNDWriteSpeaker (RegA);
-   //             break;
+    //case 0xF6:  SNDWriteSpeaker (RegA);
+    //            break;
   }
   iProcessorClock += 10;
 }

@@ -33,6 +33,7 @@ limitations under the License.
 //static std::string GameManic [] = {"/root/simpmd-develop/data/tapes/games-pmd1/MANIC-1"};
 //static std::string GameWilly [] = {"/root/simpmd-develop/data/tapes/games-pmd1/WILLY"};
 //static std::string GameBoulder [] = {"/root/simpmd-develop/data/tapes/games-pmd1/BOULDER"};
+//static std::string GameFred = {"/root/simpmd-develop/data/tapes/games-pmd2/FRED"};
 
 /// Tape input names. What files to open as tape inputs.
 //static std::vector <std::string> oArgTapeInputs;
