@@ -15,14 +15,9 @@ TODO
 -Bootloader
 -Splash Plymouth = boot + shutdown
 
--3D Case
 -Paper Box
 -MiniKKeyboard
 -LED/UART,Heatsink
-
--threaded dispmanx + bcm_host(Amiberry)
--RetrpPie/ libretro tune(?)
--CPU govenor tune(?)
 </pre>
 
 BUG
@@ -106,8 +101,8 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 #/root/menu/sdl_menu > /dev/null 2>&1 &
 
 # PWR LED GPIO 32 / ACT LED GPIO 36
-echo 'pwr_led_gpio=12'>> /boot/config.txt
-echo 'act_led_gpio=16' >> /boot/config.txt
+#echo 'pwr_led_gpio=12'>> /boot/config.txt
+#echo 'act_led_gpio=16' >> /boot/config.txt
 
 </pre>
 
@@ -137,19 +132,6 @@ apt-get install libpopt-dev
 
 make clean
 make
-</pre>
-
-GPMD85Emualtor
-
-<pre>
-apt-get istall autoconf
-
-autoreconf -vfi
-./configure --enable-trace
-make
-make install
-
-bcm_host_init() => make LIBS='-lbcm_host' LDFLAGS='-L/opt/vc/lib'
 </pre>
 
 FILES
