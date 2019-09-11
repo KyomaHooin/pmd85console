@@ -123,10 +123,10 @@ extern relaxed_int iProcessorClock;
 void SIMRequestShutdown ();
 bool SIMQueryShutdown ();
 
-void CONStartThread ();
-void CONTerminateThread ();
-void CONInitialize ();
-void CONShutdown ();
+//void CONStartThread ();
+//void CONTerminateThread ();
+//void CONInitialize ();
+//void CONShutdown ();
 
 void CPUReset ();
 void CPUStartThread ();

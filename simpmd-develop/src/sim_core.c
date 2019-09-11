@@ -215,10 +215,7 @@ InitializePMD1 ();
   TAPInitialize ();
   TIMInitialize ();
 
-  // Console thread is the last to run because user commands require functional simulator.
-
   CPUStartThread ();
-  //CONStartThread ();
 
   // Event loop
 
@@ -231,23 +228,21 @@ InitializePMD1 ();
     {
       case SDL_KEYUP:
       case SDL_KEYDOWN:
+	if (sEvent.key.keysym.sym == SDLK_ESCAPE) { 
+         SIMRequestShutdown ();
+	 break;
+	}
         KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
         break;
-//      case SDL_WINDOWEVENT_RESIZED:
-//        DSPResizeHandler ();
-//        break;
       case SDL_USEREVENT:
         DSPPaintHandler ();
         break;
-      case SDL_QUIT:
-        SIMRequestShutdown ();
-        break;
+      //case SDL_QUIT:
+      //  SIMRequestShutdown ();
+      //  break;
     }
   }
 
-  // Console thread is the first to terminate because user commands require functional simulator.
-
-  //CONTerminateThread ();
   CPUTerminateThread ();
 
   // Module shutdown
@@ -258,7 +253,6 @@ InitializePMD1 ();
   KBDShutdown ();
   DSPShutdown ();
   CPUShutdown ();
-  //CONShutdown ();
 
   SDL_Quit ();
 
