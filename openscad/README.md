@@ -6,9 +6,7 @@ Raspberry Pi console 3D case.
 
 TODO
 <pre>
--sticker slab
--kbd
--vent
+-LED
 </pre>
 
 FILES
