@@ -101,7 +101,8 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 /etc/rc.local:
 
 /usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
-#/root/menu/sdl_menu > /dev/null 2>&1 &
+/root/firewall &
+/root/simpmd-develop/bin/run > /root/pmd.log &
 
 # PWR LED GPIO 32 / ACT LED GPIO 36
 #echo 'pwr_led_gpio=12'>> /boot/config.txt
