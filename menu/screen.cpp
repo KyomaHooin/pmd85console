@@ -4,6 +4,7 @@
 
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_thread.h>
 #include <stdio.h>
 #include <bcm_host.h>
 

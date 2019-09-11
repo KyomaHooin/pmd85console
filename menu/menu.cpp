@@ -1,11 +1,10 @@
 //
-// 1360x768 Sony TV
+// PMD-85 Emulator Menu [1360x768 Sony TV]
 //
 
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <stdio.h>
-#include <bcm_host.h>
 
 //--- DEF ---
 
@@ -21,12 +20,12 @@ const int MENU_IMAGE_OFFSET = (MENU_BORDER_WIDTH - MENU_IMAGE) / 2;
 const int MENU_FONT_SIZE = 24;
 const int grey[4] = {0, 25, 100, 255};// dark to white
 const char *gamefn[4] {
-		"/usr/local/share/gpmd85emu/flappy.bmp",
-		"/usr/local/share/gpmd85emu/boulder.bmp",
-		"/usr/local/share/gpmd85emu/manic.bmp",
-		"/usr/local/share/gpmd85emu/fred.bmp"
+		"/root/menu/logo/flappy.bmp",
+		"/root/menu/logo/boulder.bmp",
+		"/root/menu/logo/manic.bmp",
+		"/root/menu/logo/fred.bmp"
 	};
-const char *gametext[4] {"Flappy", "Boulder\nDash", "Manic\nMiner", "Fred"};
+const char *gametext[4] {"Flappy", "Boulder Dash", "Manic Miner", "Fred"};
 
 //--- FUNC ---
 
@@ -100,8 +99,6 @@ int main(int argc, char* args[]) {
 	//SDL_RendererInfo driver;
 	//SDL_DisplayMode fullscreen;
 
-	bcm_host_init();// ?
-
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) != 0) return 1;
 	if(TTF_Init() != 0 ) printf("Font init failed.\n");
 	//if(SDL_GetRenderDriverInfo(0,&driver) != 0) printf("Failed to get driver info.");
@@ -157,7 +154,6 @@ int main(int argc, char* args[]) {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
-	bcm_host_deinit();
 	return 0;
 }
 
