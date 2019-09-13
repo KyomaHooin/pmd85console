@@ -44,6 +44,9 @@ module case_bottom() {
 }
 
 //CASE TOP
+//
+// polygon + offset + extrude + diff
+//
 
 topThick=2;
 topX=56;

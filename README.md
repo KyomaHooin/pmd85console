@@ -7,16 +7,14 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
--game menu
--Binary
--Bootloader
--Splash = boot + shutdown
--LED,UART
+-game menu + tape select + exit + [esc]
+-bootloader
+-splash boot + splash shutdown
+-LED
 
--3D printable case
+-3D printable case -
 -Polish + Sticker
 -Paper Box
--MiniKKeyboard
 </pre>
 
 BUG
