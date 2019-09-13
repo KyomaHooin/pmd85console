@@ -141,13 +141,12 @@ int main(int argc, char* args[]) {
           if (sEvent.key.keysym.sym == SDLK_LEFT) { (gameIndex == 0) ? gameIndex = 3 : gameIndex--; }
           if (sEvent.key.keysym.sym == SDLK_RIGHT) { (gameIndex == 3) ? gameIndex = 0 : gameIndex++; }
           if (sEvent.key.keysym.sym == SDLK_RETURN) {
-            printf("Enter Game: %i\n", gameIndex);
-	    // Emulator()
+            printf("Enter Game: %i\n", gameIndex);// Emulator()
 	    inMenu = false;
 	  }
-          if (sEvent.key.keysym.sym == SDLK_ESCAPE) { emulatorQuit = true; };
 	}
-      break;
+        if (sEvent.key.keysym.sym == SDLK_ESCAPE) { emulatorQuit = true; };
+        break;
     }
     while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
   }
