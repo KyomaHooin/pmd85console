@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gcc `sdl2-config --cflags --libs` -lSDL2_ttf -o menu menu.cpp
+

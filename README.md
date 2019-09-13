@@ -102,7 +102,7 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 # Firewall
 /root/firewall &
 #
-/root/simpmd-develop/bin/run > /var/log/pmd.log && halt &
+/root/simpmd/bin/run > /var/log/pmd.log && halt &
 
 # PWR LED GPIO 32 / ACT LED GPIO 36
 #echo 'pwr_led_gpio=12'>> /boot/config.txt
@@ -139,12 +139,11 @@ make
 FILES
 
 <pre>
-      pmd85.png - Original 1985 computer.    
+pmd85.png - Original 1985 computer.    
 
-          menu/ - Game menu source code.
-      openscad/ - 3D printable case code.
-simpmd-develop/ - SDL2 PMD85 emulator source code by Petr Tuma.
-         theme/ - Splash Plymouth theme.
+openscad/ - 3D printable retro case.
+  simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tuma (c) 2008.
+   theme/ - Splash Plymouth theme.
 </pre>
 
 SOURCE
