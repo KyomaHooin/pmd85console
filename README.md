@@ -11,7 +11,6 @@ TODO
 -bootloader
 -splash boot + splash shutdown
 -LED
-
 -3D printable case -
 -Polish + Sticker
 -Paper Box
