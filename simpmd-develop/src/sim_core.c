@@ -229,10 +229,10 @@ InitializePMD1 ();
       case SDL_KEYUP:
       case SDL_KEYDOWN:
 	if (sEvent.key.keysym.sym == SDLK_ESCAPE) { 
-         SIMRequestShutdown ();
-	 break;
+          SIMRequestShutdown ();
+	} else {
+          KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
 	}
-        KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
         break;
       case SDL_USEREVENT:
         DSPPaintHandler ();
