@@ -139,11 +139,11 @@ make
 FILES
 
 <pre>
-pmd85.png - Original 1985 computer.    
+   pmd85.png - Original 1985 computer.    
 
-openscad/ - 3D printable retro case.
-  simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tuma (c) 2008.
-   theme/ - Splash Plymouth theme.
+   openscad/ - 3D printable retro case.
+     simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tuma (c) 2008.
+theme-pmd85/ - Splash Plymouth theme.
 </pre>
 
 SOURCE
