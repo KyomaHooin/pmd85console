@@ -29,7 +29,7 @@ limitations under the License.
 static int iArgRefresh = 40;
 
 /// Initial screen zoom.
-static int iArgZoom = 3;
+//static int iArgZoom = 3;
 
 
 //--------------------------------------------------------------------------

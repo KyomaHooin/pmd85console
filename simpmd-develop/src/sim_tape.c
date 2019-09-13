@@ -38,6 +38,8 @@ limitations under the License.
 //static std::vector <std::string> oArgTapeInputs;
 static std::vector <std::string> oArgTapeInputs = {"/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY"};
 
+//oArgTapeInputs.assign(1,GameBoulder);
+
 /// Tape output names. What files to open as tape outputs.
 static std::vector <std::string> oArgTapeOutputs;
 

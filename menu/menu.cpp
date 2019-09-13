@@ -25,7 +25,7 @@ const char *gamefn[4] {
 		"/root/menu/logo/manic.bmp",
 		"/root/menu/logo/fred.bmp"
 	};
-const char *gametext[4] {"Flappy", "Boulder Dash", "Manic Miner", "Fred"};
+const char *gametext[4] {"Flappy", "Boulder", "Manic", "Fred"};
 
 //--- FUNC ---
 
@@ -88,72 +88,61 @@ void RenderMenu(SDL_Renderer *renderer, int game_next) {
 //--- MAIN ---
 
 int main(int argc, char* args[]) {
-	bool quit = false;
+
+	bool menuQuit = false;
 	int game_next = 0;
 	unsigned int nextTime;
 
-	SDL_Window* window = NULL;
-	SDL_Renderer* renderer = NULL;
-	SDL_Event event;
-	TTF_Font *font = NULL;
-	//SDL_RendererInfo driver;
-	//SDL_DisplayMode fullscreen;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
+	SDL_Event menuEvent;
+	TTF_Font *font;
 
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) != 0) return 1;
 	if(TTF_Init() != 0 ) printf("Font init failed.\n");
-	//if(SDL_GetRenderDriverInfo(0,&driver) != 0) printf("Failed to get driver info.");
-	//printf("Current driver: %s\n",driver.name);
-	//printf("      Software: %c\n",(driver.flags & SDL_RENDERER_SOFTWARE) ? 'x': ' ');
-	//printf("   Accelerated: %c\n",(driver.flags & SDL_RENDERER_ACCELERATED) ? 'x': ' ');
-	//printf("  Presentvsync: %c\n",(driver.flags & SDL_RENDERER_PRESENTVSYNC) ? 'x': ' ');
-	//printf(" Targettexture: %c\n",(driver.flags & SDL_RENDERER_TARGETTEXTURE) ? 'x': ' ');
-	//if(SDL_GetDesktopDisplayMode(0,&fullscreen) != 0) printf("Get resoultion failed.");
-
-	window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 200, 200, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+//window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 200, 200, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+	window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 200, 200, SDL_WINDOW_FULLSCREEN);
 	if(window == NULL) printf("Window init error.\n");
-
-	SDL_ShowCursor(SDL_DISABLE);
-
-	renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
+	renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
+	//renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	if(renderer == NULL) printf("Renderer init error.\n");
 
-	//printf("Resolution: %d x %d \n",fullscreen.w, fullscreen.h);
+	//Disable cursor
+	SDL_ShowCursor(SDL_DISABLE);
 
-	SDL_ShowWindow(window);
-	SDL_RenderPresent(renderer);// ?
-	SDL_SetRenderDrawColor(renderer,0,0,0,255);
-	SDL_RenderClear(renderer);// clrscr	
+	//CLRSCR
+	SDL_SetRenderDrawColor(renderer,0,0,0,SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(renderer);	
+	SDL_RenderPresent(renderer);
 
-	RenderMenu(renderer,game_next);
+	//RenderMenu(renderer,game_next);
 
-	while(1) {
+	while(!menuQuit) {
 		nextTime = SDL_GetTicks() + 100;
-		while(SDL_PollEvent(&event)) {
-			switch(event.type) {
-				case SDL_KEYDOWN:
-					if (event.key.keysym.sym == SDLK_LEFT) {
-						(game_next == 0) ? game_next = 3 : game_next--;
-						RenderMenu(renderer,game_next);
-					}
-					if (event.key.keysym.sym == SDLK_RIGHT) {
-						(game_next == 3) ? game_next = 0 : game_next++;
-						RenderMenu(renderer, game_next);
-					}
-					if (event.key.keysym.sym == SDLK_RETURN) {
-						quit = true;
-						printf("Enter Game: %i\n", game_next);
-				       	}
-					break;
-				default:
-					break;
-			}
+		SDL_PollEvent(&menuEvent);
+		switch(menuEvent.type) {
+			case SDL_KEYUP:
+			case SDL_KEYDOWN:
+				if (menuEvent.key.keysym.sym == SDLK_LEFT) {
+					(game_next == 0) ? game_next = 3 : game_next--;
+			       	}
+				if (menuEvent.key.keysym.sym == SDLK_RIGHT) {
+					(game_next == 3) ? game_next = 0 : game_next++;
+				}
+				if (menuEvent.key.keysym.sym == SDLK_RETURN) {
+					printf("Enter Game: %i\n", game_next);
+					//run game
+			       	}
+				if (menuEvent.key.keysym.sym == SDLK_ESCAPE) { menuQuit = true; };
+				break;
 		}
-		if (quit) { break; }
 		while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
 	}
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+
 	return 0;
 }
 
