@@ -5,23 +5,26 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <stdio.h>
-#include <string>
 
 //--- DEF ---
 
-const int MENU_WIDTH = 900;
-const int MENU_HEIGHT = 300;
+const char *menuText[6] = {
+  "PMD-85 Retro console",
+  "1] Vyber hru pomoci sipek [<], [>] a stiskni [enter].",
+  "2] Pro spusteni hry napis 'MGLD 03' a stiskni [enter].",
+  "3] Pro ukonceni hry stiskni [esc].",
+  "4] Pro konec stiskni [esc].",
+  "Okabe Rintarou (c) 2019"
+};
 
-const int grey[4] = {0, 25, 100, 255};// dark to white
-
-const char *gamefn[4] {
-		"/root/menu/logo/flappy.bmp",
-		"/root/menu/logo/boulder.bmp",
-		"/root/menu/logo/manic.bmp",
-		"/root/menu/logo/fred.bmp"
+const char *gameFile[4] {
+		"/root/simpmd-develop/menu/logo/flappy.bmp",
+		"/root/simpmd-develop/menu/logo/boulder.bmp",
+		"/root/simpmd-develop/menu/logo/manic.bmp",
+		"/root/simpmd-develop/menu/logo/fred.bmp"
 	};
 
-const char *gametext[4] {"Flappy", "Boulder", "Manic", "Fred"};
+const char *gametext[4] {"FLAPPY", "BOULDER", "MANIC", "FRED"};
 
 // Menu
 bool emulatorQuit = false;
@@ -45,17 +48,20 @@ void RenderText(SDL_Renderer *renderer) {
   SDL_Rect textRectangle;
   SDL_Color textColor = {255,255,255};// white
 
-  textFont = TTF_OpenFont("arcade.ttf", 24);
+  //textFont = TTF_OpenFont("arcade.ttf", 24);
+  textFont = TTF_OpenFont("atari.ttf", 24);
 
-  textSurface = TTF_RenderText_Solid(textFont, "PMD-85 Retro console", textColor);
-  textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+  for (int i = 0; i < 4; i++) {
+    textSurface = TTF_RenderText_Solid(textFont, menuText[i], textColor);
+    textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
-  textRectangle.h = 24;
-  textRectangle.w = 16 * strlen("PMD-85 Retro console");
-  textRectangle.x = 100;
-  textRectangle.y = 100;
+    textRectangle.h = 24;
+    textRectangle.w = 16 * strlen(menuText[i]);
+    textRectangle.x = 100;
+    textRectangle.y = 100 + i * 26;// 2-px v-spacing 
 
-  SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
+    SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
+  }
   SDL_FreeSurface(textSurface);
   SDL_DestroyTexture(textTexture);
 }
@@ -65,25 +71,29 @@ void RenderImage(SDL_Renderer *renderer) {
   SDL_Texture* imageTexture;
   SDL_Rect imageRectangle;
 
-  imageRectangle.w = 174;
-  imageRectangle.h = 174;
-  imageRectangle.x = 300;
-  imageRectangle.y = 300;
-
-  imageSurface = SDL_LoadBMP("/root/simpmd-develop/menu/logo/flappy.bmp");
-  imageTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
+  for (int i = 0; i < 5; i++) {
+    imageSurface = SDL_LoadBMP(gameFile[i]);
+    imageTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
+ 
+    imageRectangle.w = 174;
+    imageRectangle.h = 174;
+    imageRectangle.x = 100 + i * 184;// 10-px h-spacing
+    imageRectangle.y = 200;
   
-  SDL_RenderCopy(renderer, imageTexture, NULL, &imageRectangle);
+    SDL_RenderCopy(renderer, imageTexture, NULL, &imageRectangle);
+  }
+
   SDL_FreeSurface(imageSurface);
   SDL_DestroyTexture(imageTexture);
 }
 
 void RenderMenu(SDL_Renderer *renderer, int gameIndex) {
 	SDL_Rect frameRectangle;
+
 	frameRectangle.w = 200;
 	frameRectangle.h = 260;
-	frameRectangle.x = 500;
-	frameRectangle.y = 500;
+	frameRectangle.x = 87;
+	frameRectangle.y = 187;
 	// Prepare static content
 	RenderText(renderer);
 	RenderImage(renderer);
@@ -135,7 +145,7 @@ int main(int argc, char* args[]) {
 	
     SDL_PollEvent(&sEvent);
     switch(sEvent.type) {
-      //case SDL_KEYUP:
+      case SDL_KEYUP:
       case SDL_KEYDOWN:
         if (inMenu) {
           if (sEvent.key.keysym.sym == SDLK_LEFT) { (gameIndex == 0) ? gameIndex = 3 : gameIndex--; }
