@@ -30,7 +30,7 @@ const char *gametext[4] {"FLAPPY", "BOULDER", "MANIC", "FRED"};
 bool emulatorQuit = false;
 bool inMenu = true;
 int gameIndex = 0;
-unsigned int nextTime;
+//unsigned int nextTime;
 
 // Main window
 SDL_Window* mainWindow;
@@ -38,6 +38,8 @@ SDL_Window* mainWindow;
 SDL_Renderer* menuRenderer;
 // Event handler
 SDL_Event sEvent;
+// Menu timer
+SDL_TimerID menuTimer;
 
 //----------------------------------------------- FUNC ---
 //
@@ -115,6 +117,19 @@ void menuQuit() {
 	SDL_DestroyRenderer(menuRenderer);
 }
 
+//Menu timer callback function
+Uint32 menuTimerCallback (Uint32 menuInterval, void *pArgs)
+{
+  SDL_Event menuEvent;
+  menuEvent.type = SDL_USEREVENT;
+  menuEvent.user.code = 1;
+  menuEvent.user.data1 = NULL;
+  menuEvent.user.data2 = NULL;
+  SDL_PushEvent (&menuEvent);
+
+  return menuInterval;
+}
+
 //
 //------------------------------------------------------ MAIN ---
 //
@@ -137,11 +152,12 @@ int main(int argc, char* args[]) {
   SDL_RenderClear(menuRenderer);	
   SDL_RenderPresent(menuRenderer);
  
-  RenderMenu(menuRenderer,0);
-	  
+  //RenderMenu(menuRenderer,0);
+  menuTimer = SDL_AddTimer(40, menuTimerCallback, NULL);// 40ms  menu refresh timer ..
+
   while(!emulatorQuit) {
 		
-    nextTime = SDL_GetTicks() + 100;
+    //nextTime = SDL_GetTicks() + 100;
 	
     SDL_PollEvent(&sEvent);
     switch(sEvent.type) {
@@ -157,8 +173,15 @@ int main(int argc, char* args[]) {
 	}
         if (sEvent.key.keysym.sym == SDLK_ESCAPE) { emulatorQuit = true; };
         break;
+      case SDL_USEREVENT:
+	if (sEvent.user.code == 1) {
+          RenderMenu(menuRenderer,0);
+        }
+        break;
     }
-    while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
+
+    SDL_RemoveTimer(menuTimer);
+    //while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
   }
 
   menuQuit();
