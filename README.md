@@ -118,7 +118,7 @@ plymouth-set-default-theme -l
 plymouth-set-default-theme -R pmd85
 
 /boot/cmdline.txt:
-logo.nologo quiet loglevel=3 plymouth.ignore-serial-console plymouth.enable=0 splash 
+logo.nologo quiet splash plymouth.ignore-serial-consoles
 </pre>
 
 SDL2
