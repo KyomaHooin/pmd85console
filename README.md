@@ -83,12 +83,7 @@ raspi-config > Advanced > Overclocking > Medium
 
 sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|rsync|triggerhappy|nfs-client.target|systemd-timesyncd]
 
-apt-get install vim mc git ntpdate plymouth-themes
-
-#cp -r theme/* /usr/share/plymouth/themes/
-#plymouth-set-default-theme pmd85
-#/boot/cmdline.txt:
-#logo.nologo quiet loglevel=3 plymouth.ignore-serial-console plymouth.enable=0 splash 
+apt-get install vim mc git ntpdate
 
 /etc/fstab:
 
@@ -103,11 +98,27 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 /root/firewall &
 #
 /root/simpmd/bin/run > /var/log/pmd.log && halt &
+</pre>
 
+LED
+
+<pre>
 # PWR LED GPIO 32 / ACT LED GPIO 36
 #echo 'pwr_led_gpio=12'>> /boot/config.txt
 #echo 'act_led_gpio=16' >> /boot/config.txt
+</pre>
 
+PLYMOUTH
+
+<pre>
+apt-get install plymouth plymouth-themes
+systemctl enable plymouth
+cp -r theme-pmd85/* /usr/share/plymouth/themes/
+plymouth-set-default-theme -l
+plymouth-set-default-theme -R pmd85
+
+/boot/cmdline.txt:
+logo.nologo quiet loglevel=3 plymouth.ignore-serial-console plymouth.enable=0 splash 
 </pre>
 
 SDL2
