@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=theme-pmd85
+Description=PMD85 Splash screen
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/theme-pmd85
+ScriptFile=/usr/share/plymouth/themes/theme-pmd85/theme-pmd85.script

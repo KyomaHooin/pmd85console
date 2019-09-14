@@ -116,13 +116,13 @@ apt-get install plymouth plymouth-themes
 
 systemctl enable plymouth
 
-cp -r theme-pmd85/* /usr/share/plymouth/themes/
+cp -r theme-pmd85 /usr/share/plymouth/themes/
 
-pplymouth-set-default-theme -l
-plymouth-set-default-theme -R pmd85
+plymouth-set-default-theme -l
+plymouth-set-default-theme -R theme-pmd85
 
 /usr/share/plymouth/plymouthd.defaults:
-Theme=pmd85
+Theme=theme-pmd85
 
 /boot/cmdline.txt:
 console=tty2 logo.nologo quiet splash plymouth.ignore-serial-consoles vt.global_cursor_default=0

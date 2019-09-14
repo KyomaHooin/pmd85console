@@ -1,8 +1,0 @@
-[Plymouth Theme]
-Name=pmd85
-Description=PMD85 Wallpaper
-ModuleName=script
-
-[script]
-ImageDir=/usr/share/plymouth/themes/pmd85
-ScriptFile=/usr/share/plymouth/themes/pmd85.script

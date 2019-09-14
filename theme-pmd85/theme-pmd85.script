@@ -1,0 +1,10 @@
+
+splash_image = Image("pmd85.png");
+
+screen_width = Window.GetWidth();
+screen_height = Window.GetHeight();
+
+splash_image_scaled = splash_image.Scale(screen_width,screen_height);
+
+splash_sprite = Sprite(splash_image_scaled);
+
