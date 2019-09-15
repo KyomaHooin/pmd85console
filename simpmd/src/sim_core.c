@@ -27,8 +27,8 @@ limitations under the License.
 // Command Line Options
 
 /// Model to simulate.
-static bool bArgModelOne = false;
-static bool bArgModelTwo = false;
+//static bool bArgModelOne = false;
+//static bool bArgModelTwo = false;
 
 
 //--------------------------------------------------------------------------
@@ -213,7 +213,7 @@ InitializePMD1 ();
   KBDInitialize ();
   //SNDInitialize ();
   TAPInitialize ();
-  TIMInitialize ();
+  //TIMInitialize ();
 
   CPUStartThread ();
 
@@ -247,7 +247,7 @@ InitializePMD1 ();
 
   // Module shutdown
 
-  TIMShutdown ();
+  //TIMShutdown ();
   TAPShutdown ();
   //SNDShutdown ();
   KBDShutdown ();
