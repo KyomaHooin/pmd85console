@@ -8,15 +8,20 @@ TODO
 
 <pre>
 -game menu:
-  -pretexture, 1-renderer,timeToken/Borik's solution
   -tape select
   -exit[esc]
--bootloader
--splash boot + splash shutdown
+  -pre-texture
+-boot:
+  -splash boot/shutdown
+  -loader
+  -log
+  -RF Kill delay fix
 -LED
--3D printable case -
--Polish + Sticker
--Paper Box
+-3D case
+  -polishing
+  -sticker
+-Paper Box:
+  -Tesla sticker
 </pre>
 
 BUG
