@@ -7,7 +7,10 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
--game menu + tape select + exit + [esc]
+-game menu:
+  -pretexture, 1-renderer,timeToken/Borik's solution
+  -tape select
+  -exit[esc]
 -bootloader
 -splash boot + splash shutdown
 -LED
@@ -103,10 +106,13 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 LED
 
 <pre>
-# PWR LED GPIO 32
-# ACT LED GPIO 36
-echo 'pwr_led_gpio=12'>> /boot/config.txt
-echo 'act_led_gpio=16' >> /boot/config.txt
+               [  ]
+                || --- GND
+ GPIO --- R --- | 
+
+# ACT/PWR LED GPIO 32/36(BCM)
+echo 'dtparam=act_led_gpio=32' >> /boot/config.txt
+echo 'dtparam=pwr_led_gpio=36' >> /boot/config.txt
 </pre>
 
 PLYMOUTH
