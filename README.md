@@ -34,17 +34,20 @@ BUG
 HARDWARE
 
 <pre>
-1x <a href="http://rpishop.cz/248-raspberry-pi-1a">Raspberry</a>(1A+)
-1x <a href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a>(5V 1.2A)
-1x <a href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS/50-75mA)
-1x <a href="https://www.czc.cz/gembird-cablexpert-kabel-hdmi-hdmi-0-5m-1-4-m-m-stineny-zlacene-kontakty-cerna/248060/produkt">HDMI cable</a>(0.5m)
-1x <a href="https://www.aliexpress.com/item/New-High-Quality-USB-To-TTL-Serial-Module-FTDI-FT232RL-USB-3-3V-5V-To-TTL/32971767031.html">USB FTDI TTL/UART</a>(3.3V 6-pin)
+1x <a target="_blank" href="http://rpishop.cz/248-raspberry-pi-1a">Raspberry</a>(1A+)
+1x <a target="_blank" href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a>(5V 1.2A)
+1x <a target="_blank" href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS/50-75mA)
+1x <a target="_blank" href="https://www.czc.cz/gembird-cablexpert-kabel-hdmi-hdmi-0-5m-1-4-m-m-stineny-zlacene-kontakty-cerna/248060/produkt">HDMI cable</a>(0.5m)
+1x <a target="_blank" href="https://www.aliexpress.com/item/New-High-Quality-USB-To-TTL-Serial-Module-FTDI-FT232RL-USB-3-3V-5V-To-TTL/32971767031.html">USB FTDI TTL/UART</a>(3.3V 6-pin)
 1x MicroSD(2GB)
 1x Keyboard(Chicony KU-0108s/100mA)
-1x <a href="https://www.ges.cz/cz/l-934gd-GES10700054.html">Green LED</a>(10mA 2.2V)
-1x <a href="https://www.ges.cz/cz/l-934id-GES10701762.html">Red LED</a>(10mA 2V)
-1x <a href="https://www.ges.cz/cz/rm0207-120r-1-GES05300318.html">Rezistor 120R</a>
-1x <a href="https://www.ges.cz/cz/rm0207-150r-1-GES05300319.html">Rezistor 150R</a>
+1x <a target="_blank" href="https://www.ges.cz/cz/l-934gd-GES10700054.html">Green LED</a>(10mA 2.2V)
+1x <a target="_blank" href="https://www.ges.cz/cz/l-934id-GES10701762.html">Red LED</a>(10mA 2V)
+1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-120r-1-GES05300318.html">Rezistor 120R</a>
+1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-150r-1-GES05300319.html">Rezistor 150R</a>
+2x <a target="_blank" href="https://www.ges.cz/cz/bls-02-GES06614037.html">BLS 02</a>
+4x <a target="_blank" href="https://www.ges.cz/cz/bls-contacts-GES06614047.html">BLS contact</a>
+1x <a target="_blank" href="https://www.ges.cz/cz/tas-c130-0-GES13004464.html">Copper wire</a>(0.22mm 1m)
 </pre>
 
 RPI
