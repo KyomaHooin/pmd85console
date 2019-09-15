@@ -87,6 +87,13 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 /root/firewall &
 # PMD-85
 /root/simpmd/bin/run > /var/log/pmd.log && halt &
+
+/etc/dhcpcd.conf:
+
+interface wlan0
+static ip_address=192.168.0.x85/24
+static routers=192.168.0.1
+static domain_name_servers=xx.xx.xx.xx xx.xx.xx.xx
 </pre>
 
 UART
