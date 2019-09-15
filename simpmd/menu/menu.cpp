@@ -18,11 +18,11 @@ const char *menuText[6] = {
 };
 
 const char *gameFile[4] {
-		"/root/simpmd-develop/menu/logo/flappy.bmp",
-		"/root/simpmd-develop/menu/logo/boulder.bmp",
-		"/root/simpmd-develop/menu/logo/manic.bmp",
-		"/root/simpmd-develop/menu/logo/fred.bmp"
-	};
+  "/root/simpmd-develop/menu/logo/flappy.bmp",
+  "/root/simpmd-develop/menu/logo/boulder.bmp",
+  "/root/simpmd-develop/menu/logo/manic.bmp",
+  "/root/simpmd-develop/menu/logo/fred.bmp"
+};
 
 const char *gametext[4] {"FLAPPY", "BOULDER", "MANIC", "FRED"};
 
@@ -42,7 +42,8 @@ SDL_Event sEvent;
 SDL_TimerID menuTimer;
 
 //----------------------------------------------- FUNC ---
-//
+
+// Render menu text
 void RenderText(SDL_Renderer *renderer) {
   TTF_Font *textFont;
   SDL_Surface* textSurface;
@@ -68,6 +69,7 @@ void RenderText(SDL_Renderer *renderer) {
   SDL_DestroyTexture(textTexture);
 }
 
+// Render menu images
 void RenderImage(SDL_Renderer *renderer) {
   SDL_Surface* imageSurface;
   SDL_Texture* imageTexture;
@@ -79,8 +81,8 @@ void RenderImage(SDL_Renderer *renderer) {
  
     imageRectangle.w = 174;
     imageRectangle.h = 174;
-    imageRectangle.x = 100 + i * 184;// 10-px h-spacing
-    imageRectangle.y = 200;
+    imageRectangle.x = 100 + i * (174 + 26);// 26-px h-spacing
+    imageRectangle.y = 300;
   
     SDL_RenderCopy(renderer, imageTexture, NULL, &imageRectangle);
   }
@@ -89,13 +91,14 @@ void RenderImage(SDL_Renderer *renderer) {
   SDL_DestroyTexture(imageTexture);
 }
 
+// Render complete menu and game select frame
 void RenderMenu(SDL_Renderer *renderer, int gameIndex) {
 	SDL_Rect frameRectangle;
 
 	frameRectangle.w = 200;
 	frameRectangle.h = 260;
-	frameRectangle.x = 87;
-	frameRectangle.y = 187;
+	frameRectangle.x = 100 - 13 + gameIndex * 200;// 0-px h-spacing
+	frameRectangle.y = 300 - 13;
 	// Prepare static content
 	RenderText(renderer);
 	RenderImage(renderer);
@@ -106,13 +109,14 @@ void RenderMenu(SDL_Renderer *renderer, int gameIndex) {
 	SDL_RenderPresent(renderer);
 }
 
+// Run game
+//void EmulatorRun(int game_next) {
+//	//Emulator init
+//	//Emulator loop
+//	//Emulator exit
+//}
 
-void EmulatorRun(int game_next) {
-	//Emulator init
-	//Emulator loop
-	//Emulator exit
-}
-
+// exit menu
 void menuQuit() {
 	SDL_DestroyRenderer(menuRenderer);
 }
@@ -175,17 +179,20 @@ int main(int argc, char* args[]) {
         break;
       case SDL_USEREVENT:
 	if (sEvent.user.code == 1) {
-          RenderMenu(menuRenderer,0);
+          RenderMenu(menuRenderer, gameIndex);
         }
         break;
     }
 
-    SDL_RemoveTimer(menuTimer);
     //while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
   }
 
+  //menu cleanup
+  SDL_RemoveTimer(menuTimer);
   menuQuit();
 
+  //Quit
+  SDL_DestroyRenderer(menuRenderer);
   SDL_DestroyWindow(mainWindow);
   SDL_Quit();
 
