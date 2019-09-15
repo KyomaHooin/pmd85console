@@ -48,6 +48,7 @@ HARDWARE
 2x <a target="_blank" href="https://www.ges.cz/cz/bls-02-GES06614037.html">BLS 02</a>
 4x <a target="_blank" href="https://www.ges.cz/cz/bls-contacts-GES06614047.html">BLS contact</a>
 1x <a target="_blank" href="https://www.ges.cz/cz/tas-c130-0-GES13004464.html">Copper wire</a>(0.22mm 1m)
+4x <a target="_blank" href="ttps://www.ges.cz/cz/esst-m2-2x6-GES06814889.html">Screw</a>(M2.2x6)
 </pre>
 
 RPI
