@@ -42,14 +42,6 @@ HARDWARE
 1x <a href="https://www.ges.cz/cz/rm0207-150r-1-GES05300319.html">Rezistor 150R</a>
 </pre>
 
-SOFTWARE
-
-<pre>
-Fake KMS driver + Dispmanx
-SDL 2.0.x + SDL2_ttf
-simpmd
-</pre>
-
 RPI
 
 <pre>
@@ -69,12 +61,6 @@ network={
 	key_mgmt=WPA-PSK
 }
 EOF
-
-3.3V UART => | x | x | GND | TX | RX | ..
-
-minicom -D /dev/ttyUSB0 -b 115200
-
-[ctrl] > [A] > [Z] > [O] > Serial port setup > [F]low control > Off  
 
 raspi-config > Advanced > GL Driver > Enable Fake KMS
 
@@ -99,16 +85,26 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 /usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
 # Firewall
 /root/firewall &
-#
+# PMD-85
 /root/simpmd/bin/run > /var/log/pmd.log && halt &
+</pre>
+
+UART
+
+<pre>
+3.3V UART => | x | x | GND | TX | RX | ..
+
+minicom -D /dev/ttyUSB0 -b 115200
+
+[ctrl] > [A] > [Z] > [O] > Serial port setup > [F]low control > Off  
 </pre>
 
 LED
 
 <pre>
-               [  ]
-                || --- GND
- GPIO --- R --- | 
+            [>>]
+             || -- GND
+GPIO -- R -- | 
 
 # ACT/PWR LED GPIO 32/36(BCM)
 echo 'dtparam=act_led_gpio=32' >> /boot/config.txt
