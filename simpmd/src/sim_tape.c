@@ -36,7 +36,7 @@ limitations under the License.
 
 /// Tape input names. What files to open as tape inputs.
 //static std::vector <std::string> oArgTapeInputs;
-static std::vector <std::string> oArgTapeInputs = {"/root/simpmd-develop/data/tapes/games-pmd1/BOULDER"};
+static std::vector <std::string> oArgTapeInputs = {"/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY"};
 
 //oArgTapeInputs.assign(1,GameBoulder);
 
