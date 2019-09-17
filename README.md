@@ -1,4 +1,4 @@
-![PMD](https://github.com/kyomahooin/pmd85console/raw/master/pmd85.png "pmd85")
+![SCHEMA](https://github.com/kyomahooin/pmd85console/raw/master/schema.png "schema")
 
 DESCRIPTION
 
@@ -7,17 +7,23 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
--game menu:
+-emulator:
+  -menu
   -tape select
   -exit[esc]
   -pre-texture
 -boot:
-  -splash boot/shutdown
+  -splash boot/shutdown image
   -loader
   -log
   -RF Kill delay fix
 -LED
--3D case
+-Heatsink(?)
+-3D case:
+  -[polyhedron + sphere]mink
+  -vent/slab hull
+  -AV cylinder
+  -KBD slab(1mm) + KBD(black,0.5mm)
   -polishing
   -sticker
 -Paper Box:
@@ -49,7 +55,7 @@ HARDWARE
 2x <a target="_blank" href="https://www.ges.cz/cz/bls-02-GES06614037.html">BLS 02</a>
 4x <a target="_blank" href="https://www.ges.cz/cz/bls-contacts-GES06614047.html">BLS contact</a>
 1x <a target="_blank" href="https://www.ges.cz/cz/tas-c130-0-GES13004464.html">Copper wire</a>(0.22mm 1m)
-4x <a target="_blank" href="https://www.ges.cz/cz/esst-m2-2x6-GES06814889.html">Screw</a>(M2.5x6)
+4x <a target="_blank" href="https://www.ges.cz/cz/esst-m2-5x8-GES06815068.html">Scew</a>(M2.5x8)
 </pre>
 
 RPI
@@ -176,11 +182,12 @@ make
 FILES
 
 <pre>
-   pmd85.png - Original 1985 computer.    
+       schema.png - Retro console schamatic.    
+atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
 
-   openscad/ - 3D printable retro case.
-     simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tuma (c) 2008.
-theme-pmd85/ - Splash Plymouth theme.
+        openscad/ - 3D printable retro case.
+          simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tuma (c) 2008.
+     theme-pmd85/ - Splash Plymouth theme.
 </pre>
 
 SOURCE
