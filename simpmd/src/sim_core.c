@@ -223,7 +223,7 @@ InitializePMD1 ();
 
   while (!SIMQueryShutdown ())
   {
-    SDL_PollEvent (&sEvent);
+    SDL_WaitEvent (&sEvent);
     switch (sEvent.type)
     {
       case SDL_KEYUP:

@@ -51,7 +51,7 @@ void RenderText(SDL_Renderer *renderer) {
   SDL_Rect textRectangle;
   SDL_Color textColor = {255,255,255};// white
 
-  textFont = TTF_OpenFont("atari.ttf", 24);
+  textFont = TTF_OpenFont("atari-classic.ttf", 24);
 
   for (int i = 0; i < 4; i++) {
     textSurface = TTF_RenderText_Solid(textFont, menuText[i], textColor);
@@ -163,15 +163,21 @@ int main(int argc, char* args[]) {
 
   while(!emulatorQuit) {
 		
-    nextTime = SDL_GetTicks() + 100;
+ //   nextTime = SDL_GetTicks() + 100;
 	
-    SDL_PollEvent(&sEvent);
+    SDL_WaitEvent(&sEvent);
     switch(sEvent.type) {
       case SDL_KEYUP:
       case SDL_KEYDOWN:
         if (inMenu) {
-          if (sEvent.key.keysym.sym == SDLK_LEFT) { (gameIndex == 0) ? gameIndex = 3 : gameIndex--; }
-          if (sEvent.key.keysym.sym == SDLK_RIGHT) { (gameIndex == 3) ? gameIndex = 0 : gameIndex++; }
+          if (sEvent.key.keysym.sym == SDLK_LEFT) {
+            (gameIndex == 0) ? gameIndex = 3 : gameIndex--;
+            RenderMenu(menuRenderer, gameIndex);// redraw frame
+	  }
+          if (sEvent.key.keysym.sym == SDLK_RIGHT) {
+            (gameIndex == 3) ? gameIndex = 0 : gameIndex++;
+            RenderMenu(menuRenderer, gameIndex);// redraw frame
+	  }
           if (sEvent.key.keysym.sym == SDLK_RETURN) {
             printf("Running emualor %i\n", gameIndex);
 	    inMenu = false;
@@ -194,8 +200,8 @@ int main(int argc, char* args[]) {
     }
 
     //Re-render menu
-    RenderMenu(menuRenderer,gameIndex);
-    while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
+  //  RenderMenu(menuRenderer,gameIndex);
+  //  while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
   }
 
   //SDL_RemoveTimer(menuTimer);
