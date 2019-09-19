@@ -2,7 +2,7 @@
 
 DESCRIPTION
 
-Raspberry Pi console 3D case.
+Raspberry Pi 1A+ PMD-85 retro console 3D case.
 
 FILES
 
