@@ -9,25 +9,31 @@ TODO
 <pre>
 -emulator:
   -menu
-  -tape select
-  -exit[esc]
-  -pre-texture
+  -tape select:
+   -do not assign outside main/fc
+
+   const std::string game[2] = {"foo","bar"};
+   foo.clear();
+   foo.push_back(game[0]);
+
 -boot:
+  /etc/initramfs/modules
+  echo 'export FRAMEBUFFER=/dev/fb0' > /etc/initramfs/conf.d/fb0
+  plymouth-set-default -r pmd85
+
   -splash boot/shutdown image
   -loader
   -log
   -RF Kill delay fix
 -LED
--Heatsink(?)
 -3D case:
-  -[polyhedron + sphere]mink
-  -vent/slab hull
+  -clip lock
   -AV cylinder
-  -KBD slab(1mm) + KBD(black,0.5mm)
   -polishing
   -sticker
 -Paper Box:
   -Tesla sticker
+-Heatsink
 </pre>
 
 BUG
@@ -55,7 +61,7 @@ HARDWARE
 2x <a target="_blank" href="https://www.ges.cz/cz/bls-02-GES06614037.html">BLS 02</a>
 4x <a target="_blank" href="https://www.ges.cz/cz/bls-contacts-GES06614047.html">BLS contact</a>
 1x <a target="_blank" href="https://www.ges.cz/cz/tas-c130-0-GES13004464.html">Copper wire</a>(0.22mm 1m)
-4x <a target="_blank" href="https://www.ges.cz/cz/esst-m2-5x8-GES06815068.html">Scew</a>(M2.5x8)
+4x <a target="_blank" href="https://www.ges.cz/cz/esst-m2-2x6-GES06814889.html">Screw</a>(M2.2x6mm)
 </pre>
 
 RPI
