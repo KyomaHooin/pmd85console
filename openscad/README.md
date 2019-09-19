@@ -1,4 +1,4 @@
-![CASE](https://github.com/kyomahooin/pmd85console/raw/master/openscad/openscad_screen.png "case")
+![CASE](https://github.com/kyomahooin/pmd85console/raw/master/openscad/pmd85_screen.png "case")
 
 DESCRIPTION
 
@@ -12,10 +12,13 @@ TODO
 FILES
 
 <pre>
+               keyboard.stl - Keyboard STL file.
+
                  pmd85.scad - Main 3D case.
-             rpi1Aplus.scad - Raspberry 1A+ model.
+                   rpi.scad - Raspberry 1A+ model.
                     fc.scad - Model functions.
-        openscad_screen.png - Model screenshot.
+
+           pmd85_screen.png - Model screenshot.
 Raspberry-Pi-1-Model-A+.pdf - Dimension schema.
 </pre>
 

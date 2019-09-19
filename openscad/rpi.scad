@@ -84,4 +84,8 @@ module rpi(edgeCut=0) {
     }
 }
 
-//rpi();
+module rpi_rotate() {
+     translate([0,piX,0]) rotate([0,00,270]) rpi(edgeCut=3);   
+}
+
+//rpi_rotate();
