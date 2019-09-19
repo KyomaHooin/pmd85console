@@ -4,11 +4,6 @@ DESCRIPTION
 
 Raspberry Pi console 3D case.
 
-TODO
-<pre>
--LED
-</pre>
-
 FILES
 
 <pre>
