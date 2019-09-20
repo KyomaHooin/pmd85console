@@ -29,6 +29,7 @@ TODO
 -3D case:
   -clip lock
   -AV cylinder
+  -Netfabb
   -polishing
   -sticker
 -Paper Box:
