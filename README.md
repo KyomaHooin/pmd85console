@@ -93,7 +93,7 @@ apt-get install libgl1-mesa-dri
 raspi-config > Advanced > GPU mem > 128
 raspi-config > Advanced > Overclocking > Medium
 
-sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|rsync|triggerhappy|nfs-client.target|systemd-timesyncd]
+sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|rsync|triggerhappy|nfs-client.target|systemd-timesyncd|apt-daily|apt-daily-upgrade]
 
 apt-get install vim mc ntpdate
 
