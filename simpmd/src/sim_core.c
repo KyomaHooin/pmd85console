@@ -42,6 +42,15 @@ relaxed_int iProcessorClock (0);
 /// Simulator shutdown flag.
 static relaxed_bool bShutdown (false);
 
+/// Predefined Games
+static std::string GameSelect[4] = {
+  "root/simpmd-develop/data/tapes/games-pmd1/FLAPPY",
+  "root/simpmd-develop/data/tapes/games-pmd1/BOULDER",
+  "root/simpmd-develop/data/tapes/games-pmd1/MANIC+",
+  "root/simpmd-develop/data/tapes/games-pmd2/FRED"
+};
+// foo.clear();
+// foo.push_back(GameSelect[0]);
 
 //--------------------------------------------------------------------------
 // Simulator Control

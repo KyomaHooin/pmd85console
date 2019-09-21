@@ -8,20 +8,15 @@ TODO
 
 <pre>
 -emulator:
-  -tape select:
-   -do not assign outside main/fc
-    const std::string game[2] = {"foo","bar"};
-    foo.clear();
-    foo.push_back(game[0]);
-
+  -main loop + model + tape select
 -boot:
   -splash boot/shutdown image
   -loader
   -log
   -RF Kill delay fix
 -LED
--3D case:
-  -clip lock
+-3D case:       __
+  -clip lock  _/  \
   -AV cylinder
   -Netfabb
   -polishing

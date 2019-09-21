@@ -10,7 +10,7 @@ Simple poor-man PMD-85 game selection menu
 
 #include <SDL2/SDL_ttf.h>
 
-//-----
+//-------------------------------------------------------------------------------------------------------
 
 #define FONT_HEIGHT      24
 #define FONT_WIDTH       16
@@ -19,7 +19,7 @@ Simple poor-man PMD-85 game selection menu
 #define FRAME_SPACE       5
 #define MENU_WIDTH      815 //4x200 + 3x 5px spacing
 
-//----------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
 //
 // HARDCODED DATA
 //
@@ -44,7 +44,7 @@ static const char *gameText[4] = {"FLAPPY", "BOULDER", "MANIC", "FRED"};
 
 static const char *gameFont[1] = {"/root/simpmd-develop/data/font/atari-classic.ttf"};
 
-//------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
 //
 // Copy TTF text data to renderer
 //
@@ -107,7 +107,7 @@ void MENRenderText(SDL_Renderer *renderer, int screen_width, int screen_height) 
   SDL_FreeSurface(textSurface);
   SDL_DestroyTexture(textTexture);
 }
-//------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
 //
 // Copy BMP image data to renderer
 //
@@ -130,7 +130,7 @@ void MENRenderImage(SDL_Renderer *renderer, int screen_width, int screen_height)
   SDL_FreeSurface(imageSurface);
   SDL_DestroyTexture(imageTexture);
 }
-//------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
 //
 // Copy menu selection frame, text, images data and update renderer 
 //
@@ -161,3 +161,4 @@ void MENRenderMenu(SDL_Renderer *renderer, int screen_width, int screen_height, 
   SDL_RenderPresent(renderer);
 }
 
+//-------------------------------------------------------------------------------------------------------
