@@ -24,7 +24,7 @@ Simple poor-man PMD-85 game selection menu
 // HARDCODED DATA
 //
 
-const char *menuText[6] = {
+static const char *menuText[6] = {
   "PMD-85 Retro console",
   "1] Vyber hru pomoci sipek <-, -> a stiskni [enter].",
   "2] Pro spusteni hry napis 'MGLD 03' a stiskni [enter].",
@@ -33,22 +33,23 @@ const char *menuText[6] = {
   "[ Richard Bruna (c) 2019 ]"
 };
 
-const char *gameFile[4] = {
+static const char *gameFile[4] = {
   "/root/simpmd-develop/data/logo/flappy.bmp",
   "/root/simpmd-develop/data/logo/boulder.bmp",
   "/root/simpmd-develop/data/logo/manic.bmp",
   "/root/simpmd-develop/data/logo/fred.bmp"
 };
 
-const char *gameText[4] = {"FLAPPY", "BOULDER", "MANIC", "FRED"};
+static const char *gameText[4] = {"FLAPPY", "BOULDER", "MANIC", "FRED"};
+
+static const char *gameFont[1] = {"/root/simpmd-develop/data/font/atari-classic.ttf"};
 
 //------------------------------------------------------------------------
 //
 // Copy TTF text data to renderer
 //
 
-// Render menu text
-void RenderText(SDL_Renderer *renderer, int screen_width, int screen_height) {
+void MENRenderText(SDL_Renderer *renderer, int screen_width, int screen_height) {
   TTF_Font *textFont;
   SDL_Surface* textSurface;
   SDL_Texture* textTexture;
@@ -56,7 +57,7 @@ void RenderText(SDL_Renderer *renderer, int screen_width, int screen_height) {
   SDL_Rect gameTextRectangle;
   SDL_Color textColor = {255,255,255};// white
 
-  textFont = TTF_OpenFont("/root/simpmd-develop/data/font/atari-classic.ttf", FONT_HEIGHT);
+  textFont = TTF_OpenFont(gameFont[0], FONT_HEIGHT);
 
   //Copy right
   textSurface = TTF_RenderText_Solid(textFont, menuText[5], textColor);
@@ -110,7 +111,7 @@ void RenderText(SDL_Renderer *renderer, int screen_width, int screen_height) {
 //
 // Copy BMP image data to renderer
 //
-void RenderImage(SDL_Renderer *renderer, int screen_width, int screen_height) {
+void MENRenderImage(SDL_Renderer *renderer, int screen_width, int screen_height) {
   SDL_Surface* imageSurface;
   SDL_Texture* imageTexture;
   SDL_Rect imageRectangle;
@@ -133,9 +134,9 @@ void RenderImage(SDL_Renderer *renderer, int screen_width, int screen_height) {
 //
 // Copy menu selection frame, text, images data and update renderer 
 //
-void RenderMenu(SDL_Renderer *renderer, int gameIndex, int screen_width, int screen_height) {
+void MENRenderMenu(SDL_Renderer *renderer, int screen_width, int screen_height, int index = 0) {
   SDL_Rect frameRectangle;
-  SDL_Rect frameRectangleIn;
+  SDL_Rect frameRectangleInner;
 
  for (int i = 0; i < 4; i++) {
     frameRectangle.w = 200;
@@ -143,21 +144,19 @@ void RenderMenu(SDL_Renderer *renderer, int gameIndex, int screen_width, int scr
     frameRectangle.x = (screen_width - MENU_WIDTH)/2 + i *(FRAME_WIDTH + FRAME_SPACE);
     frameRectangle.y = 300;
 
-    frameRectangleIn.w = 198;
-    frameRectangleIn.h = 258;
-    frameRectangleIn.x = (screen_width - MENU_WIDTH)/2 + 1 + i *(FRAME_WIDTH + FRAME_SPACE);
-    frameRectangleIn.y = 300 + 1;
+    frameRectangleInner.w = 198;
+    frameRectangleInner.h = 258;
+    frameRectangleInner.x = (screen_width - MENU_WIDTH)/2 + 1 + i *(FRAME_WIDTH + FRAME_SPACE);
+    frameRectangleInner.y = 300 + 1;
 
-    if (i == gameIndex) {
-      SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    } else {
-      SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-    }
+    if (i == index) { SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    } else { SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE); }
+
     SDL_RenderDrawRect(renderer, &frameRectangle);
-    SDL_RenderDrawRect(renderer, &frameRectangleIn);
+    SDL_RenderDrawRect(renderer, &frameRectangleInner);
   }
-  RenderText(renderer,screen_width,screen_height);
-  RenderImage(renderer,screen_width,screen_height);
+  MENRenderText(renderer,screen_width,screen_height);
+  MENRenderImage(renderer,screen_width,screen_height);
  
   SDL_RenderPresent(renderer);
 }
