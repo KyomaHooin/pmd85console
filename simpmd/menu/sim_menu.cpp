@@ -23,7 +23,7 @@ const char *menuText[6] = {
   "2] Pro spusteni hry napis 'MGLD 03' a stiskni [enter].",
   "3] Pro ukonceni hry stiskni [esc].",
   "4] Pro konec stiskni [esc].",
-  "Richard Bruna (c) 2019"
+  "[ Richard Bruna (c) 2019 ]"
 };
 
 const char *gameFile[4] = {
@@ -71,19 +71,29 @@ void RenderText(SDL_Renderer *renderer, int screen_width, int screen_height) {
 
   textRectangle.h = FONT_HEIGHT;
   textRectangle.w = FONT_WIDTH * strlen(menuText[5]);
-  textRectangle.x = (screen_width - MENU_WIDTH)/2 + MENU_WIDTH - strlen(menuText[5]);
-  textRectangle.y = 600;
+  textRectangle.x = (screen_width - MENU_WIDTH)/2 + (MENU_WIDTH - textRectangle.w)/2;
+  textRectangle.y = 650;
+ 
+  SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
+  //About
+  textSurface = TTF_RenderText_Solid(textFont, menuText[0], textColor);
+  textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+  textRectangle.h = FONT_HEIGHT;
+  textRectangle.w = FONT_WIDTH * strlen(menuText[0]);
+  textRectangle.x = (screen_width - MENU_WIDTH)/2 + (MENU_WIDTH - textRectangle.w)/2;
+  textRectangle.y = 100;
  
   SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
   //Help text
-  for (int i = 0; i < 5; i++) {
+  for (int i = 1; i < 5; i++) {
     textSurface = TTF_RenderText_Solid(textFont, menuText[i], textColor);
     textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
     textRectangle.h = FONT_HEIGHT;
     textRectangle.w = FONT_WIDTH * strlen(menuText[i]);
     textRectangle.x = (screen_width - MENU_WIDTH)/2;
-    textRectangle.y = 100 + i * (FONT_HEIGHT + 2);// 2-px v-spacing 
+    textRectangle.y = 100 + FONT_HEIGHT + 2 + i * (FONT_HEIGHT + 2);// 2-px v-spacing 
 
     SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
   }
@@ -95,7 +105,7 @@ void RenderText(SDL_Renderer *renderer, int screen_width, int screen_height) {
     textRectangle.h = FONT_HEIGHT;
     textRectangle.w = FONT_WIDTH * strlen(gameText[i]);
     textRectangle.x = (screen_width - MENU_WIDTH)/2 + (FRAME_WIDTH - textRectangle.w)/2 + i * (FRAME_WIDTH + FRAME_SPACE);
-    textRectangle.y = 300 + FRAME_WIDTH + 5;// 5px text spacing
+    textRectangle.y = 300 + FRAME_WIDTH + 15;// 15px text spacing
 
     SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
   }
@@ -132,15 +142,14 @@ void RenderMenu(SDL_Renderer *renderer, int gameIndex, int screen_width, int scr
 
  for (int i = 0; i < 4; i++) {
     frameRectangle.w = 200;
-    frameRectangle.h = 200;
+    frameRectangle.h = 260;
     frameRectangle.x = (screen_width - MENU_WIDTH)/2 + i *(FRAME_WIDTH + FRAME_SPACE);
     frameRectangle.y = 300;
 
-    frameRectangleIn.w = 199;
-    frameRectangleIn.h = 199;
-    frameRectangleIn.x = (screen_width - MENU_WIDTH)/2 + 1 + i *(FRAME_WIDTH + FRAME_SPACE + 1);
-    frameRectangleIn.y = 300 - 1;
-
+    frameRectangleIn.w = 198;
+    frameRectangleIn.h = 258;
+    frameRectangleIn.x = (screen_width - MENU_WIDTH)/2 + 1 + i *(FRAME_WIDTH + FRAME_SPACE);
+    frameRectangleIn.y = 300 + 1;
 
     if (i == gameIndex) {
       SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);// white frame
@@ -148,9 +157,10 @@ void RenderMenu(SDL_Renderer *renderer, int gameIndex, int screen_width, int scr
       SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);// black frame
     }
     SDL_RenderDrawRect(renderer, &frameRectangle);
+    SDL_RenderDrawRect(renderer, &frameRectangleIn);
   }
-  RenderText(menuRenderer,fullscreen.w,fullscreen.h);
-  RenderImage(menuRenderer,fullscreen.w,fullscreen.h);
+  RenderText(renderer,screen_width,screen_height);
+  RenderImage(renderer,screen_width,screen_height);
   // Present complete menu
   SDL_RenderPresent(renderer);
 }
@@ -195,12 +205,12 @@ int main(int argc, char* args[]) {
         if (inMenu) {
           if (sEvent.key.keysym.sym == SDLK_LEFT) {
             (gameIndex == 0) ? gameIndex = 3 : gameIndex--;
-            printf("Current index.. %i\n", gameIndex);
+            //printf("Current index.. %i\n", gameIndex);
             RenderMenu(menuRenderer, gameIndex,fullscreen.w,fullscreen.h);// redraw frame
 	  }
           if (sEvent.key.keysym.sym == SDLK_RIGHT) {
             (gameIndex == 3) ? gameIndex = 0 : gameIndex++;
-            printf("Current index.. %i\n", gameIndex);
+            //printf("Current index.. %i\n", gameIndex);
             RenderMenu(menuRenderer, gameIndex,fullscreen.w,fullscreen.h);// redraw frame
 	  }
           if (sEvent.key.keysym.sym == SDLK_RETURN) {

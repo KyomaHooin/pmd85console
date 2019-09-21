@@ -10,7 +10,7 @@ PMD_SHARE ?=
 CC = g++
 CC_OPTS = -std=c++11 -D PMD_SHARE=\"$(PMD_SHARE)\"
 LD = g++
-LD_OPTS = -lSDL2 -lpthread -lrt
+LD_OPTS = -lSDL2 -lSDL2_ttf -lpthread -lrt
 
 ifeq ($(PMD_BUILD), DEBUG)
 CC_OPTS += -O0 -g

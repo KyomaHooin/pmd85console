@@ -8,7 +8,6 @@ TODO
 
 <pre>
 -emulator:
-  -sim_menu.c
   -tape select:
    -do not assign outside main/fc
     const std::string game[2] = {"foo","bar"};
