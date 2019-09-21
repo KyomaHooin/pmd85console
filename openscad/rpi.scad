@@ -4,88 +4,83 @@
 
 $fn=50;
 
-piX=56;
-piY=65;
+piX=65;
+piY=56;
 piThick=1.27;
 piHoleDia=2.75;
-piShieldLength=65;
 piHoleOffset=3.5;
 
-usbWidth=13.16+1;
+usbWidth=13.16;
 usbLength=17.05;
-usbHeight=9.1-piThick+1;
-usbX=17.6;
+usbHeight=9.1-piThick;
 usbOverHang=1.84;
+usbY=17.6;
 
-avWidth=7.20+1;
+avWidth=7.20;
 avLength=15;
-avHeight=7.47-piThick+1;
+avHeight=7.47-piThick;
 avOverHang=2.44;
-avY=53.5-avWidth/2;
+avX=53.5-avWidth/2;
 
 hdmiWidth=11.47;
-hdmiLength=15.04+1;
-hdmiHeight=7.86-piThick+1;
+hdmiLength=15.04;
+hdmiHeight=7.86-piThick;
 hdmiOverHang=1.59;
-hdmiY=32-(hdmiLength/2);
+hdmiX=32-(hdmiLength/2);
 
 microWidth=5.59;
-microLength=8.04+1;
+microLength=8.04;
 microHeight=4.22-piThick;
 microOverHang=1.9;
-microY=10.6-(microLength/2);
+microX=10.6-(microLength/2);
 
 cardWidth=13.04;
 cardLength=17.18;
 cardHeight=1.0;
 cardOverHang=2.63;
-cardX=piX/2-cardWidth/2;
+cardY=piY/2-cardWidth/2;
 
 gpioWidth=2.54*2;
 gpioLength=20*2.54;
 gpioHeight=6.10+2.5;
-gpioX=1.05;// ?
-gpioY=piHoleOffset+29-gpioLength/2;
+gpioX=(piX-gpioLength)/2;
+gpioY=piY - gpioWidth -1.05;
 
 module pi_hole() {
     cylinder(h=piThick+2, d=piHoleDia);
 }
 
-module rpi(edgeCut=0) {
+module rpi(edge=0) {
     color("seagreen")
     difference() {
         cube([piX, piY, piThick]);
         translate([piHoleOffset, piHoleOffset, -1]) pi_hole();
         translate([piX-piHoleOffset, piHoleOffset, -1]) pi_hole();
-        translate([piHoleOffset, piShieldLength-piHoleOffset, -1]) pi_hole();
-        translate([piX-piHoleOffset, piShieldLength-piHoleOffset, -1]) pi_hole();
+        translate([piHoleOffset, piY-piHoleOffset, -1]) pi_hole();
+        translate([piX-piHoleOffset, piY-piHoleOffset, -1]) pi_hole();
     }
     color("Silver") {
         // USB
-        translate([usbX, piY-usbLength+usbOverHang+edgeCut, piThick])
-            cube([usbWidth, usbLength, usbHeight]);
+        translate([piX-usbWidth-usbOverHang+edge, piY-usbY-usbWidth, piThick])
+            cube([usbLength, usbWidth, usbHeight]);
         // HDMI
-        translate([piX-hdmiWidth+hdmiOverHang+edgeCut, hdmiY, piThick])
-            cube([hdmiWidth, hdmiLength, hdmiHeight]);
+        translate([hdmiX, -hdmiOverHang-edge, piThick])
+            cube([hdmiLength, hdmiWidth, hdmiHeight]);
         // AV
-        translate([piX-avLength+avOverHang+edgeCut, avY, piThick])
-            cube([avLength, avWidth, avHeight]);
+        translate([avX, -avOverHang-edge, piThick])
+            cube([avWidth, avLength, avHeight]);
         // microUSB
-        translate([piX-microWidth+microOverHang+edgeCut, microY, piThick])
-            cube([microWidth, microLength, microHeight+1]);
+        translate([microX, -microOverHang-edge, piThick])
+            cube([microLength, microWidth, microHeight+1]);
         // microSD
-        translate([cardX, -cardOverHang-edgeCut, -cardHeight])
-            cube([cardWidth, cardLength,cardHeight]);
+        translate([-cardOverHang-edge, cardY, -cardHeight])
+            cube([cardLength, cardWidth,cardHeight]);
     }
     // GPIO Headers
     color("black") {
         translate([gpioX, gpioY, piThick])
-            cube([gpioWidth, gpioLength, gpioHeight]);
+            cube([gpioLength, gpioWidth, gpioHeight]);
     }
 }
 
-module rpi_rotate() {
-     translate([0,piX,0]) rotate([0,00,270]) rpi(edgeCut=3);   
-}
-
-//rpi_rotate();
+//rpi();

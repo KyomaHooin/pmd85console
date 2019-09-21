@@ -3,13 +3,13 @@
 //
 
 include <fc.scad>;
-include <rpi1Aplus.scad>;
+include <rpi.scad>;
 
-drawCaseBottom=0;
+drawCaseBottom=1;
 drawCaseTop=0;
 drawPi=0;
 drawKeyboard=0;
-drawAll=1;
+drawAll=0;
 
 //--------------------------------------
 
@@ -18,7 +18,7 @@ $fn=50;
 bottomThick=2;
 bottomX=65;
 bottomY=56;
-bottomMountHeight=2.26;
+bottomMountHeight=2;
 bottomMountDia=5.5;
 bottomHeight=10;
 
@@ -38,7 +38,7 @@ module case_bottom() {
     difference() {
         translate([0,0,0]) rounded_rect(bottomX, bottomY, bottomHeight, bottomThick);// BASE
         translate([0,0,bottomThick]) cube([bottomX, bottomY, bottomHeight]); // FILLER
-        translate([0,0,bottomThick+bottomMountHeight]) rpi_rotate();// RPI
+        translate([0,0,bottomThick+bottomMountHeight]) rpi(edge=2);// RPI
         //bottom_hole();// BOTTOM HOLE
         for (vspace=[1:4])// VENT
             translate([piX/4-2, 10*vspace+2.5, -1]) rounded_rect(bottomX/2+4, 1, bottomThick+2, 1);
@@ -180,7 +180,7 @@ module case_top() {
     difference() {
     top_base();
     //KBD SLAB
-    translate([(topX-50)/2+0.5,40+30+0.25,angle_coord(40+30+0.25,angle,1)])// calculate coord
+    translate([(topX-50)/2+0.5,40+25+0.25,angle_coord(40+25+0.25,angle,1)])// calculate coord
         rotate([-angle,0,0])// angle
             translate([0,-30,0]) kbd_slab();// move to negative
     //VENT SLAB SLIDE
@@ -217,6 +217,7 @@ module case_top() {
     translate([topX,10,3]) clip_hole();
     translate([topX,topY-10-4,3]) clip_hole();
     //RPI
+    translate([0,0,-6])rpi(edge=2);
     }
     //KBD
     //color("black")
@@ -257,7 +258,7 @@ if (drawCaseBottom) {
 }
 
 if (drawPi) {
-    translate([0,0,bottomThick+bottomMountHeight]) rpi_rotate();
+    rpi();
 }
 
 if (drawKeyboard) {
@@ -266,6 +267,7 @@ if (drawKeyboard) {
 
 if (drawAll) {
     translate([0,0,0]) case_bottom();
-    translate([0,0,bottomThick+bottomMountHeight]) rpi_rotate();
+    translate([0,0,bottomThick+bottomMountHeight]) rpi();
     %translate([0,0,bottomHeight]) case_top();
 }
+//
