@@ -8,19 +8,14 @@ TODO
 
 <pre>
 -emulator:
-  -menu
+  -sim_menu.c
   -tape select:
    -do not assign outside main/fc
-
-   const std::string game[2] = {"foo","bar"};
-   foo.clear();
-   foo.push_back(game[0]);
+    const std::string game[2] = {"foo","bar"};
+    foo.clear();
+    foo.push_back(game[0]);
 
 -boot:
-  /etc/initramfs/modules
-  echo 'export FRAMEBUFFER=/dev/fb0' > /etc/initramfs/conf.d/fb0
-  plymouth-set-default -r pmd85
-
   -splash boot/shutdown image
   -loader
   -log
@@ -151,6 +146,9 @@ systemctl enable plymouth
 cp -r theme-pmd85 /usr/share/plymouth/themes/
 
 plymouth-set-default-theme -l
+
+echo 'export FRAMEBUFFER=/dev/fb0' > /etc/initramfs-tools/conf.d/fb0
+
 plymouth-set-default-theme -R theme-pmd85
 
 /usr/share/plymouth/plymouthd.defaults:

@@ -32,7 +32,7 @@ clean:
 
 # Modules
 
-MM = sim_core sim_display sim_keyboard sim_processor sim_speaker sim_tape sim_timing
+MM = sim_core sim_menu sim_display sim_keyboard sim_processor sim_speaker sim_tape sim_timing
 OO = $(addsuffix .o, $(MM))
 DD = $(addsuffix .dep, $(MM))
 

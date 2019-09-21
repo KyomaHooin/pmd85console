@@ -8,23 +8,32 @@
 
 //--- DEF ---
 
+#define FONT_HEIGHT      24
+#define FONT_WIDTH       16
+#define IMAGE_WIDTH     174
+#define FRAME_WIDTH     200
+#define FRAME_SPACE       5
+#define MENU_WIDTH      815 //4x200 + 3x 5px spacing
+
+//--- VAR ---
+
 const char *menuText[6] = {
   "PMD-85 Retro console",
   "1] Vyber hru pomoci sipek <-, -> a stiskni [enter].",
   "2] Pro spusteni hry napis 'MGLD 03' a stiskni [enter].",
   "3] Pro ukonceni hry stiskni [esc].",
   "4] Pro konec stiskni [esc].",
-  "Okabe Rintarou (c) 2019"
+  "Richard Bruna (c) 2019"
 };
 
-const char *gameFile[4] {
+const char *gameFile[4] = {
   "/root/simpmd-develop/menu/logo/flappy.bmp",
   "/root/simpmd-develop/menu/logo/boulder.bmp",
   "/root/simpmd-develop/menu/logo/manic.bmp",
   "/root/simpmd-develop/menu/logo/fred.bmp"
 };
 
-const char *gameText[4] {"FLAPPY", "BOULDER", "MANIC", "FRED"};
+const char *gameText[4] = {"FLAPPY", "BOULDER", "MANIC", "FRED"};
 
 // Menu
 bool emulatorQuit = false;
@@ -40,11 +49,13 @@ SDL_Renderer* menuRenderer;
 SDL_Event sEvent;
 // Menu timer
 SDL_TimerID menuTimer;
+// Display mode
+SDL_DisplayMode fullscreen;
 
 //----------------------------------------------- FUNC ---
 
 // Render menu text
-void RenderText(SDL_Renderer *renderer) {
+void RenderText(SDL_Renderer *renderer, int screen_width, int screen_height) {
   TTF_Font *textFont;
   SDL_Surface* textSurface;
   SDL_Texture* textTexture;
@@ -52,49 +63,49 @@ void RenderText(SDL_Renderer *renderer) {
   SDL_Rect gameTextRectangle;
   SDL_Color textColor = {255,255,255};// white
 
-  textFont = TTF_OpenFont("atari-classic.ttf", 24);
+  textFont = TTF_OpenFont("atari-classic.ttf", FONT_HEIGHT);
 
   //Copy right
   textSurface = TTF_RenderText_Solid(textFont, menuText[5], textColor);
   textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
-  textRectangle.h = 24;
-  textRectangle.w = 16 * strlen(menuText[5]);
-  textRectangle.x = 100;
+  textRectangle.h = FONT_HEIGHT;
+  textRectangle.w = FONT_WIDTH * strlen(menuText[5]);
+  textRectangle.x = (screen_width - MENU_WIDTH)/2 + MENU_WIDTH - strlen(menuText[5]);
   textRectangle.y = 600;
  
   SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
-
-  //Game text
-  for (int i = 0; i < 4; i++) {
-    textSurface = TTF_RenderText_Solid(textFont, gameText[i], textColor);
-    textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-
-    textRectangle.h = 24;
-    textRectangle.w = 16 * strlen(gameText[i]);
-    textRectangle.x = 100 + i * (174 + 26) + (174 - 16 * strlen(gameText[i])) / 2;
-    textRectangle.y = 300 + 174 + (260 - 174 - 13) / 2;
-
-    SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
-  }
   //Help text
   for (int i = 0; i < 5; i++) {
     textSurface = TTF_RenderText_Solid(textFont, menuText[i], textColor);
     textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
-    textRectangle.h = 24;
-    textRectangle.w = 16 * strlen(menuText[i]);
-    textRectangle.x = 100;
-    textRectangle.y = 100 + i * 26;// 2-px v-spacing 
+    textRectangle.h = FONT_HEIGHT;
+    textRectangle.w = FONT_WIDTH * strlen(menuText[i]);
+    textRectangle.x = (screen_width - MENU_WIDTH)/2;
+    textRectangle.y = 100 + i * (FONT_HEIGHT + 2);// 2-px v-spacing 
 
     SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
   }
+  //Game text
+  for (int i = 0; i < 4; i++) {
+    textSurface = TTF_RenderText_Solid(textFont, gameText[i], textColor);
+    textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+    textRectangle.h = FONT_HEIGHT;
+    textRectangle.w = FONT_WIDTH * strlen(gameText[i]);
+    textRectangle.x = (screen_width - MENU_WIDTH)/2 + (FRAME_WIDTH - textRectangle.w)/2 + i * (FRAME_WIDTH + FRAME_SPACE);
+    textRectangle.y = 300 + FRAME_WIDTH + 5;// 5px text spacing
+
+    SDL_RenderCopy(renderer, textTexture, NULL, &textRectangle);
+  }
+
   SDL_FreeSurface(textSurface);
   SDL_DestroyTexture(textTexture);
 }
 
 // Render menu images
-void RenderImage(SDL_Renderer *renderer) {
+void RenderImage(SDL_Renderer *renderer, int screen_width, int screen_height) {
   SDL_Surface* imageSurface;
   SDL_Texture* imageTexture;
   SDL_Rect imageRectangle;
@@ -103,10 +114,10 @@ void RenderImage(SDL_Renderer *renderer) {
     imageSurface = SDL_LoadBMP(gameFile[i]);
     imageTexture = SDL_CreateTextureFromSurface(renderer, imageSurface);
  
-    imageRectangle.w = 174;
-    imageRectangle.h = 174;
-    imageRectangle.x = 100 + i * (174 + 26);// 26-px h-spacing
-    imageRectangle.y = 300;
+    imageRectangle.w = IMAGE_WIDTH;
+    imageRectangle.h = imageRectangle.w;
+    imageRectangle.x = (screen_width - MENU_WIDTH)/2 + 13 + i * (IMAGE_WIDTH + 26 + FRAME_SPACE);// 13-px spacing
+    imageRectangle.y = 313;
   
     SDL_RenderCopy(renderer, imageTexture, NULL, &imageRectangle);
   }
@@ -115,45 +126,34 @@ void RenderImage(SDL_Renderer *renderer) {
 }
 
 // Render complete menu and game select frame
-void RenderMenu(SDL_Renderer *renderer, int gameIndex) {
+void RenderMenu(SDL_Renderer *renderer, int gameIndex, int screen_width, int screen_height) {
   SDL_Rect frameRectangle;
+  SDL_Rect frameRectangleIn;
 
  for (int i = 0; i < 4; i++) {
     frameRectangle.w = 200;
     frameRectangle.h = 200;
-    frameRectangle.x = 100 - 13 + i * 200;// 0-px h-spacing
-    frameRectangle.y = 300 - 13;
+    frameRectangle.x = (screen_width - MENU_WIDTH)/2 + i *(FRAME_WIDTH + FRAME_SPACE);
+    frameRectangle.y = 300;
+
+    frameRectangleIn.w = 199;
+    frameRectangleIn.h = 199;
+    frameRectangleIn.x = (screen_width - MENU_WIDTH)/2 + 1 + i *(FRAME_WIDTH + FRAME_SPACE + 1);
+    frameRectangleIn.y = 300 - 1;
+
+
     if (i == gameIndex) {
-      SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);// white frame
+      SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);// white frame
     } else {
-      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);// black frame
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);// black frame
     }
     SDL_RenderDrawRect(renderer, &frameRectangle);
   }
-  RenderText(menuRenderer);
-  RenderImage(menuRenderer);
+  RenderText(menuRenderer,fullscreen.w,fullscreen.h);
+  RenderImage(menuRenderer,fullscreen.w,fullscreen.h);
   // Present complete menu
   SDL_RenderPresent(renderer);
 }
-
-// Run game
-//void EmulatorRun(int game_next) {
-//	//Emulator init
-//	//Emulator loop
-//	//Emulator exit
-//}
-
-//Menu timer callback function
-//Uint32 menuTimerCallback (Uint32 menuInterval, void *pArgs) {
-//  SDL_Event menuEvent;
-//  menuEvent.type = SDL_USEREVENT;
-//  menuEvent.user.code = 1;
-//  menuEvent.user.data1 = NULL;
-//  menuEvent.user.data2 = NULL;
-//  SDL_PushEvent (&menuEvent);
-//
-//  return menuInterval;
-//}
 
 //
 //------------------------------------------------------ MAIN ---
@@ -166,7 +166,11 @@ int main(int argc, char* args[]) {
 
   if(TTF_Init() != 0 ) printf("Font init failed.\n");
   printf("TTF: done..\n");
-	
+
+  if(SDL_GetCurrentDisplayMode(0,&fullscreen) != 0) printf("Display mode failed.\n");
+  printf("Screen width: %i\n",fullscreen.w);
+  printf("Screen height: %i\n",fullscreen.h);
+
   mainWindow = SDL_CreateWindow("PMD-85", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 200, 200, 0);
   if(mainWindow == NULL) printf("Window init error.\n");
   printf("Window: done..\n");
@@ -177,20 +181,13 @@ int main(int argc, char* args[]) {
   //Disable cursor
   SDL_ShowCursor(SDL_DISABLE);
   //CLRSCR
-  SDL_SetRenderDrawColor(menuRenderer,0,0,0,SDL_ALPHA_OPAQUE);
+  SDL_SetRenderDrawColor(menuRenderer,0,0,0,SDL_ALPHA_OPAQUE);// black
   SDL_RenderClear(menuRenderer);	
   SDL_RenderPresent(menuRenderer);
-  // Prepare static content
-  RenderText(menuRenderer);
-  RenderImage(menuRenderer);
-  //Render game frame..
-  RenderMenu(menuRenderer,0);
-  //menuTimer = SDL_AddTimer(40, menuTimerCallback, NULL);// 40ms  menu refresh timer ..
+  // Menu
+  RenderMenu(menuRenderer,0,fullscreen.w,fullscreen.h);
 
   while(!emulatorQuit) {
-		
- //   nextTime = SDL_GetTicks() + 100;
-	
     SDL_WaitEvent(&sEvent);
     switch(sEvent.type) {
       //case SDL_KEYUP:
@@ -199,12 +196,12 @@ int main(int argc, char* args[]) {
           if (sEvent.key.keysym.sym == SDLK_LEFT) {
             (gameIndex == 0) ? gameIndex = 3 : gameIndex--;
             printf("Current index.. %i\n", gameIndex);
-            RenderMenu(menuRenderer, gameIndex);// redraw frame
+            RenderMenu(menuRenderer, gameIndex,fullscreen.w,fullscreen.h);// redraw frame
 	  }
           if (sEvent.key.keysym.sym == SDLK_RIGHT) {
             (gameIndex == 3) ? gameIndex = 0 : gameIndex++;
             printf("Current index.. %i\n", gameIndex);
-            RenderMenu(menuRenderer, gameIndex);// redraw frame
+            RenderMenu(menuRenderer, gameIndex,fullscreen.w,fullscreen.h);// redraw frame
 	  }
           if (sEvent.key.keysym.sym == SDLK_RETURN) {
             printf("Running emualor %i\n", gameIndex);
@@ -220,19 +217,8 @@ int main(int argc, char* args[]) {
 	  }
         }
         break;
-//      case SDL_USEREVENT:
-//        if (sEvent.user.code == 1) {// menu rendering..
-//          RenderMenu(menuRenderer, gameIndex);
-//        }
-//      break;
     }
-
-    //Re-render menu
-  //  RenderMenu(menuRenderer,gameIndex);
-  //  while (SDL_GetTicks() < nextTime) SDL_Delay(1);//prevent CPU exhaustion
   }
-
-  //SDL_RemoveTimer(menuTimer);
 
   //QUIT
   SDL_DestroyRenderer(menuRenderer);
