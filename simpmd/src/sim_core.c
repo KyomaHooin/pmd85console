@@ -52,6 +52,13 @@ static std::string GameSelect[4] = {
 // foo.clear();
 // foo.push_back(GameSelect[0]);
 
+//Screen resolution
+SDL_DisplayMode fullscreen;
+// Menu
+bool inMenu = true;
+// Game Index
+int gameIndex = 0;
+
 //--------------------------------------------------------------------------
 // Simulator Control
 
@@ -142,6 +149,26 @@ static void InitializePMD2 ()
   SetMemoryReadWrite (0x0000, 65536);
 }
 
+/// Initialize emulation
+static void InitializeEmulation (){
+  CPUInitialize ();
+  KBDInitialize ();
+  //SNDInitialize ();
+  TAPInitialize ();
+
+  CPUStartThread ();
+}
+
+/// Shutdown emulation
+static void ShutdownEmulation (){
+  CPUTerminateThread ();
+
+  TAPShutdown ();
+  //SNDShutdown ();
+  KBDShutdown ();
+  CPUShutdown ();
+}
+
 
 //--------------------------------------------------------------------------
 // Main
@@ -150,21 +177,26 @@ int main (int iArgC, const char *apArgV [])
 {
 
   // Model initialization
-  InitializePMD1 ();
-  //InitializePMD2 ();
+  // InitializePMD1 ();
+  // InitializePMD2 ();
 
-  // Module initialization
-
-  printf("Initializing..\n");
+  // SDL initialize
+  printf("SDL Initializing..\n");
   SDL_CheckZero (SDL_Init (SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_VIDEO));
 
-  CPUInitialize ();
-  DSPInitialize ();
-  KBDInitialize ();
-  //SNDInitialize ();
-  TAPInitialize ();
+  // Get fullscreen resolution
+  if(SDL_GetCurrentDisplayMode(0,&fullscreen) != 0) {
+	  printf("Display mode failed.");
+  }
 
-  CPUStartThread ();
+  // Display initialize
+  printf("Display Initializing..\n");
+  DSPInitialize ();
+
+  //Menu initialize
+  printf("Menu Initializing..\n");
+  DSPClear();
+  DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
 
   // Event loop
   SDL_Event sEvent;
@@ -176,26 +208,47 @@ int main (int iArgC, const char *apArgV [])
     {
       case SDL_KEYUP:
       case SDL_KEYDOWN:
-	if (sEvent.key.keysym.sym == SDLK_ESCAPE) { 
-          SIMRequestShutdown ();
-	} else {
-          KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
-	}
+       if (inMenu) {
+          if (sEvent.type == SDL_KEYDOWN) {
+            if (sEvent.key.keysym.sym == SDLK_ESCAPE) { 
+              SIMRequestShutdown ();
+	    }
+            if (sEvent.key.keysym.sym == SDLK_LEFT) {
+              (gameIndex == 0) ? gameIndex = 3 : gameIndex--;
+              DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
+            }
+            if (sEvent.key.keysym.sym == SDLK_RIGHT) { 
+              (gameIndex == 3) ? gameIndex = 0 : gameIndex++;
+              DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
+            }
+            if (sEvent.key.keysym.sym == SDLK_RETURN) {
+              (gameIndex == 3) ? InitializePMD2() : InitializePMD1();// FRED => PMD2
+              DSPClear();
+              InitializeEmulation();
+              inMenu = false;	
+            }
+          } 
+        } else {
+          if (sEvent.key.keysym.sym == SDLK_ESCAPE) {
+            ShutdownEmulation();
+            inMenu = true;
+            DSPClear();
+            DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
+        } else {
+            KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
+          }
+        }
         break;
       case SDL_USEREVENT:
-        DSPPaintHandler ();
+        if (!inMenu) {
+          DSPPaintHandler ();
+        }
         break;
     }
   }
 
-  CPUTerminateThread ();
-
-  // Module shutdown
-  TAPShutdown ();
-  //SNDShutdown ();
-  KBDShutdown ();
+  //Display shutdown
   DSPShutdown ();
-  CPUShutdown ();
 
   SDL_Quit ();
 

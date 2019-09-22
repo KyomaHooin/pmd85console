@@ -140,6 +140,11 @@ void DSPResizeHandler ();
 void DSPInitialize ();
 void DSPShutdown ();
 
+void DSPClear ();
+void DSPRenderText (int screen_width, int screen_height);
+void DSPRenderImage (int screen_width, int screen_height);
+void DSPRenderMenu (int screen_width, int screen_height, int index);
+
 byte KBDReadRow ();
 byte KBDReadColumn ();
 void KBDWriteColumn (byte iData);

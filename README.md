@@ -8,10 +8,12 @@ TODO
 
 <pre>
 -emulator:
-  -main loop + model + tape select
+  -Tape select
+  -display buffer clean
+  -TTF Font(?)
 -boot:
-  -plymouth
-  -logging
+  -plymouth.debug
+  -loader
   -tune(RF Killfix)
 -LED
 -3D case:       __

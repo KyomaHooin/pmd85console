@@ -35,6 +35,8 @@ const char *gameFile[4] = {
 
 const char *gameText[4] = {"FLAPPY", "BOULDER", "MANIC", "FRED"};
 
+const char *gameFont[1] = {"/root/simpmd-develop/data/font/atari-classic.ttf"};
+
 // Menu
 bool emulatorQuit = false;
 bool inMenu = true;
@@ -63,7 +65,7 @@ void RenderText(SDL_Renderer *renderer, int screen_width, int screen_height) {
   SDL_Rect gameTextRectangle;
   SDL_Color textColor = {255,255,255};// white
 
-  textFont = TTF_OpenFont("atari-classic.ttf", FONT_HEIGHT);
+  textFont = TTF_OpenFont(gameFont[0], FONT_HEIGHT);
 
   //Copy right
   textSurface = TTF_RenderText_Solid(textFont, menuText[5], textColor);
