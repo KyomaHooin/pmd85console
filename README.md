@@ -10,10 +10,9 @@ TODO
 -emulator:
   -main loop + model + tape select
 -boot:
-  -splash boot/shutdown image
-  -loader
-  -log
-  -RF Kill delay fix
+  -plymouth
+  -logging
+  -tune(RF Killfix)
 -LED
 -3D case:       __
   -clip lock  _/  \

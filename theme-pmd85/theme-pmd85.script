@@ -1,5 +1,5 @@
 
-splash_image = Image("pmd85.png");
+splash_image = Image("pmd85_splash.png");
 
 screen_width = Window.GetWidth();
 screen_height = Window.GetHeight();
