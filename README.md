@@ -8,12 +8,11 @@ TODO
 
 <pre>
 -emulator:
-  -Tape select
+  -tape select
   -display buffer clean
 -boot:
-  -plymouth.debug
   -loader
-  -tune(RF Killfix)
+  -boot tune
 -LED
 -3D case:       __
   -clip lock  _/  \
@@ -133,29 +132,17 @@ echo 'dtparam=pwr_led_gpio=36' >> /boot/config.txt
 PLYMOUTH
 
 <pre>
-apt-get install plymouth plymouth-themes
-
-systemctl enable plymouth
+apt-get install plymouth plymouth-themes -> 0.9.4-1.1(Buster)
 
 cp -r theme-pmd85 /usr/share/plymouth/themes/
 
-plymouth-set-default-theme -l
-
-echo 'FRAMEBUFFER=y' > /etc/initramfs-tools/conf.d/splash
-echo 'export FRAMEBUFFER=/dev/fb0' > /etc/initramfs-tools/conf.d/fb0
-
 plymouth-set-default-theme -R theme-pmd85
 
-/etc/modules:
-
-#i2c-dev
-fb
-
 /usr/share/plymouth/plymouthd.defaults:
-Theme=theme-pmd85
+DeviceTimout=10
 
 /boot/cmdline.txt:
-console=tty2 logo.nologo quiet splash plymouth.ignore-serial-consoles vt.global_cursor_default=0
+console=tty2 logo.nologo quiet splash (plymouth.debug) plymouth.ignore-serial-consoles vt.global_cursor_default=0
 </pre>
 
 SDL2
