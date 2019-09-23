@@ -142,7 +142,7 @@ plymouth-set-default-theme -R theme-pmd85
 DeviceTimout=10
 
 /boot/cmdline.txt:
-console=tty2 logo.nologo quiet splash (plymouth.debug) plymouth.ignore-serial-consoles vt.global_cursor_default=0
+logo.nologo quiet splash (plymouth.debug) plymouth.ignore-serial-consoles vt.global_cursor_default=0
 </pre>
 
 SDL2
