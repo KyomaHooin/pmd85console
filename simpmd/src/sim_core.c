@@ -150,23 +150,25 @@ static void InitializePMD2 ()
 }
 
 /// Initialize emulation
-static void InitializeEmulation (){
+static void EmulationInitialize (){
+  DSPInitialize();
   CPUInitialize ();
   KBDInitialize ();
   //SNDInitialize ();
   TAPInitialize ();
-
+ 
   CPUStartThread ();
 }
 
 /// Shutdown emulation
-static void ShutdownEmulation (){
+static void EmulationShutdown (){
   CPUTerminateThread ();
 
   TAPShutdown ();
   //SNDShutdown ();
   KBDShutdown ();
   CPUShutdown ();
+  DSPShutdown();
 }
 
 
@@ -216,15 +218,13 @@ int main (int iArgC, const char *apArgV [])
             if (sEvent.key.keysym.sym == SDLK_RETURN) {
               (gameIndex == 3) ? InitializePMD2() : InitializePMD1();// FRED => PMD2
               DSPMenuShutdown();
-	      DSPInitialize();
-              InitializeEmulation();
+              EmulationInitialize();
               inMenu = false;	
             }
-          } 
+          }
         } else {
           if (sEvent.key.keysym.sym == SDLK_ESCAPE) {
-            ShutdownEmulation();
-	    DSPShutdown();
+            EmulationShutdown();
             inMenu = true;
             DSPMenuInitialize();
             DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
