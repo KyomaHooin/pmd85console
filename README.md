@@ -10,7 +10,6 @@ TODO
 -emulator:
   -Tape select
   -display buffer clean
-  -TTF Font(?)
 -boot:
   -plymouth.debug
   -loader
@@ -142,9 +141,15 @@ cp -r theme-pmd85 /usr/share/plymouth/themes/
 
 plymouth-set-default-theme -l
 
+echo 'FRAMEBUFFER=y' > /etc/initramfs-tools/conf.d/splash
 echo 'export FRAMEBUFFER=/dev/fb0' > /etc/initramfs-tools/conf.d/fb0
 
 plymouth-set-default-theme -R theme-pmd85
+
+/etc/modules:
+
+#i2c-dev
+fb
 
 /usr/share/plymouth/plymouthd.defaults:
 Theme=theme-pmd85

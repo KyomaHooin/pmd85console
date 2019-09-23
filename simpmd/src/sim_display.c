@@ -77,7 +77,10 @@ static SDL_Window *pWindow;
 static SDL_Renderer *pRenderer;
 /// Singleton screen texture;
 static SDL_Texture *pTexture;
-
+/// Singleton menu window.
+static SDL_Window *mWindow;
+/// Singleton menu renderer;
+static SDL_Renderer *mRenderer;
 /// Paint timer.
 static SDL_TimerID iPaintTimer;
 
@@ -263,6 +266,26 @@ void DSPInitialize ()
 }
 
 
+void DSPMenuInitialize ()
+{
+  // Initialize the video resources.
+  SDL_CheckNotNull (mWindow = SDL_CreateWindow ("SimPMD",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
+  SDL_CheckNotNull (mRenderer = SDL_CreateRenderer (mWindow,-1, SDL_RENDERER_ACCELERATED));
+  //SDL_CheckTrue (SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, 0));
+
+  // Disable cursor
+  SDL_ShowCursor(0);
+
+  //TTF
+  TTF_Init();
+
+  // Clear screen.
+  SDL_CheckZero (SDL_SetRenderDrawColor (mRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
+  SDL_CheckZero (SDL_RenderClear (mRenderer));
+  SDL_RenderPresent (mRenderer);
+}
+
 void DSPShutdown ()
 {
   // Stop the timer that paints the screen repeatedly ...
@@ -274,10 +297,10 @@ void DSPShutdown ()
 }
 
 
-void DSPClear() {
-  SDL_CheckZero (SDL_SetRenderDrawColor (pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
-  SDL_CheckZero (SDL_RenderClear (pRenderer));
-  SDL_RenderPresent (pRenderer);
+void DSPMenuShutdown ()
+{
+  SDL_DestroyRenderer (mRenderer);
+  SDL_DestroyWindow (mWindow);
 }
 
 
@@ -293,47 +316,47 @@ void DSPRenderText(int screen_width, int screen_height) {
 
   //Copy right
   textSurface = TTF_RenderText_Solid(textFont, menuText[5], textColor);
-  textTexture = SDL_CreateTextureFromSurface(pRenderer, textSurface);
+  textTexture = SDL_CreateTextureFromSurface(mRenderer, textSurface);
 
   textRectangle.h = FONT_HEIGHT;
   textRectangle.w = FONT_WIDTH * strlen(menuText[5]);
   textRectangle.x = (screen_width - MENU_WIDTH)/2 + (MENU_WIDTH - textRectangle.w)/2;
   textRectangle.y = 650;
  
-  SDL_RenderCopy(pRenderer, textTexture, NULL, &textRectangle);
+  SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
   //About
   textSurface = TTF_RenderText_Solid(textFont, menuText[0], textColor);
-  textTexture = SDL_CreateTextureFromSurface(pRenderer, textSurface);
+  textTexture = SDL_CreateTextureFromSurface(mRenderer, textSurface);
 
   textRectangle.h = FONT_HEIGHT;
   textRectangle.w = FONT_WIDTH * strlen(menuText[0]);
   textRectangle.x = (screen_width - MENU_WIDTH)/2 + (MENU_WIDTH - textRectangle.w)/2;
   textRectangle.y = 100;
  
-  SDL_RenderCopy(pRenderer, textTexture, NULL, &textRectangle);
+  SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
   //Help text
   for (int i = 1; i < 5; i++) {
     textSurface = TTF_RenderText_Solid(textFont, menuText[i], textColor);
-    textTexture = SDL_CreateTextureFromSurface(pRenderer, textSurface);
+    textTexture = SDL_CreateTextureFromSurface(mRenderer, textSurface);
 
     textRectangle.h = FONT_HEIGHT;
     textRectangle.w = FONT_WIDTH * strlen(menuText[i]);
     textRectangle.x = (screen_width - MENU_WIDTH)/2;
     textRectangle.y = 100 + FONT_HEIGHT + 2 + i * (FONT_HEIGHT + 2);// 2-px v-spacing 
 
-    SDL_RenderCopy(pRenderer, textTexture, NULL, &textRectangle);
+    SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
   }
   //Game text
   for (int i = 0; i < 4; i++) {
     textSurface = TTF_RenderText_Solid(textFont, gameText[i], textColor);
-    textTexture = SDL_CreateTextureFromSurface(pRenderer, textSurface);
+    textTexture = SDL_CreateTextureFromSurface(mRenderer, textSurface);
 
     textRectangle.h = FONT_HEIGHT;
     textRectangle.w = FONT_WIDTH * strlen(gameText[i]);
     textRectangle.x = (screen_width - MENU_WIDTH)/2 + (FRAME_WIDTH - textRectangle.w)/2 + i * (FRAME_WIDTH + FRAME_SPACE);
     textRectangle.y = 300 + FRAME_WIDTH + 15;// 15px text spacing
 
-    SDL_RenderCopy(pRenderer, textTexture, NULL, &textRectangle);
+    SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
   }
 
   SDL_FreeSurface(textSurface);
@@ -348,14 +371,14 @@ void DSPRenderImage(int screen_width, int screen_height) {
 
   for (int i = 0; i < 4; i++) {
     imageSurface = SDL_LoadBMP(gameFile[i]);
-    imageTexture = SDL_CreateTextureFromSurface(pRenderer, imageSurface);
+    imageTexture = SDL_CreateTextureFromSurface(mRenderer, imageSurface);
  
     imageRectangle.w = IMAGE_WIDTH;
     imageRectangle.h = imageRectangle.w;
     imageRectangle.x = (screen_width - MENU_WIDTH)/2 + 13 + i * (IMAGE_WIDTH + 26 + FRAME_SPACE);// 13-px spacing
     imageRectangle.y = 313;
   
-    SDL_RenderCopy(pRenderer, imageTexture, NULL, &imageRectangle);
+    SDL_RenderCopy(mRenderer, imageTexture, NULL, &imageRectangle);
   }
   SDL_FreeSurface(imageSurface);
   SDL_DestroyTexture(imageTexture);
@@ -366,7 +389,7 @@ void DSPRenderMenu(int screen_width, int screen_height, int index) {
   SDL_Rect frameRectangle;
   SDL_Rect frameRectangleInner;
 
- for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 4; i++) {
     frameRectangle.w = 200;
     frameRectangle.h = 260;
     frameRectangle.x = (screen_width - MENU_WIDTH)/2 + i *(FRAME_WIDTH + FRAME_SPACE);
@@ -377,16 +400,16 @@ void DSPRenderMenu(int screen_width, int screen_height, int index) {
     frameRectangleInner.x = (screen_width - MENU_WIDTH)/2 + 1 + i *(FRAME_WIDTH + FRAME_SPACE);
     frameRectangleInner.y = 300 + 1;
 
-    if (i == index) { SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    } else { SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE); }
+    if (i == index) { SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    } else { SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE); }
 
-    SDL_RenderDrawRect(pRenderer, &frameRectangle);
-    SDL_RenderDrawRect(pRenderer, &frameRectangleInner);
+    SDL_RenderDrawRect(mRenderer, &frameRectangle);
+    SDL_RenderDrawRect(mRenderer, &frameRectangleInner);
   }
   DSPRenderText(screen_width,screen_height);
   DSPRenderImage(screen_width,screen_height);
  
-  SDL_RenderPresent(pRenderer);
+  SDL_RenderPresent(mRenderer);
 }
 
 //-------------------------------------------------------------------------------------------------------

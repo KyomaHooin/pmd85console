@@ -176,26 +176,18 @@ static void ShutdownEmulation (){
 int main (int iArgC, const char *apArgV [])
 {
 
-  // Model initialization
-  // InitializePMD1 ();
-  // InitializePMD2 ();
-
-  // SDL initialize
+  // SDL Init
   printf("SDL Initializing..\n");
   SDL_CheckZero (SDL_Init (SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_VIDEO));
 
   // Get fullscreen resolution
-  if(SDL_GetCurrentDisplayMode(0,&fullscreen) != 0) {
-	  printf("Display mode failed.");
-  }
+  SDL_CheckZero (SDL_GetCurrentDisplayMode(0,&fullscreen));
 
   // Display initialize
-  printf("Display Initializing..\n");
-  DSPInitialize ();
+  //DSPInitialize ();
 
   //Menu initialize
-  printf("Menu Initializing..\n");
-  DSPClear();
+  DSPMenuInitialize();
   DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
 
   // Event loop
@@ -223,7 +215,8 @@ int main (int iArgC, const char *apArgV [])
             }
             if (sEvent.key.keysym.sym == SDLK_RETURN) {
               (gameIndex == 3) ? InitializePMD2() : InitializePMD1();// FRED => PMD2
-              DSPClear();
+              DSPMenuShutdown();
+	      DSPInitialize();
               InitializeEmulation();
               inMenu = false;	
             }
@@ -231,8 +224,9 @@ int main (int iArgC, const char *apArgV [])
         } else {
           if (sEvent.key.keysym.sym == SDLK_ESCAPE) {
             ShutdownEmulation();
+	    DSPShutdown();
             inMenu = true;
-            DSPClear();
+            DSPMenuInitialize();
             DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
         } else {
             KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
@@ -247,8 +241,8 @@ int main (int iArgC, const char *apArgV [])
     }
   }
 
-  //Display shutdown
-  DSPShutdown ();
+  //Menu shutdown
+  DSPMenuShutdown ();
 
   SDL_Quit ();
 

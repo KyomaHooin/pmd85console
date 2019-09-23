@@ -138,9 +138,10 @@ void DSPPaintHandler ();
 void DSPResizeHandler ();
 //opt::options_description &DSPOptions ();
 void DSPInitialize ();
+void DSPMenuInitialize ();
 void DSPShutdown ();
+void DSPMenuShutdown ();
 
-void DSPClear ();
 void DSPRenderText (int screen_width, int screen_height);
 void DSPRenderImage (int screen_width, int screen_height);
 void DSPRenderMenu (int screen_width, int screen_height, int index);
