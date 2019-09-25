@@ -25,6 +25,7 @@ limitations under the License.
 #include <atomic>
 #include <iomanip>
 #include <iostream>
+#include <vector>
 
 //#include <boost/program_options.hpp>
 //namespace opt = boost::program_options;
@@ -116,6 +117,10 @@ extern bool abMemoryMask [65536];
 
 extern relaxed_int iProcessorClock;
 
+/// Make Tape I/O global.
+//extern std::vector <std::string> oArgTapeInputs;
+//extern std::vector <std::string> oArgTapeOutputs;
+
 
 //--------------------------------------------------------------------------
 // Externals
@@ -165,6 +170,8 @@ byte TAPReadStatus ();
 //opt::options_description &TAPOptions ();
 void TAPInitialize ();
 void TAPShutdown ();
+bool TAPNextInputFile (std::vector <std::string> oArgTapeInputs);
+bool TAPNextOutputFile (std::vector <std::string> oArgTapeOutputs);
 
 void TIMSynchronize ();
 void TIMAdvance ();
@@ -198,3 +205,4 @@ void TIMShutdown ();
 #define SDL_CheckNotNull(X) if ((X) == NULL) { DEBUG_LOG (SDL_GetError ()); assert (false); }
 
 //--------------------------------------------------------------------------
+

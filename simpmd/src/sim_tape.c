@@ -29,10 +29,11 @@ limitations under the License.
 // Command Line Options
 
 /// Tape input names. What files to open as tape inputs.
-//static std::vector <std::string> oArgTapeInputs;
-static std::vector <std::string> oArgTapeInputs = {"/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY"};
+static std::vector <std::string> oArgTapeInputs;
+//std::vector <std::string> oArgTapeInputs;
 /// Tape output names. What files to open as tape outputs.
 static std::vector <std::string> oArgTapeOutputs;
+//std::vector <std::string> oArgTapeOutputs;
 
 /// Time tape input. Whether to simulate timing of the tape input.
 static bool bArgTimeTapeInput = false;
@@ -89,8 +90,10 @@ template <class tStream> bool TAPNextFile (tStream &oStream, std::vector <std::s
   return (true);
 }
 
-bool TAPNextInputFile  () { return (TAPNextFile <std::ifstream> (oTapeInput, oArgTapeInputs)); }
-bool TAPNextOutputFile () { return (TAPNextFile <std::ofstream> (oTapeOutput, oArgTapeOutputs)); }
+//bool TAPNextInputFile  () { return (TAPNextFile <std::ifstream> (oTapeInput, oArgTapeInputs)); }
+bool TAPNextInputFile  (std::vector <std::string> oArgTapeInputs) { return (TAPNextFile <std::ifstream> (oTapeInput, oArgTapeInputs)); }
+//bool TAPNextOutputFile () { return (TAPNextFile <std::ofstream> (oTapeOutput, oArgTapeOutputs)); }
+bool TAPNextOutputFile (std::vector <std::string> oArgTapeOututs) { return (TAPNextFile <std::ofstream> (oTapeOutput, oArgTapeOutputs)); }
 
 
 /** Check input file status.
@@ -106,7 +109,8 @@ bool TAPInputFileStatus ()
   while (true)
   {
     if (oTapeInput.peek () != EOF) return (true);
-    if (!TAPNextInputFile ()) return (false);
+    //if (!TAPNextInputFile ()) return (false);
+    if (!TAPNextInputFile (oArgTapeInputs)) return (false);
   }
 }
 
@@ -123,7 +127,8 @@ bool TAPOutputFileStatus ()
   while (true)
   {
     if (oTapeOutput.good ()) return (true);
-    if (!TAPNextOutputFile ()) return (false);
+    //if (!TAPNextOutputFile ()) return (false);
+    if (!TAPNextOutputFile (oArgTapeOutputs)) return (false);
   }
 }
 

@@ -38,11 +38,11 @@ limitations under the License.
 
 static const char *menuText[6] = {
   "PMD-85 Retro console",
-  "1] Vyber hru pomoci sipek <- -> a stiskni [enter].",
-  "2] Pro spusteni hry napis 'MGLD 03' a stiskni [enter].",
-  "3] Pro ukonceni hry stiskni [esc].",
-  "4] Pro konec stiskni [esc].",
-  "[ Richard Bruna (c) 2019 ]"
+  "1] Vyber hru pomoci sipek <- -> a stiskni [ Enter ].",
+  "2] Pro spusteni hry napis 'MGLD 03' a stiskni [ Enter ].",
+  "3] Pro ukonceni hry stiskni [ Esc ].",
+  "4] Pro konec stiskni [ Esc ].",
+  "Richard Bruna (c) 2019"
 };
 
 static const char *gameFile[4] = {
@@ -62,7 +62,8 @@ static const char *gameFont[1] = {"/root/simpmd-develop/data/font/atari-classic.
 
 /// Screen refresh. How many milliseconds per screen refresh.
 //static int iArgRefresh = 20;
-static int iArgRefresh = 40;
+//static int iArgRefresh = 40;
+static int iArgRefresh =  500;
 
 /// Initial screen zoom.
 //static int iArgZoom = 3;
@@ -242,19 +243,22 @@ void DSPInitialize ()
   SDL_CheckNotNull (pWindow = SDL_CreateWindow ("SimPMD",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
     PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
    //PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,SDL_WINDOW_FULLSCREEN));
+  printf("DSP window create..\n");
   SDL_CheckNotNull (pRenderer = SDL_CreateRenderer (
     pWindow,
     -1, SDL_RENDERER_ACCELERATED));
+  printf("DSP renderer create..\n");
   SDL_CheckNotNull (pTexture = SDL_CreateTexture (
     pRenderer,
     SDL_PIXELFORMAT_RGB332,
     SDL_TEXTUREACCESS_STREAMING,
     PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT));
+  printf("DSP texture create..\n");
   //SDL_CheckTrue (SDL_SetHint (
   //  SDL_HINT_RENDER_SCALE_QUALITY, 0));
 
   // Disable cursor
-  SDL_ShowCursor(0);
+  //SDL_ShowCursor(0);
 
   // Clear screen.
   SDL_CheckZero (SDL_SetRenderDrawColor (pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
@@ -263,19 +267,20 @@ void DSPInitialize ()
 
   // Start the timer that paints the screen repeatedly ...
   iPaintTimer = SDL_AddTimer (iArgRefresh, DSPPaintTimerCallback, NULL);
+  printf("DSP timer create..\n");
 }
 
 
 void DSPMenuInitialize ()
 {
   // Initialize the video resources.
-  SDL_CheckNotNull (mWindow = SDL_CreateWindow ("SimPMD",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+  SDL_CheckNotNull (mWindow = SDL_CreateWindow ("SimPMD Menu",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
     PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
   SDL_CheckNotNull (mRenderer = SDL_CreateRenderer (mWindow,-1, SDL_RENDERER_ACCELERATED));
   //SDL_CheckTrue (SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, 0));
 
   // Disable cursor
-  SDL_ShowCursor(0);
+  //SDL_ShowCursor(0);
 
   //TTF
   TTF_Init();
@@ -290,10 +295,14 @@ void DSPShutdown ()
 {
   // Stop the timer that paints the screen repeatedly ...
   SDL_RemoveTimer (iPaintTimer);
+  printf("DSP timer shutdown..\n");
 
   SDL_DestroyTexture (pTexture);
+  printf("DSP texture shutdown..\n");
   SDL_DestroyRenderer (pRenderer);
+  printf("DSP renderer shutdown..\n");
   SDL_DestroyWindow (pWindow);
+  printf("DSP window shutdown..\n");
 }
 
 
@@ -321,7 +330,7 @@ void DSPRenderText(int screen_width, int screen_height) {
   textRectangle.h = FONT_HEIGHT;
   textRectangle.w = FONT_WIDTH * strlen(menuText[5]);
   textRectangle.x = (screen_width - MENU_WIDTH)/2 + (MENU_WIDTH - textRectangle.w)/2;
-  textRectangle.y = 650;
+  textRectangle.y = 665;
  
   SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
   //About
@@ -354,7 +363,7 @@ void DSPRenderText(int screen_width, int screen_height) {
     textRectangle.h = FONT_HEIGHT;
     textRectangle.w = FONT_WIDTH * strlen(gameText[i]);
     textRectangle.x = (screen_width - MENU_WIDTH)/2 + (FRAME_WIDTH - textRectangle.w)/2 + i * (FRAME_WIDTH + FRAME_SPACE);
-    textRectangle.y = 300 + FRAME_WIDTH + 15;// 15px text spacing
+    textRectangle.y = 310 + FRAME_WIDTH + 15;// 15px text spacing
 
     SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
   }
@@ -376,7 +385,7 @@ void DSPRenderImage(int screen_width, int screen_height) {
     imageRectangle.w = IMAGE_WIDTH;
     imageRectangle.h = imageRectangle.w;
     imageRectangle.x = (screen_width - MENU_WIDTH)/2 + 13 + i * (IMAGE_WIDTH + 26 + FRAME_SPACE);// 13-px spacing
-    imageRectangle.y = 313;
+    imageRectangle.y = 320 + 13;
   
     SDL_RenderCopy(mRenderer, imageTexture, NULL, &imageRectangle);
   }
@@ -393,12 +402,12 @@ void DSPRenderMenu(int screen_width, int screen_height, int index) {
     frameRectangle.w = 200;
     frameRectangle.h = 260;
     frameRectangle.x = (screen_width - MENU_WIDTH)/2 + i *(FRAME_WIDTH + FRAME_SPACE);
-    frameRectangle.y = 300;
+    frameRectangle.y = 320;
 
     frameRectangleInner.w = 198;
     frameRectangleInner.h = 258;
     frameRectangleInner.x = (screen_width - MENU_WIDTH)/2 + 1 + i *(FRAME_WIDTH + FRAME_SPACE);
-    frameRectangleInner.y = 300 + 1;
+    frameRectangleInner.y = 320 + 1;
 
     if (i == index) { SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
     } else { SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE); }

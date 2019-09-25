@@ -43,14 +43,15 @@ relaxed_int iProcessorClock (0);
 static relaxed_bool bShutdown (false);
 
 /// Predefined Games
-static std::string GameSelect[4] = {
-  "root/simpmd-develop/data/tapes/games-pmd1/FLAPPY",
-  "root/simpmd-develop/data/tapes/games-pmd1/BOULDER",
-  "root/simpmd-develop/data/tapes/games-pmd1/MANIC+",
-  "root/simpmd-develop/data/tapes/games-pmd2/FRED"
+static std::string gameSelect[4] = {
+  "/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY",
+  "/root/simpmd-develop/data/tapes/games-pmd1/BOULDER",
+  "/root/simpmd-develop/data/tapes/games-pmd1/MANIC+",
+  "/root/simpmd-develop/data/tapes/games-pmd2/FRED"
 };
-// foo.clear();
-// foo.push_back(GameSelect[0]);
+
+//std::vector <std::string> gameIn = {"/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY" };
+std::vector <std::string> gameIn;
 
 //Screen resolution
 SDL_DisplayMode fullscreen;
@@ -58,6 +59,7 @@ SDL_DisplayMode fullscreen;
 bool inMenu = true;
 // Game Index
 int gameIndex = 0;
+
 
 //--------------------------------------------------------------------------
 // Simulator Control
@@ -150,25 +152,43 @@ static void InitializePMD2 ()
 }
 
 /// Initialize emulation
-static void EmulationInitialize (){
+static void EmulationInitialize (int gameIndex){
+  //Set Tape
+  gameIn.clear();
+  gameIn.push_back(gameSelect[gameIndex]);
+  TAPNextInputFile(gameIn);
+  // Initialize model
+  if (gameIndex == 3) { InitializePMD2();// Fred
+  } else { InitializePMD1(); }
+  printf("Model Initializing..\n");
   DSPInitialize();
+  printf("DSP Initializing..\n");
   CPUInitialize ();
+  printf("CPU Initializing..\n");
   KBDInitialize ();
+  printf("KBD Initializing..\n");
   //SNDInitialize ();
-  TAPInitialize ();
+  //TAPInitialize ();
  
   CPUStartThread ();
+  printf("CPU Thread Initializing..\n");
 }
 
 /// Shutdown emulation
 static void EmulationShutdown (){
   CPUTerminateThread ();
+  printf("CPU Thread shutdown..\n");
 
   TAPShutdown ();
+  printf("TAP shutdown..\n");
   //SNDShutdown ();
   KBDShutdown ();
+  printf("KBD shutdown..\n");
   CPUShutdown ();
+  printf("CPU shutdown..\n");
   DSPShutdown();
+  printf("DSP shutdown..\n");
+
 }
 
 
@@ -181,6 +201,9 @@ int main (int iArgC, const char *apArgV [])
   // SDL Init
   printf("SDL Initializing..\n");
   SDL_CheckZero (SDL_Init (SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_VIDEO));
+
+  //Disable cursor
+  SDL_ShowCursor(0);
 
   // Get fullscreen resolution
   SDL_CheckZero (SDL_GetCurrentDisplayMode(0,&fullscreen));
@@ -216,18 +239,17 @@ int main (int iArgC, const char *apArgV [])
               DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
             }
             if (sEvent.key.keysym.sym == SDLK_RETURN) {
-              (gameIndex == 3) ? InitializePMD2() : InitializePMD1();// FRED => PMD2
               DSPMenuShutdown();
-              EmulationInitialize();
+              EmulationInitialize(gameIndex);
               inMenu = false;	
             }
           }
         } else {
           if (sEvent.key.keysym.sym == SDLK_ESCAPE) {
             EmulationShutdown();
-            inMenu = true;
             DSPMenuInitialize();
             DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
+            inMenu = true;
         } else {
             KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
           }
@@ -236,6 +258,7 @@ int main (int iArgC, const char *apArgV [])
       case SDL_USEREVENT:
         if (!inMenu) {
           DSPPaintHandler ();
+          printf("Slow Redraw !...\n");
         }
         break;
     }

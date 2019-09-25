@@ -1363,8 +1363,8 @@ void *CPUThread (void *pArgs)
 
   while (__builtin_expect (!bTerminate, true))
   {
-    while (__builtin_expect (!bSuspend, true))
-    {
+    //while (__builtin_expect (!bSuspend, true))
+    //{
 
 #ifdef DEBUG_CPU_TRACE_REGISTERS
 
@@ -1403,13 +1403,13 @@ void *CPUThread (void *pArgs)
 
       // Advance real time to match simulated time.
       TIMAdvance ();
-    }
+    //}
 
     // We were asked to suspend the simulation temporarily.
     // This is done to access complex shared data quickly.
 
-    CheckZero (sem_post (&sSignalSuspend));
-    CheckZero (sem_wait (&sSignalResume));
+    //CheckZero (sem_post (&sSignalSuspend));
+    //CheckZero (sem_wait (&sSignalResume));
   }
 
   return (NULL);
@@ -1427,6 +1427,7 @@ void CPUSuspend ()
   // Wait on the suspension semaphore.
   // Note that the semaphore also enforces memory ordering.
   CheckZero (sem_wait (&sSignalSuspend));
+  printf("CPU supend wait..\n");
 }
 
 
@@ -1438,6 +1439,7 @@ void CPUResume ()
   // Post on the resumption semaphore.
   // Note that the semaphore also enforces memory ordering.
   CheckZero (sem_post (&sSignalResume));
+  printf("CPU resume wait..\n");
 }
 
 
@@ -1447,6 +1449,7 @@ void CPUStartThread ()
   // SDL threads are not used since it is not
   // possible to send signals through SDL.
   CheckZero (pthread_create (&sThread, NULL, CPUThread, NULL));
+  printf("CPU processor thread start..\n");
 }
 
 
@@ -1457,11 +1460,12 @@ void CPUTerminateThread ()
 
   // The termination flag is only checked on transition from suspend to resume.
   // Synchronization inside suspend and resume should enforce sufficient ordering.
-  CPUSuspend ();
-  CPUResume ();
+  //CPUSuspend ();
+  //CPUResume ();
 
   // Just wait for the thread to terminate.
   CheckZero (pthread_join (sThread, NULL));
+  printf("CPU processor thread terminating..\n");
 }
 
 
@@ -1471,8 +1475,10 @@ void CPUTerminateThread ()
 void CPUInitialize ()
 {
   // Initialize the semaphores for suspend and resume handling.
-  CheckZero (sem_init (&sSignalSuspend, false, 0));
-  CheckZero (sem_init (&sSignalResume, false, 0));
+  //CheckZero (sem_init (&sSignalSuspend, false, 0));
+  //printf("Suspend semaphore init..\n");
+  //CheckZero (sem_init (&sSignalResume, false, 0));
+  //printf("Resume semaphore init..\n");
 
   // Calculate the contents of the parity lookup array
 
@@ -1492,14 +1498,17 @@ void CPUInitialize ()
   // Reset the processor
 
   CPUReset ();
+  printf("CPU Reseting..\n");
 }
 
 
 void CPUShutdown ()
 {
   // Destroy the semaphores for suspend and resume handling.
-  CheckZero (sem_destroy (&sSignalSuspend));
-  CheckZero (sem_destroy (&sSignalResume));
+  //CheckZero (sem_destroy (&sSignalSuspend));
+  //printf("Suspend semaphore shutdown..\n");
+  //CheckZero (sem_destroy (&sSignalResume));
+  //printf("Resume semaphore shutdown..\n");
 }
 
 
