@@ -8,8 +8,7 @@ TODO
 
 <pre>
 -emulator:
-  -tape select
-  -display buffer clean
+  -re-run hang ? - CPUsuspend(): Assertion `false' failed.
 -boot:
   -loader
   -boot tune
