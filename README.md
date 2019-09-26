@@ -8,11 +8,10 @@ TODO
 
 <pre>
 -emulator:
-  -re-run hang ? - CPUsuspend(): Assertion `false' failed.
+  -re-run hang ? - Nothing in tape?
 -boot:
   -loader
   -boot tune
--LED
 -3D case:       __
   -clip lock  _/  \
   -AV cylinder
@@ -118,14 +117,23 @@ minicom -D /dev/ttyUSB0 -b 115200
 
 LED
 
-<pre>
-            [>>]
-             || -- GND
-GPIO -- R -- | 
+<pre>           
+           [RED]                    [GREEN]
+            | |                       | |
+     150R --  |                120R --  |
+     [BGB]     -- GPIO12[32]   [BRB]     -- GPIO16[36]
+       |                         |
+      GND[30]                   GND[34]
 
-# ACT/PWR LED GPIO 32/36(BCM)
-echo 'dtparam=act_led_gpio=32' >> /boot/config.txt
-echo 'dtparam=pwr_led_gpio=36' >> /boot/config.txt
+
+# PWR LED(disable onboard, enable GPIO12[32])
+dtparam=pwr_led_trigger=none
+dtparam=pwr_led_activelow=off
+dtoverlay=gpio-poweroff,gpiopin=12,active_low
+
+# ACT LED GPIO16[36]
+dtparam=act_led_gpio=16
+
 </pre>
 
 PLYMOUTH
