@@ -8,19 +8,17 @@ TODO
 
 <pre>
 -emulator:
-  -re-run hang ? - Nothing in tape?
+  -re-run(tape/mem?)
 -boot:
   -loader
   -boot tune
--3D case:       __
-  -clip lock  _/  \
+-3D case:
+  -clip lock
   -AV cylinder
+  -resize
   -Netfabb
-  -polishing
-  -sticker
--Paper Box:
-  -Tesla sticker
--Heatsink
+-[Heatsink]
+-[Sticker]
 </pre>
 
 BUG

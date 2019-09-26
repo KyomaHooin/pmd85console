@@ -82,6 +82,7 @@ module top_base() {
    }
 }
 
+
 module key_poly(x1,y1,x2,y2,h) {
         polyhedron(
             points= [
@@ -106,27 +107,27 @@ module key_poly(x1,y1,x2,y2,h) {
 }
 
 //KBD slab
-module kbd_slab() {
+module kbd_slab() { //56x26
     minkowski() {
     union() {
-        cube([49,14,1]);//key base 51x21cm
-        translate([30/2,14,0]) cube([19,5,1]);//spacebar base 21x6mm
+        cube([54,14,1]);//key base 56x16cm
+        translate([30/2,14,0]) cube([24,5,1]);//spacebar base 26x6mm
     }
     cylinder(r=1);
     }
 }
 
-module vent_slab() {
+module vent_slab() {// 55x1
     hull() {
-        translate([0.5,0.5,0])cylinder(r=0.5);
-        translate([49.5,0.5,0])cylinder(r=0.5);
+        translate([0,0,0])cylinder(r=0.5);
+        translate([55,0,0])cylinder(r=0.5);
     }
 }
 
 module vent_slab_short() {
     hull() {
         translate([0.5,0.5,0])cylinder(r=0.5);
-        translate([16.5,0.5,0])cylinder(r=0.5);
+        translate([17,0.5,0])cylinder(r=0.5);
     }
 }
 
