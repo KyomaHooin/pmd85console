@@ -5,11 +5,11 @@
 include <mod.scad>;
 include <rpi.scad>;
 
-drawCaseBottom=0;
+drawCaseBottom=1;
 drawCaseTop=0;
 drawPi=0;
 drawKeyboard=0;
-drawAll=1;
+drawAll=0;
 
 //--------------------------------------
 
@@ -94,17 +94,15 @@ module case_top() {
     //LED HOLE
     translate([15,52.5,10]) cylinder(d=3.25,h=10);
     translate([8.5,52.5,10]) cylinder(d=3.25,h=10);
-    //CLIP HOLE
-    //translate([0,10,3]) clip_hole();
-    //translate([0,topY-10-4,3]) clip_hole();
-    //translate([topX,10,3]) clip_hole();
-    //translate([topX,topY-10-4,3]) clip_hole();
     }
-    
+    // CLIP
+    translate([0,topY/4-5,-5])clip_front();
+    translate([0,topY-topY/4,-5])clip_front();
+    translate([topX-2,topY/4-5,-5])clip_back();
+    translate([topX-2,topY-topY/4,-5])clip_back();    
     //KBD
     //color("grey")
     //translate([(topX-53)/2,34.5,angle_coord(34.5,angle,-6)]) rotate([-angle,0,0]) keyboard();
-    
 }
 
 //------------------------------
@@ -119,18 +117,28 @@ module case_bottom() {
         //FILLER
         translate([0,0,bottomThick]) cube([bottomX, bottomY, bottomHeight]);
         //VENT
-        for (vspace=[1:4]) translate([piX/4-2,10*vspace+2.5,-1]) rounded_rect(bottomX/2+4,1,bottomThick+2,1);
+        for (vspace=[1:4])
+            translate([piX/4-2,10*vspace+2.5,-1])
+                rounded_rect(bottomX/2+4,1,bottomThick+2,1);
         //SD LIP
         translate([-bottomThick-1,(bottomY-cardWidth)/2,0]) sd_lip();
         //RPI
         translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi(edge=2);
+        //CLIP HOLE
+        translate([-1,bottomY/4-5,4])clip_hole_front();
+        translate([-1,bottomY-bottomY/4,4])clip_hole_front();
+        translate([bottomX,bottomY/4-5,4])clip_hole_back();
+        translate([bottomX,bottomY-bottomY/4,4])clip_hole_back();    
     }
+    //translate([-1,bottomY/4-5,4])clip_hole_front();
+    //translate([-1,bottomY-bottomY/4,4])clip_hole_front();
+    //translate([bottomX,bottomY/4-5,4])clip_hole_back();
+    //translate([bottomX,bottomY-bottomY/4,4])clip_hole_back();    
     // BOTTOM MOUNT
     bottom_mount(piHoleOffset+0.5, piHoleOffset+0.5, bottomThick);
     bottom_mount(bottomX-piHoleOffset-0.5,piHoleOffset+0.5, bottomThick);
     bottom_mount(piHoleOffset+0.5, bottomY-piHoleOffset-0.5, bottomThick);
     bottom_mount(bottomX-piHoleOffset-0.5, bottomY-piHoleOffset-0.5, bottomThick);
-    // CLIP
 }
 
 //------------------------------

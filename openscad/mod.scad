@@ -139,29 +139,81 @@ module vent_slab_big() {
 }
 
 module clip_hole() {
-    resize([1,4,3])
-        rotate([90,0,180]) cylinder(d=1,h=4);
+    polyhedron(
+        points = [
+            [1,0,0],//0
+            [1,5,0],//1
+            [0,0,3],//2
+            [0,5,3],//3
+            [1,0,4],//4
+            [1,5,4] //5
+    ],
+        faces = [
+            [4,2,0],
+            [2,3,1,0],
+            [5,3,1],
+            [5,4,0,1],
+            [4,2,0],
+            [5,4,2,3]
+    ]
+    );
 }
 
 module clip() {
-    translate([0,0,6.5])
-        resize([0.8,3,3]) rotate([90,0,180]) cylinder(d=1,h=3);// 0.8 smaller clip
-    translate([0,0,2])cube([2,3,6]);
+    translate([0,0,2])cube([2,5,8]);
     polyhedron(
         points = [
             [0,0,0],//0
-            [0,3,0],//1
+            [0,5,0],//1
             [0,0,2],//2
             [2,0,2],//3
-            [2,3,2],//4
-            [0,3,2] //5
+            [2,5,2],//4
+            [0,5,2] //5
     ],
         faces = [
+            [2,3,0],
             [3,4,1,0],
             [5,1,4],
             [2,0,1,5],
-            [2,3,0],
             [2,5,4,3]
     ]
     );
+    translate([-1,0,6])
+    polyhedron(
+        points = [
+            [1,0,0],//0
+            [1,5,0],//1
+            [0,0,1],//2
+            [0,5,1],//3
+            [1,0,4],//4
+            [1,5,4] //5
+    ],
+        faces = [
+            [4,2,0],
+            [2,3,1,0],
+            [5,3,1],
+            [5,4,0,1],
+            [4,2,0],
+            [5,4,2,3]
+    ]
+    );
+}
+
+module clip_back() {
+    translate([2,0,10])
+    rotate([0,180,0]) clip();
+}
+
+module clip_front() {
+    translate([0,5,10])
+        rotate([0,180,180]) clip();
+}
+
+module clip_hole_front() {
+   clip_hole();
+}
+
+module clip_hole_back() {
+    translate([1,5,0])
+        rotate([0,0,180]) clip_hole();
 }

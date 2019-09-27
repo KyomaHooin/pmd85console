@@ -12,9 +12,8 @@ TODO
   -loader
   -boot tune
 -3D case:
-  -clip lock
-  -AV cylinder
-  -Global check + STL
+  -global control
+  -STL
   -Netfabb
 -[Heatsink]
 -[Sticker]
