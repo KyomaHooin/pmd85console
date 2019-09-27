@@ -115,7 +115,7 @@ module case_top() {
 module case_bottom() {
     difference() {
         //BASE
-        translate([0,0,0]) rounded_rect(bottomX, bottomY, bottomHeight, bottomThick);
+        rounded_rect(bottomX, bottomY, bottomHeight, bottomThick);
         //FILLER
         translate([0,0,bottomThick]) cube([bottomX, bottomY, bottomHeight]);
         //VENT
