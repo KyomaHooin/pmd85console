@@ -131,6 +131,7 @@ dtoverlay=gpio-poweroff,gpiopin=12,active_low
 
 # ACT LED GPIO16[36]
 dtparam=act_led_gpio=16
+dtparam=act_led_trigger=cpu
 
 </pre>
 
