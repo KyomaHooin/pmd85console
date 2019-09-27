@@ -8,11 +8,14 @@ TODO
 
 <pre>
 -emulator:
-  -re-run(tape/mem?)
+  -re-run(tape/mem?) abMem -> init()
 -boot:
   -loader
   -boot tune
 -3D case:
+  -LED dia check
+  -microHegiht = bottomHeight
+  -+1 everywhere
   -clip lock
   -AV cylinder
   -resize
