@@ -8,8 +8,7 @@ TODO
 
 <pre>
 -emulator:
-  -re-run(tape/mem?) abMem -> init()
--boot:
+  -re-run(tape/mem) fix
   -loader
   -boot tune
 -3D case:
