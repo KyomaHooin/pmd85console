@@ -1,5 +1,5 @@
 //
-// RPi Shield - functions
+// PMD-85 retro console mods
 //
 
 module rounded_rect(x, y, z, radius) {
@@ -17,21 +17,21 @@ module bottom_mount(offsetX,offsetY,Thick) {
     }
 }
 
-module usb_lip() {
-    translate([1, bottomThick/2, 1])
-        rotate([90,0,0])
-            rounded_rect(usbWidth, usbHeight, bottomThick/2, 1);
-}
+//module usb_lip() {
+//    translate([1, bottomThick/2, 1])
+//        rotate([90,0,0])
+//            rounded_rect(usbWidth, usbHeight, bottomThick/2, 1);
+//}
 
-module micro_lip() {
-    translate([bottomThick/2, 1, 1])
-        rotate([0,270,0])
-            rounded_rect(microHeight+1, microLength, bottomThick/2, 1);
-}
+//module micro_lip() {
+//    translate([bottomThick/2, 1, 1])
+//        rotate([0,270,0])
+//            rounded_rect(microHeight+1, microLength, bottomThick/2, 1);
+//}
 
 module sd_lip() {
-    rotate([270,0,0])
-        rounded_rect(cardWidth, bottomThick+bottomMountHeight, bottomThick, 1);
+    rotate([90,0,90])
+        rounded_rect(cardWidth, bottomThick+bottomMountHeight, bottomThick+1, 1);
 }
 
 module lip_lock_bottom() {
@@ -81,7 +81,6 @@ module top_base() {
    translate([-2,-2,-3])cube([topX+4,topY+4,3]);// CUT
    }
 }
-
 
 module key_poly(x1,y1,x2,y2,h) {
         polyhedron(
