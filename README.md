@@ -14,6 +14,7 @@ TODO
 -3D case:
   -clip lock
   -AV cylinder
+  -Global check + STL
   -Netfabb
 -[Heatsink]
 -[Sticker]
