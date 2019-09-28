@@ -62,8 +62,8 @@ static const char *gameFont[1] = {"/root/simpmd-develop/data/font/atari-classic.
 
 /// Screen refresh. How many milliseconds per screen refresh.
 //static int iArgRefresh = 20;
-//static int iArgRefresh = 40;
-static int iArgRefresh =  500;
+static int iArgRefresh = 40;
+//static int iArgRefresh =  500;
 
 /// Initial screen zoom.
 //static int iArgZoom = 3;

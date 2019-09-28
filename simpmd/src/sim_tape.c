@@ -65,6 +65,10 @@ static int iLastInputClock;
 /// Last value of simulated clock at output.
 static int iLastOutputClock;
 
+//std::ofstream tapefile ("tape.bin", std::ofstream::binary);
+
+char* buffer = new char[65536];
+
 
 //--------------------------------------------------------------------------
 // File operations
@@ -83,9 +87,13 @@ template <class tStream> bool TAPNextFile (tStream &oStream, std::vector <std::s
   // Open next file if any.
   if (oNames.empty ()) return (false);
 
+  printf("Tape size: %i\n", oNames.size());
+
+  std::cout << "Tape: " << oNames[0] << "\n";
+
   oStream.clear ();
   oStream.open (oNames.front ());
-  oNames.erase (oNames.begin ());
+  //oNames.erase (oNames.begin ());
 
   return (true);
 }
@@ -233,6 +241,10 @@ byte TAPReadStatus ()
 
 void TAPInitialize ()
 {
+ // oTapeInput.read(buffer,65536);
+ // tapefile.write(buffer,65536);
+ // oTapeInput.clear();
+ // oTapeInput.seekg(0,std::ios::beg);
   // Nothing really ...
 }
 

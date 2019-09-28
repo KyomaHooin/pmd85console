@@ -6,9 +6,9 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 
 TODO
 
-<pre name="todo">
+<pre>
 -emulator:
-  -re-run(tape/mem) fix
+  -re-run(?)
   -loader
   -boot tune
 -[Heatsink]
@@ -24,7 +24,7 @@ BUG
 
 HARDWARE
 
-<pre name="hardware">
+<pre>
 1x <a target="_blank" href="http://rpishop.cz/248-raspberry-pi-1a">Raspberry</a>(1A+)
 1x <a target="_blank" href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a>(5V 1.2A)
 1x <a target="_blank" href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS/50-75mA)
@@ -45,7 +45,7 @@ HARDWARE
 
 RPI
 
-<pre name="rpi">
+<pre>
 wget --no-check-certificate https://downloads.raspberrypi.org/raspbian_lite_latest
 umount /dev/sd[12] 2>/dev/null
 unzip -p 2018-11-13-raspbian-stretch-lite.zip | dd of=/dev/sda bs=4M
@@ -99,7 +99,7 @@ static domain_name_servers=xx.xx.xx.xx xx.xx.xx.xx
 
 UART
 
-<pre name="uart">
+<pre>
 3.3V UART => | x | x | GND | TX | RX | ..
 
 minicom -D /dev/ttyUSB0 -b 115200
@@ -131,7 +131,7 @@ dtparam=act_led_trigger=cpu
 
 PLYMOUTH
 
-<pre name="plymouth">
+<pre>
 apt-get install plymouth plymouth-themes -> 0.9.4-1.1(Buster)
 
 cp -r theme-pmd85 /usr/share/plymouth/themes/
@@ -147,7 +147,7 @@ logo.nologo quiet splash plymouth.ignore-serial-consoles vt.global_cursor_defaul
 
 SDL2
 
-<pre name="sdl">
+<pre>
 wget --no-check-certificate https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 
 apt-get install libgles2-mesa-dev libgbm-dev libudev-dev libasound2-dev liblzma-dev
@@ -166,14 +166,14 @@ make install
 
 SIMPMD
 
-<pre name="simpmd">
+<pre>
 make clean
 make
 </pre>
 
 FILE
 
-<pre name="file">
+<pre>
        schema.png - Retro console schamatic.
 atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
 
