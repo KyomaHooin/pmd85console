@@ -18,6 +18,17 @@ module bottom_base() {
         }
     }
 
+module bottom_lip_lock() {
+    difference() {
+        translate([1.25,1.25,0]) bottom_hull(bottomX-2.25,bottomY-2.25,1);
+        translate([2,2,-1]) bottom_hull(bottomX-4,bottomY-4,3);
+    }
+}
+
+module top_lip_lock() {
+        translate([0.75,0.75,0]) bottom_hull(bottomX-1.5,bottomY-1.5,1);
+}
+
 module bottom_vent() {
     hull() {
         cylinder(r=1,h=2*bottomThick);
@@ -40,17 +51,6 @@ module sd_lip() {
       translate([0,cardWidth,0]) cylinder(r=1,h=3);
       translate([0,-1,0])cube([cardHeight+bottomThick,cardWidth+2,3]);
     }
-}
-
-module lip_lock_bottom() {
-    difference() {
-        rounded_rect(bottomX, bottomY, 1, bottomThick);
-        rounded_rect(bottomX, bottomY, 1, bottomThick/2-0.125);
-    }
-}
-
-module lip_lock_top() {
-    rounded_rect(bottomX+1, bottomY+1, 1, bottomThick/2+0.125);// bug
 }
 
 module top_poly(x,y,h1,h2,rom) {
@@ -140,7 +140,7 @@ module vent_slab_short() {
 module vent_slab_big() {
     translate([0.5,0.5,0])
     minkowski() {
-        cube([16,4,1]);
+        cube([16,3,1]);
         cylinder(r=0.5);
     }
 }
@@ -149,11 +149,11 @@ module clip_hole() {// 1x5x4
     polyhedron(
         points = [
             [1,0,0],//0
-            [1,5,0],//1
+            [1,7,0],//1
             [0,0,3],//2
-            [0,5,3],//3
+            [0,7,3],//3
             [1,0,4],//4
-            [1,5,4] //5
+            [1,7,4] //5
     ],
         faces = [
             [3,2,0,1],
@@ -196,7 +196,7 @@ module clip() {
             [1,5,4] //5
     ],
         faces = [
-            [4,2,0],
+            [4,0,2],
             [4,5,1,0],
             [3,1,5],
             [4,2,3,5],
@@ -225,3 +225,22 @@ module clip_hole_back() {
         rotate([0,0,180]) clip_hole();
 }
 
+module test() {
+    polyhedron(
+        points = [
+            [1,0,0],//0
+            [1,5,0],//1
+            [0,0,1],//2
+            [0,5,1],//3
+            [1,0,4],//4
+            [1,5,4] //5
+    ],
+        faces = [
+            [4,0,2],
+            [4,5,1,0],
+            [3,1,5],
+            [4,2,3,5],
+            [2,0,1,3]
+    ]
+    );
+}

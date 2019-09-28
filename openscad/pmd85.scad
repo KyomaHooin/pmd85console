@@ -6,10 +6,10 @@ include <mod.scad>;
 include <rpi.scad>;
 
 drawCaseBottom=0;
-drawCaseTop=0;
+drawCaseTop=1;
 drawPi=0;
 drawKeyboard=0;
-drawAll=1;
+drawAll=0;
 
 //--------------------------------------
 
@@ -41,7 +41,7 @@ function angle_coord(x,a,thick) = -(5*x)/37 + 1025/37 + thick * tan(a)/sin(a);
 //KBD
 //
 
-module keyboard() {
+module keyboard() {//55x15x2
     minkowski() {
       union() {
         cube([53,13,0.5]);//key base 55x15cm
@@ -70,12 +70,9 @@ module case_top() {
     translate([(topX-55)/2+0.5,34.5,angle_coord(34.5,angle,-8.5)])
         rotate([-angle,0,0]) kbd_slab();
     //VENT SLAB SLIDE
-    translate([(topX-55)/2,30,angle_coord(30,angle,-8)])// coord
-        rotate([-angle,0,0]) vent_slab();
-    translate([(topX-55)/2,27,angle_coord(27,angle,-8)])// coord
-        rotate([-angle,0,0]) vent_slab();
-    translate([(topX-55)/2,24,angle_coord(24,angle,-8)])// coord
-        rotate([-angle,0,0]) vent_slab();
+    translate([(topX-55)/2,30,angle_coord(30,angle,-8)]) rotate([-angle,0,0]) vent_slab();
+    translate([(topX-55)/2,27,angle_coord(27,angle,-8)]) rotate([-angle,0,0]) vent_slab();
+    translate([(topX-55)/2,24,angle_coord(24,angle,-8)]) rotate([-angle,0,0]) vent_slab();
     //VENT SLAB TOP
     translate([(topX-56)/2,15.5,topBackHeight+1]) vent_slab_short();
     translate([(topX-56)/2,12.5,topBackHeight+1]) vent_slab_short();
@@ -90,10 +87,12 @@ module case_top() {
     translate([(topX-56)/2 + 54-15.5,9.5,topBackHeight+1]) vent_slab_short();
     translate([(topX-56)/2 + 54-15.5,6.5,topBackHeight+1]) vent_slab_short();
     translate([(topX-56)/2 + 54-15.5,3.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2 +15+(54-30-15.5)/2,2.5,topBackHeight+1]) vent_slab_big();
+    translate([(topX-56)/2 +15+(54-30-15.5)/2,3.5,topBackHeight+1]) vent_slab_big();
     //LED HOLE
     translate([15,52.5,10]) cylinder(d=3.25,h=10);
     translate([8.5,52.5,10]) cylinder(d=3.25,h=10);
+    //LIP LOCK
+    top_lip_lock();
     }
     // CLIP
     translate([0,topY/4-5,-5])clip_front();
@@ -122,36 +121,37 @@ module case_bottom() {
         //RPI
         translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi(edge=2);
         //CLIP HOLE
-        translate([-1,bottomY/4-5,4])clip_hole_front();
-        translate([-1,bottomY-bottomY/4,4])clip_hole_front();
-        translate([bottomX,bottomY/4-5,4])clip_hole_back();
-        translate([bottomX,bottomY-bottomY/4,4])clip_hole_back();
+        translate([-1,bottomY/4-6,bottomHeight-5])clip_hole_front();
+        translate([-1,bottomY-bottomY/4-1,bottomHeight-5])clip_hole_front();
+        translate([bottomX,bottomY/4-4,bottomHeight-5])clip_hole_back();
+        translate([bottomX,bottomY-bottomY/4+1,bottomHeight-5])clip_hole_back();
     }
     // BOTTOM MOUNT
     bottom_mount(piHoleOffset+0.5, piHoleOffset+0.5, bottomThick);
     bottom_mount(bottomX-piHoleOffset-0.5,piHoleOffset+0.5, bottomThick);
     bottom_mount(piHoleOffset+0.5, bottomY-piHoleOffset-0.5, bottomThick);
     bottom_mount(bottomX-piHoleOffset-0.5, bottomY-piHoleOffset-0.5, bottomThick);
+    //LIP LOCK
+    difference() { // the wrong way..
+    translate([0,0,bottomHeight]) bottom_lip_lock();
+    translate([0.5,0.5,bottomHeight-1.5])rpi();
+    }
 }
 
 //------------------------------
+//
+// DISPLAY
+//
 
-if (drawCaseTop) {
-     //translate([topThick,topThick,0]) case_top();
-     case_top();
-}
-
-if (drawCaseBottom) {
-//    translate([bottomThick, bottomThick, 0]) case_bottom();
-    case_bottom();
-}
-
-if (drawPi) {
-    rpi();
-}
+if (drawCaseTop) { case_top(); }
+if (drawCaseBottom) { case_bottom(); }
+if (drawPi) { rpi(); }
 
 if (drawKeyboard) {
-    keyboard();
+    difference() {
+        translate([0,0,-1])keyboard();
+        translate([-2,-2,-2]) cube([58,22,2]);
+    }
 }
 
 if (drawAll) {
@@ -159,4 +159,3 @@ if (drawAll) {
     translate([0.5,0.5,bottomThick+bottomMountHeight+10]) rpi();
     %translate([0,0,bottomHeight+20]) case_top();
 }
-

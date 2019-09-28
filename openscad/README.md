@@ -7,6 +7,8 @@ Raspberry Pi 1A+ PMD-85 retro console 3D case.
 FILES
 
 <pre>
+           pmd85_bottom.stl - Case bottom part SRL file.
+              pmd85_top.stl - Case top part STL file.
                keyboard.stl - Keyboard STL file.
 
                  pmd85.scad - Main 3D case.
