@@ -38,7 +38,7 @@ module sd_lip() {
     hull() {
       cylinder(r=1,h=3);
       translate([0,cardWidth,0]) cylinder(r=1,h=3);
-      translate([0,-1,0])cube([cardHeight+bottomThick,cardWidth+2,3   ]);
+      translate([0,-1,0])cube([cardHeight+bottomThick,cardWidth+2,3]);
     }
 }
 
@@ -224,3 +224,4 @@ module clip_hole_back() {
     translate([1,5,0])
         rotate([0,0,180]) clip_hole();
 }
+

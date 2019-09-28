@@ -99,7 +99,7 @@ module case_top() {
     translate([0,topY/4-5,-5])clip_front();
     translate([0,topY-topY/4,-5])clip_front();
     translate([topX-2,topY/4-5,-5])clip_back();
-    translate([topX-2,topY-topY/4,-5])clip_back();    
+    translate([topX-2,topY-topY/4,-5])clip_back();
     //KBD
     //color("grey")
     //translate([(topX-53)/2,34.5,angle_coord(34.5,angle,-6)]) rotate([-angle,0,0]) keyboard();
@@ -122,10 +122,10 @@ module case_bottom() {
         //RPI
         translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi(edge=2);
         //CLIP HOLE
-        translate([-1,bottomY/4-5,4]) clip_hole_front();
+        translate([-1,bottomY/4-5,4])clip_hole_front();
         translate([-1,bottomY-bottomY/4,4])clip_hole_front();
         translate([bottomX,bottomY/4-5,4])clip_hole_back();
-        translate([bottomX,bottomY-bottomY/4,4])clip_hole_back();    
+        translate([bottomX,bottomY-bottomY/4,4])clip_hole_back();
     }
     // BOTTOM MOUNT
     bottom_mount(piHoleOffset+0.5, piHoleOffset+0.5, bottomThick);
@@ -160,4 +160,3 @@ if (drawAll) {
     %translate([0,0,bottomHeight+20]) case_top();
 }
 
-//sd_lip();
