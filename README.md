@@ -4,16 +4,16 @@ DESCRIPTION
 
 Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href="https://github.com/ceresek/simpmd">simpmd</a> (c) 2008.
 
-[TODO](#todo)
-[BUG](#bug)
-[HARDWARE](#hardware)
-[RPI](#rpi)
-[UART](#uart)
-[LED](#led)
-[PLYMOUTH](#plymouth)
-[SDL2](#sdl)
-[SIMPMD](#simpmd)
-[FILE](#file)
+[TODO](#todo)<br/>
+[BUG](#bug))<br/>
+[HARDWARE](#hardware)<br/>
+[RPI](#rpi)<br/>
+[UART](#uart)<br/>
+[LED](#led)<br/>
+[PLYMOUTH](#plymouth)<br/>
+[SDL2](#sdl)<br/>
+[SIMPMD](#simpmd)<br/>
+[FILE](#file)<br/>
 
 TODO
 
