@@ -7,16 +7,15 @@ Raspberry Pi 1A+ PMD-85 retro console 3D case.
 FILES
 
 <pre>
-           pmd85_bottom.stl - Case bottom part SRL file.
-              pmd85_top.stl - Case top part STL file.
-               keyboard.stl - Keyboard STL file.
+pmd85_bottom.stl - Case bottom part SRL file.
+   pmd85_top.stl - Case top part STL file.
+    keyboard.stl - Keyboard STL file.
 
-                 pmd85.scad - Main 3D case.
-                   rpi.scad - Raspberry 1A+ model.
-                    fc.scad - Model functions.
+      pmd85.scad - Main 3D case.
+        rpi.scad - Raspberry 1A+ model.
+         fc.scad - Model functions.
 
-           pmd85_screen.png - Model screenshot.
-Raspberry-Pi-1-Model-A+.pdf - Dimension schema.
+pmd85_screen.png - Model screenshot.
 </pre>
 
 SOURCE
