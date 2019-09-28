@@ -5,8 +5,8 @@
 include <mod.scad>;
 include <rpi.scad>;
 
-drawCaseBottom=0;
-drawCaseTop=1;
+drawCaseBottom=1;
+drawCaseTop=0;
 drawPi=0;
 drawKeyboard=0;
 drawAll=0;
@@ -125,17 +125,18 @@ module case_bottom() {
         translate([-1,bottomY-bottomY/4-1,bottomHeight-5])clip_hole_front();
         translate([bottomX,bottomY/4-4,bottomHeight-5])clip_hole_back();
         translate([bottomX,bottomY-bottomY/4+1,bottomHeight-5])clip_hole_back();
+        //LIP LOCK
+        translate([0,0,bottomHeight]) bottom_lip_lock();
+        translate([0.5,-microWidth/2,bottomHeight-microHeight/2])// MiroUSB fix
+            translate([microX, -microOverHang, piThick-0.5])
+                cube([microLength, microWidth, microHeight+1]);
+
     }
     // BOTTOM MOUNT
     bottom_mount(piHoleOffset+0.5, piHoleOffset+0.5, bottomThick);
     bottom_mount(bottomX-piHoleOffset-0.5,piHoleOffset+0.5, bottomThick);
     bottom_mount(piHoleOffset+0.5, bottomY-piHoleOffset-0.5, bottomThick);
     bottom_mount(bottomX-piHoleOffset-0.5, bottomY-piHoleOffset-0.5, bottomThick);
-    //LIP LOCK
-    difference() { // the wrong way..
-    translate([0,0,bottomHeight]) bottom_lip_lock();
-    translate([0.5,0.5,bottomHeight-1.5])rpi();
-    }
 }
 
 //------------------------------

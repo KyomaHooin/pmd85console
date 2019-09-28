@@ -13,15 +13,15 @@ module bottom_hull(x,y,z) {
 
 module bottom_base() {
     difference() {
-            bottom_hull(bottomX,bottomY,bottomHeight);
-            translate([bottomThick,bottomThick,bottomThick]) bottom_hull(bottomX-4,bottomY-4,bottomHeight);
+            bottom_hull(bottomX,bottomY,bottomHeight+1);// +1 = lip lock cut
+            translate([bottomThick,bottomThick,bottomThick]) bottom_hull(bottomX-4,bottomY-4,bottomHeight+1);// +1 = lip lock cut
         }
     }
 
 module bottom_lip_lock() {
     difference() {
-        translate([1.25,1.25,0]) bottom_hull(bottomX-2.25,bottomY-2.25,1);
-        translate([2,2,-1]) bottom_hull(bottomX-4,bottomY-4,3);
+        bottom_hull(bottomX,bottomY,1);
+        translate([1.25,1.25,-1]) bottom_hull(bottomX-2.25,bottomY-2.25,3);
     }
 }
 

@@ -11,10 +11,6 @@ TODO
   -re-run(tape/mem) fix
   -loader
   -boot tune
--3D case:
-  -global control
-  -STL
-  -Netfabb
 -[Heatsink]
 -[Sticker]
 </pre>
