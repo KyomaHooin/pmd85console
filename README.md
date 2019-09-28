@@ -4,9 +4,20 @@ DESCRIPTION
 
 Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href="https://github.com/ceresek/simpmd">simpmd</a> (c) 2008.
 
+TODO(#todo)
+BUG(#bug)
+HARDWARE(#hardware)
+RPI(#rpi)
+UART(#uart)
+LED(#led)
+PLYMOUTH(#plymouth)
+SDL2(#sdl)
+SIMPMD(#simpmd)
+FILE(#file)
+
 TODO
 
-<pre>
+<pre name="todo">
 -emulator:
   -re-run(tape/mem) fix
   -loader
@@ -17,14 +28,14 @@ TODO
 
 BUG
 
-<pre>
+<pre name="#bug">
 -snd flood alsa lib pcm.c:(snd_pcm_recover) underrun occured
 -mesa loader: failed to retrieve device information
 </pre>
 
 HARDWARE
 
-<pre>
+<pre name="hardware">
 1x <a target="_blank" href="http://rpishop.cz/248-raspberry-pi-1a">Raspberry</a>(1A+)
 1x <a target="_blank" href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a>(5V 1.2A)
 1x <a target="_blank" href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS/50-75mA)
@@ -45,7 +56,7 @@ HARDWARE
 
 RPI
 
-<pre>
+<pre name="rpi">
 wget --no-check-certificate https://downloads.raspberrypi.org/raspbian_lite_latest
 umount /dev/sd[12] 2>/dev/null
 unzip -p 2018-11-13-raspbian-stretch-lite.zip | dd of=/dev/sda bs=4M
@@ -99,17 +110,17 @@ static domain_name_servers=xx.xx.xx.xx xx.xx.xx.xx
 
 UART
 
-<pre>
+<pre name="uart">
 3.3V UART => | x | x | GND | TX | RX | ..
 
 minicom -D /dev/ttyUSB0 -b 115200
 
-[ctrl] > [A] > [Z] > [O] > Serial port setup > [F]low control > Off  
+[ctrl] > [A] > [Z] > [O] > Serial port setup > [F]low control > Off
 </pre>
 
 LED
 
-<pre>           
+<pre name="led">
            [RED]                    [GREEN]
             | |                       | |
      150R --  |                120R --  |
@@ -131,7 +142,7 @@ dtparam=act_led_trigger=cpu
 
 PLYMOUTH
 
-<pre>
+<pre name="plymouth">
 apt-get install plymouth plymouth-themes -> 0.9.4-1.1(Buster)
 
 cp -r theme-pmd85 /usr/share/plymouth/themes/
@@ -142,12 +153,12 @@ plymouth-set-default-theme -R theme-pmd85
 DeviceTimout=10
 
 /boot/cmdline.txt:
-logo.nologo quiet splash (plymouth.debug) plymouth.ignore-serial-consoles vt.global_cursor_default=0
+logo.nologo quiet splash plymouth.ignore-serial-consoles vt.global_cursor_default=0
 </pre>
 
 SDL2
 
-<pre>
+<pre name="sdl">
 wget --no-check-certificate https://www.libsdl.org/release/SDL2-2.0.9.tar.gz
 
 apt-get install libgles2-mesa-dev libgbm-dev libudev-dev libasound2-dev liblzma-dev
@@ -166,15 +177,15 @@ make install
 
 SIMPMD
 
-<pre>
+<pre name="simpmd">
 make clean
 make
 </pre>
 
-FILES
+FILE
 
-<pre>
-       schema.png - Retro console schamatic.    
+<pre name="file">
+       schema.png - Retro console schamatic.
 atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
 
         openscad/ - 3D printable retro case.
