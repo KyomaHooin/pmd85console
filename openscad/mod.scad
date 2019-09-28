@@ -2,12 +2,27 @@
 // PMD-85 retro console mods
 //
 
-module rounded_rect(x, y, z, radius) {
-    linear_extrude(height=z)
-        minkowski() {
-            square([x,y]);
-            circle(r = radius);
+module bottom_hull(x,y,z) {
+    hull() {
+        cylinder(r=2,h=z);
+        translate([x,0,0]) cylinder(r=2,h=z);
+        translate([x,y,0]) cylinder(r=2,h=z);
+        translate([0,y,0]) cylinder(r=2,h=z);
+    }
+}
+
+module bottom_base() {
+    difference() {
+            bottom_hull(bottomX,bottomY,bottomHeight);
+            translate([bottomThick,bottomThick,bottomThick]) bottom_hull(bottomX-4,bottomY-4,bottomHeight);
         }
+    }
+
+module bottom_vent() {
+    hull() {
+        cylinder(r=1,h=2*bottomThick);
+        translate([bottomX/2,0,0]) cylinder(r=1,h=2*bottomThick);
+    }
 }
 
 module bottom_mount(offsetX,offsetY,Thick) {
@@ -17,21 +32,14 @@ module bottom_mount(offsetX,offsetY,Thick) {
     }
 }
 
-//module usb_lip() {
-//    translate([1, bottomThick/2, 1])
-//        rotate([90,0,0])
-//            rounded_rect(usbWidth, usbHeight, bottomThick/2, 1);
-//}
-
-//module micro_lip() {
-//    translate([bottomThick/2, 1, 1])
-//        rotate([0,270,0])
-//            rounded_rect(microHeight+1, microLength, bottomThick/2, 1);
-//}
-
 module sd_lip() {
-    rotate([90,0,90])
-        rounded_rect(cardWidth, bottomThick+bottomMountHeight, bottomThick+1, 1);
+    translate([0,0,cardHeight+bottomThick])
+    rotate([0,90,0])
+    hull() {
+      cylinder(r=1,h=3);
+      translate([0,cardWidth,0]) cylinder(r=1,h=3);
+      translate([0,-1,0])cube([cardHeight+bottomThick,cardWidth+2,3   ]);
+    }
 }
 
 module lip_lock_bottom() {
@@ -105,7 +113,6 @@ module key_poly(x1,y1,x2,y2,h) {
         );
 }
 
-//KBD slab
 module kbd_slab() { //56x26
     minkowski() {
     union() {
@@ -138,7 +145,7 @@ module vent_slab_big() {
     }
 }
 
-module clip_hole() {
+module clip_hole() {// 1x5x4
     polyhedron(
         points = [
             [1,0,0],//0
@@ -149,17 +156,17 @@ module clip_hole() {
             [1,5,4] //5
     ],
         faces = [
-            [4,2,0],
-            [2,3,1,0],
-            [5,3,1],
-            [5,4,0,1],
-            [4,2,0],
-            [5,4,2,3]
+            [3,2,0,1],
+            [3,1,5],
+            [4,5,1,0],
+            [2,4,0],
+            [4,2,3,5]
     ]
     );
 }
 
 module clip() {
+    union() {
     translate([0,0,2])cube([2,5,8]);
     polyhedron(
         points = [
@@ -190,13 +197,13 @@ module clip() {
     ],
         faces = [
             [4,2,0],
-            [2,3,1,0],
-            [5,3,1],
-            [5,4,0,1],
-            [4,2,0],
-            [5,4,2,3]
+            [4,5,1,0],
+            [3,1,5],
+            [4,2,3,5],
+            [2,0,1,3]
     ]
     );
+    }
 }
 
 module clip_back() {

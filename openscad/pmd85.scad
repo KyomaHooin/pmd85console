@@ -5,11 +5,11 @@
 include <mod.scad>;
 include <rpi.scad>;
 
-drawCaseBottom=1;
+drawCaseBottom=0;
 drawCaseTop=0;
 drawPi=0;
 drawKeyboard=0;
-drawAll=0;
+drawAll=1;
 
 //--------------------------------------
 
@@ -113,27 +113,20 @@ module case_top() {
 module case_bottom() {
     difference() {
         //BASE
-        rounded_rect(bottomX, bottomY, bottomHeight, bottomThick);
-        //FILLER
-        translate([0,0,bottomThick]) cube([bottomX, bottomY, bottomHeight]);
+        bottom_base();
         //VENT
         for (vspace=[1:4])
-            translate([piX/4-2,10*vspace+2.5,-1])
-                rounded_rect(bottomX/2+4,1,bottomThick+2,1);
+            translate([piX/4,vspace*piY/6+5,-1]) bottom_vent();
         //SD LIP
         translate([-bottomThick-1,(bottomY-cardWidth)/2,0]) sd_lip();
         //RPI
         translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi(edge=2);
         //CLIP HOLE
-        translate([-1,bottomY/4-5,4])clip_hole_front();
+        translate([-1,bottomY/4-5,4]) clip_hole_front();
         translate([-1,bottomY-bottomY/4,4])clip_hole_front();
         translate([bottomX,bottomY/4-5,4])clip_hole_back();
         translate([bottomX,bottomY-bottomY/4,4])clip_hole_back();    
     }
-    //translate([-1,bottomY/4-5,4])clip_hole_front();
-    //translate([-1,bottomY-bottomY/4,4])clip_hole_front();
-    //translate([bottomX,bottomY/4-5,4])clip_hole_back();
-    //translate([bottomX,bottomY-bottomY/4,4])clip_hole_back();    
     // BOTTOM MOUNT
     bottom_mount(piHoleOffset+0.5, piHoleOffset+0.5, bottomThick);
     bottom_mount(bottomX-piHoleOffset-0.5,piHoleOffset+0.5, bottomThick);
@@ -163,6 +156,8 @@ if (drawKeyboard) {
 
 if (drawAll) {
     case_bottom();
-    translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi();
-    %translate([0,0,bottomHeight]) case_top();
+    translate([0.5,0.5,bottomThick+bottomMountHeight+10]) rpi();
+    %translate([0,0,bottomHeight+20]) case_top();
 }
+
+//sd_lip();

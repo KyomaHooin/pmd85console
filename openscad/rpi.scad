@@ -53,7 +53,12 @@ module pi_hole() {
 module rpi(edge=0) {
     color("seagreen")
     difference() {
-        cube([piX, piY, piThick]);
+        hull() {
+            translate([2,2,0])cylinder(r=2,h=piThick);
+            translate([piX-2,2,0])cylinder(r=2,h=piThick);
+            translate([2,piY-2,0])cylinder(r=2,h=piThick);
+            translate([piX-2,piY-2,0])cylinder(r=2,h=piThick);
+        }
         translate([piHoleOffset, piHoleOffset, -1]) pi_hole();
         translate([piX-piHoleOffset, piHoleOffset, -1]) pi_hole();
         translate([piHoleOffset, piY-piHoleOffset, -1]) pi_hole();
@@ -82,5 +87,3 @@ module rpi(edge=0) {
             cube([gpioLength, gpioWidth, gpioHeight]);
     }
 }
-
-//rpi();
