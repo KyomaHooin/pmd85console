@@ -13,7 +13,7 @@ pmd85_bottom.stl - Case bottom part SRL file.
 
       pmd85.scad - Main 3D case.
         rpi.scad - Raspberry 1A+ model.
-         fc.scad - Model functions.
+        mod.scad - Model functions.
 
 pmd85_screen.png - Model screenshot.
 </pre>

@@ -7,7 +7,8 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
--loading spash
+-boot splash
+
 -[Heatsink]
 -[Sticker]
 </pre>
@@ -105,7 +106,7 @@ UART
 
 minicom -D /dev/ttyUSB0 -b 115200
 
-[ctrl] > [A] > [Z] > [O] > Serial port setup > [F]low control > Off
+[Ctrl] > [A] > [Z] > [O] > Serial port setup > [F]low control > Off
 </pre>
 
 LED
