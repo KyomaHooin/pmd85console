@@ -53,11 +53,11 @@ static std::string gameSelect[4] = {
 // Game Tape IN
 std::vector <std::string> gameIn;
 
-//Screen resolution
+/// Screen resolution
 SDL_DisplayMode fullscreen;
-// Menu
+/// Menu
 bool inMenu = true;
-// Game Index
+/// Game Index
 int gameIndex = 0;
 
 
@@ -111,6 +111,7 @@ static void SetMemoryReadWrite (int iFrom, int iSize)
     abMemoryMask [iAddr] = true;
   }
 }
+
 
 /** Mark a memory area as read only.
  *
@@ -166,6 +167,7 @@ static void InitializePMD2 ()
   SetMemoryReadWrite (0x0000, 65536);
 }
 
+
 /// Initialize emulation
 static void EmulationInitialize (int gameIndex){
   // Flush garbage
@@ -193,6 +195,7 @@ static void EmulationInitialize (int gameIndex){
   CPUStartThread ();
   printf("CPU Thread Initializing..\n");
 }
+
 
 /// Shutdown emulation
 static void EmulationShutdown (){
@@ -280,7 +283,7 @@ int main (int iArgC, const char *apArgV [])
     }
   }
 
-  //Menu shutdown
+  // Menu shutdown
   DSPMenuShutdown ();
 
   SDL_Quit ();

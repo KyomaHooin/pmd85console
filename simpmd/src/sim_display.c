@@ -34,7 +34,7 @@ limitations under the License.
 //-------------------------------------------------------------------------------------------------------
 //
 // HARDCODED DATA
-//
+
 
 static const char *menuText[6] = {
   "PMD-85 Retro console",
@@ -225,12 +225,11 @@ Uint32 DSPPaintTimerCallback (Uint32 iInterval, void *pArgs)
 void DSPInitialize ()
 {
   // Initialize the video resources.
-  SDL_CheckNotNull (pWindow = SDL_CreateWindow ("SimPMD",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
-  //printf("DSP window create..\n");
+  SDL_CheckNotNull (pWindow = SDL_CreateWindow ("SimPMD",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                                PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
   SDL_CheckNotNull (pRenderer = SDL_CreateRenderer (pWindow, -1, SDL_RENDERER_ACCELERATED));
-  //printf("DSP renderer create..\n");
-  SDL_CheckNotNull (pTexture = SDL_CreateTexture (pRenderer, SDL_PIXELFORMAT_RGB332, SDL_TEXTUREACCESS_STREAMING, PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT));
-  //printf("DSP texture create..\n");
+  SDL_CheckNotNull (pTexture = SDL_CreateTexture (pRenderer, SDL_PIXELFORMAT_RGB332, SDL_TEXTUREACCESS_STREAMING,
+                                                  PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT));
   //SDL_CheckTrue (SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, 0));
 
   // Clear screen.
@@ -241,14 +240,14 @@ void DSPInitialize ()
 
   // Start the timer that paints the screen repeatedly ...
   iPaintTimer = SDL_AddTimer (iArgRefresh, DSPPaintTimerCallback, NULL);
-  printf("DSP timer create..\n");
 }
 
 
 void DSPMenuInitialize ()
 {
   // Initialize the video resources.
-  SDL_CheckNotNull (mWindow = SDL_CreateWindow ("SimPMD - Menu",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
+  SDL_CheckNotNull (mWindow = SDL_CreateWindow ("SimPMD - Menu",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                                PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
   SDL_CheckNotNull (mRenderer = SDL_CreateRenderer (mWindow, -1, SDL_RENDERER_ACCELERATED));
 
   //TTF
@@ -265,24 +264,22 @@ void DSPShutdown ()
 {
   // Stop the timer that paints the screen repeatedly ...
   SDL_RemoveTimer (iPaintTimer);
-  printf("DSP timer shutdown..\n");
 
   SDL_DestroyTexture (pTexture);
   pTexture = NULL;
-  printf("DSP texture shutdown..\n");
   SDL_DestroyRenderer (pRenderer);
   pRenderer = NULL;
-  printf("DSP renderer shutdown..\n");
   SDL_DestroyWindow (pWindow);
   pWindow = NULL;
-  printf("DSP window shutdown..\n");
 }
 
 
 void DSPMenuShutdown ()
 {
   SDL_DestroyRenderer (mRenderer);
+  mRenderer = NULL;
   SDL_DestroyWindow (mWindow);
+  mWindow = NULL;
 }
 
 
