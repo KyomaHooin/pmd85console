@@ -1,4 +1,4 @@
-![SCHEMA](https://github.com/kyomahooin/pmd85console/raw/master/schema.png "schema")
+![CONSOLE](https://github.com/kyomahooin/pmd85console/raw/master/pmd85console.png "console")
 
 DESCRIPTION
 
