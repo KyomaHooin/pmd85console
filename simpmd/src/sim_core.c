@@ -171,7 +171,7 @@ static void InitializePMD2 ()
 /// Initialize emulation
 static void EmulationInitialize (int gameIndex){
   // Flush garbage
-  FlushMemory(0x0000,65536);
+  FlushMemory(0x0000, 65536);
   // Reset processor clock
   iProcessorClock = 0;
   // Set Tape
@@ -180,20 +180,20 @@ static void EmulationInitialize (int gameIndex){
   TAPNextInputFile(gameIn);
 
   InitializePMD1();
-  printf("Model Initializing..\n");
+  printf("Model initializing..\n");
   CPUInitialize ();
-  printf("CPU Initializing..\n");
+  printf("CPU initializing..\n");
   DSPInitialize();
-  printf("DSP Initializing..\n");
+  printf("DSP initializing..\n");
   KBDInitialize ();
-  printf("KBD Initializing..\n");
+  printf("KBD initializing..\n");
   //SNDInitialize ();
-  //printf("SND Initializing..\n");
+  //printf("SND initializing..\n");
   TAPInitialize ();
-  printf("Tape Initializing..\n");
+  printf("Tape initializing..\n");
  
   CPUStartThread ();
-  printf("CPU Thread Initializing..\n");
+  printf("CPU Thread initializing..\n");
 }
 
 
@@ -229,11 +229,11 @@ int main (int iArgC, const char *apArgV [])
   SDL_ShowCursor(0);
 
   // Get fullscreen resolution
-  SDL_CheckZero (SDL_GetCurrentDisplayMode(0,&fullscreen));
+  SDL_CheckZero (SDL_GetCurrentDisplayMode(0, &fullscreen));
 
   // Menu
   DSPMenuInitialize();
-  DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
+  DSPRenderMenu(fullscreen.w, fullscreen.h, gameIndex);
 
   // Event loop
   SDL_Event sEvent;
@@ -252,11 +252,11 @@ int main (int iArgC, const char *apArgV [])
 	    }
             if (sEvent.key.keysym.sym == SDLK_LEFT) {
               (gameIndex == 0) ? gameIndex = 3 : gameIndex--;
-              DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
+              DSPRenderMenu(fullscreen.w, fullscreen.h, gameIndex);
             }
             if (sEvent.key.keysym.sym == SDLK_RIGHT) { 
               (gameIndex == 3) ? gameIndex = 0 : gameIndex++;
-              DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
+              DSPRenderMenu(fullscreen.w, fullscreen.h, gameIndex);
             }
             if (sEvent.key.keysym.sym == SDLK_RETURN) {
               DSPMenuShutdown();
@@ -268,7 +268,7 @@ int main (int iArgC, const char *apArgV [])
           if (sEvent.key.keysym.sym == SDLK_ESCAPE) {
             EmulationShutdown();
             DSPMenuInitialize();
-            DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
+            DSPRenderMenu(fullscreen.w, fullscreen.h, gameIndex);
             inMenu = true;
         } else {
             KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
