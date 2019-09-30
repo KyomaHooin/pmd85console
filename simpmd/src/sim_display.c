@@ -61,12 +61,7 @@ static const char *gameFont[1] = {"/root/simpmd-develop/data/font/atari-classic.
 // Command Line Options
 
 /// Screen refresh. How many milliseconds per screen refresh.
-//static int iArgRefresh = 20;
 static int iArgRefresh = 40;
-//static int iArgRefresh =  500;
-
-/// Initial screen zoom.
-//static int iArgZoom = 3;
 
 
 //--------------------------------------------------------------------------
@@ -226,43 +221,22 @@ Uint32 DSPPaintTimerCallback (Uint32 iInterval, void *pArgs)
 //--------------------------------------------------------------------------
 // Initialization and shutdown
 
-//opt::options_description &DSPOptions ()
-//{
-//  static opt::options_description options ("Display module options");
-//  options.add_options ()
-//    ("zoom,z", opt::value<int> (&iArgZoom), "Initial screen zoom")
-//    ("refresh", opt::value<int> (&iArgRefresh), "Screen refresh period [ms]");
-//  return (options);
-//}
-
 
 void DSPInitialize ()
 {
   // Initialize the video resources.
-  // Drawing is done by updating texture.
-  SDL_CheckNotNull (pWindow = SDL_CreateWindow ("SimPMD",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-    PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
-   //PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,SDL_WINDOW_FULLSCREEN));
-  printf("DSP window create..\n");
-  SDL_CheckNotNull (pRenderer = SDL_CreateRenderer (
-    pWindow,
-    -1, SDL_RENDERER_ACCELERATED));
-  printf("DSP renderer create..\n");
-  SDL_CheckNotNull (pTexture = SDL_CreateTexture (
-    pRenderer,
-    SDL_PIXELFORMAT_RGB332,
-    SDL_TEXTUREACCESS_STREAMING,
-    PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT));
-  printf("DSP texture create..\n");
-  //SDL_CheckTrue (SDL_SetHint (
-  //  SDL_HINT_RENDER_SCALE_QUALITY, 0));
-
-  // Disable cursor
-  //SDL_ShowCursor(0);
+  SDL_CheckNotNull (pWindow = SDL_CreateWindow ("SimPMD",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
+  //printf("DSP window create..\n");
+  SDL_CheckNotNull (pRenderer = SDL_CreateRenderer (pWindow, -1, SDL_RENDERER_ACCELERATED));
+  //printf("DSP renderer create..\n");
+  SDL_CheckNotNull (pTexture = SDL_CreateTexture (pRenderer, SDL_PIXELFORMAT_RGB332, SDL_TEXTUREACCESS_STREAMING, PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT));
+  //printf("DSP texture create..\n");
+  //SDL_CheckTrue (SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, 0));
 
   // Clear screen.
   SDL_CheckZero (SDL_SetRenderDrawColor (pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
   SDL_CheckZero (SDL_RenderClear (pRenderer));
+
   SDL_RenderPresent (pRenderer);
 
   // Start the timer that paints the screen repeatedly ...
@@ -274,13 +248,8 @@ void DSPInitialize ()
 void DSPMenuInitialize ()
 {
   // Initialize the video resources.
-  SDL_CheckNotNull (mWindow = SDL_CreateWindow ("SimPMD Menu",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-    PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
-  SDL_CheckNotNull (mRenderer = SDL_CreateRenderer (mWindow,-1, SDL_RENDERER_ACCELERATED));
-  //SDL_CheckTrue (SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, 0));
-
-  // Disable cursor
-  //SDL_ShowCursor(0);
+  SDL_CheckNotNull (mWindow = SDL_CreateWindow ("SimPMD - Menu",SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT,0));
+  SDL_CheckNotNull (mRenderer = SDL_CreateRenderer (mWindow, -1, SDL_RENDERER_ACCELERATED));
 
   //TTF
   TTF_Init();
@@ -291,6 +260,7 @@ void DSPMenuInitialize ()
   SDL_RenderPresent (mRenderer);
 }
 
+
 void DSPShutdown ()
 {
   // Stop the timer that paints the screen repeatedly ...
@@ -298,10 +268,13 @@ void DSPShutdown ()
   printf("DSP timer shutdown..\n");
 
   SDL_DestroyTexture (pTexture);
+  pTexture = NULL;
   printf("DSP texture shutdown..\n");
   SDL_DestroyRenderer (pRenderer);
+  pRenderer = NULL;
   printf("DSP renderer shutdown..\n");
   SDL_DestroyWindow (pWindow);
+  pWindow = NULL;
   printf("DSP window shutdown..\n");
 }
 
@@ -323,7 +296,7 @@ void DSPRenderText(int screen_width, int screen_height) {
 
   textFont = TTF_OpenFont(gameFont[0], FONT_HEIGHT);
 
-  //Copy right
+  // Copyright
   textSurface = TTF_RenderText_Solid(textFont, menuText[5], textColor);
   textTexture = SDL_CreateTextureFromSurface(mRenderer, textSurface);
 
@@ -333,7 +306,7 @@ void DSPRenderText(int screen_width, int screen_height) {
   textRectangle.y = 665;
  
   SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
-  //About
+  // About
   textSurface = TTF_RenderText_Solid(textFont, menuText[0], textColor);
   textTexture = SDL_CreateTextureFromSurface(mRenderer, textSurface);
 
@@ -343,7 +316,7 @@ void DSPRenderText(int screen_width, int screen_height) {
   textRectangle.y = 100;
  
   SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
-  //Help text
+  // Help text
   for (int i = 1; i < 5; i++) {
     textSurface = TTF_RenderText_Solid(textFont, menuText[i], textColor);
     textTexture = SDL_CreateTextureFromSurface(mRenderer, textSurface);
@@ -355,7 +328,7 @@ void DSPRenderText(int screen_width, int screen_height) {
 
     SDL_RenderCopy(mRenderer, textTexture, NULL, &textRectangle);
   }
-  //Game text
+  // Game text
   for (int i = 0; i < 4; i++) {
     textSurface = TTF_RenderText_Solid(textFont, gameText[i], textColor);
     textTexture = SDL_CreateTextureFromSurface(mRenderer, textSurface);

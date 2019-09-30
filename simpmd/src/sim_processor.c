@@ -1495,6 +1495,9 @@ void CPUInitialize ()
     abParity [iValue] = bParity;
   }
 
+  // Reset termination token
+  bTerminate = false;
+
   // Reset the processor
 
   CPUReset ();

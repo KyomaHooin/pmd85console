@@ -117,10 +117,6 @@ extern bool abMemoryMask [65536];
 
 extern relaxed_int iProcessorClock;
 
-/// Make Tape I/O global.
-//extern std::vector <std::string> oArgTapeInputs;
-//extern std::vector <std::string> oArgTapeOutputs;
-
 
 //--------------------------------------------------------------------------
 // Externals
@@ -141,7 +137,6 @@ void CPUShutdown ();
 
 void DSPPaintHandler ();
 void DSPResizeHandler ();
-//opt::options_description &DSPOptions ();
 void DSPInitialize ();
 void DSPMenuInitialize ();
 void DSPShutdown ();
@@ -160,14 +155,12 @@ void KBDShutdown ();
 
 void SNDSynchronize ();
 void SNDWriteSpeaker (byte iData);
-//opt::options_description &SNDOptions ();
 void SNDInitialize ();
 void SNDShutdown ();
 
 byte TAPReadData ();
 void TAPWriteData (byte iData);
 byte TAPReadStatus ();
-//opt::options_description &TAPOptions ();
 void TAPInitialize ();
 void TAPShutdown ();
 bool TAPNextInputFile (std::vector <std::string> oArgTapeInputs);
@@ -175,7 +168,6 @@ bool TAPNextOutputFile (std::vector <std::string> oArgTapeOutputs);
 
 void TIMSynchronize ();
 void TIMAdvance ();
-//opt::options_description &TIMOptions ();
 void TIMInitialize ();
 void TIMShutdown ();
 

@@ -65,10 +65,6 @@ static int iLastInputClock;
 /// Last value of simulated clock at output.
 static int iLastOutputClock;
 
-//std::ofstream tapefile ("tape.bin", std::ofstream::binary);
-
-char* buffer = new char[65536];
-
 
 //--------------------------------------------------------------------------
 // File operations
@@ -86,10 +82,6 @@ template <class tStream> bool TAPNextFile (tStream &oStream, std::vector <std::s
 
   // Open next file if any.
   if (oNames.empty ()) return (false);
-
-  printf("Tape size: %i\n", oNames.size());
-
-  std::cout << "Tape: " << oNames[0] << "\n";
 
   oStream.clear ();
   oStream.open (oNames.front ());
@@ -226,25 +218,9 @@ byte TAPReadStatus ()
 //--------------------------------------------------------------------------
 // Initialization and shutdown
 
-//opt::options_description &TAPOptions ()
-//{
-//  static opt::options_description options ("Tape module options");
-//  options.add_options ()
-//    ("tape-in,i", opt::value <std::vector <std::string>> (&oArgTapeInputs), "Files to open as tape inputs")
-//    ("tape-out,o", opt::value <std::vector <std::string>> (&oArgTapeOutputs), "Files to open as tape outputs")
-//    ("time-tape-input", opt::value <bool> (&bArgTimeTapeInput), "Simulate tape input timing")
-//    ("time-tape-output", opt::value <bool> (&bArgTimeTapeOutput), "Simulate tape output timing")
-//    ("tape-rate", opt::value <int> (&iArgTapeRate), "Tape rate [bps]");
-//  return (options);
-//}
-
 
 void TAPInitialize ()
 {
- // oTapeInput.read(buffer,65536);
- // tapefile.write(buffer,65536);
- // oTapeInput.clear();
- // oTapeInput.seekg(0,std::ios::beg);
   // Nothing really ...
 }
 

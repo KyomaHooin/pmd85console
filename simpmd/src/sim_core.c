@@ -145,8 +145,6 @@ static void FillMemoryFromFile (int iFrom, int iSize, const char *pFile)
 /// Initialize a PMD 85-1 model.
 static void InitializePMD1 ()
 {
-  // Flush garbage
-  //FlushMemory(0x0000,65536);
   // Read the monitor image.
   FillMemoryFromFile (0x8000, 4096, PMD_SHARE "M1");
   FillMemoryFromFile (0xA000, 4096, PMD_SHARE "M1");
@@ -172,21 +170,15 @@ static void InitializePMD2 ()
 static void EmulationInitialize (int gameIndex){
   // Flush garbage
   FlushMemory(0x0000,65536);
-  //Reset processor clock
+  // Reset processor clock
   iProcessorClock = 0;
-  //Set Tape
+  // Set Tape
   gameIn.clear();
   gameIn.push_back(gameSelect[gameIndex]);
   TAPNextInputFile(gameIn);
 
-  //printf("Input file: %s\n",oArgTapeInputs);
-
   InitializePMD1();
   printf("Model Initializing..\n");
-
-  //std::ofstream file("start.bin",std::ios::binary);
-  //file.write((const char*)abMemoryData,65536);
-
   CPUInitialize ();
   printf("CPU Initializing..\n");
   DSPInitialize();
@@ -194,6 +186,7 @@ static void EmulationInitialize (int gameIndex){
   KBDInitialize ();
   printf("KBD Initializing..\n");
   //SNDInitialize ();
+  //printf("SND Initializing..\n");
   TAPInitialize ();
   printf("Tape Initializing..\n");
  
@@ -209,16 +202,13 @@ static void EmulationShutdown (){
   TAPShutdown ();
   printf("TAP shutdown..\n");
   //SNDShutdown ();
+  //printf("SND shutdown..\n");
   KBDShutdown ();
   printf("KBD shutdown..\n");
   DSPShutdown();
   printf("DSP shutdown..\n");
   CPUShutdown ();
   printf("CPU shutdown..\n");
-
-  //std::ofstream file("end.bin",std::ios::binary);
-  //file.write((const char*)abMemoryData,65536);
-
 }
 
 
@@ -229,8 +219,8 @@ int main (int iArgC, const char *apArgV [])
 {
 
   // SDL Init
-  //printf("SDL Initializing..\n");
   SDL_CheckZero (SDL_Init (SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_VIDEO));
+  printf("SDL Initializing..\n");
 
   //Disable cursor
   SDL_ShowCursor(0);
@@ -238,10 +228,7 @@ int main (int iArgC, const char *apArgV [])
   // Get fullscreen resolution
   SDL_CheckZero (SDL_GetCurrentDisplayMode(0,&fullscreen));
 
-  // Display initialize
-  //DSPInitialize ();
-
-  //Menu initialize
+  // Menu
   DSPMenuInitialize();
   DSPRenderMenu(fullscreen.w, fullscreen.h,gameIndex);
 

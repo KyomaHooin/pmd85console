@@ -7,10 +7,7 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
--emulator:
-  -re-run(?)
-  -loader
-  -boot tune
+-loading spash
 -[Heatsink]
 -[Sticker]
 </pre>
@@ -71,7 +68,11 @@ apt-get install libgl1-mesa-dri
 raspi-config > Advanced > GPU mem > 128
 raspi-config > Advanced > Overclocking > Medium
 
-sytemctl disable [avahi-daemon|bluetooth|dhcpcd|paxctld|rsync|triggerhappy|nfs-client.target|systemd-timesyncd|apt-daily|apt-daily-upgrade]
+dphys-swapfile swapoff
+dphys-swapfile uninstall
+
+sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy nfs-client.target systemd-timesyncd
+                  apt-daily apt-daily-upgrade dphys-swapfile networking dhcpcd ssh getty@tty1]
 
 apt-get install vim mc ntpdate
 
@@ -87,7 +88,7 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 # Firewall
 /root/firewall &
 # PMD-85
-/root/simpmd/bin/run > /var/log/pmd.log && halt &
+/root/simpmd/bin/run > /var/log/pmd.log 2>&1 && halt &
 
 /etc/dhcpcd.conf:
 
