@@ -73,7 +73,8 @@ dphys-swapfile swapoff
 dphys-swapfile uninstall
 
 sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy nfs-client.target systemd-timesyncd
-                  apt-daily apt-daily-upgrade dphys-swapfile networking dhcpcd ssh getty@tty1]
+                  apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.time dphys-swapfile
+                  networking dhcpcd ssh getty@tty1]
 
 apt-get install vim mc ntpdate
 
@@ -85,9 +86,9 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 /etc/rc.local:
 
 # NTP
-/usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
+#/usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
 # Firewall
-/root/firewall &
+#/root/firewall &
 # PMD-85
 /root/simpmd/bin/run > /var/log/pmd.log 2>&1 && halt &
 
@@ -176,7 +177,7 @@ make
 FILE
 
 <pre>
-       schema.png - Retro console schamatic.
+ pmd85console.png - Retro console schamatic.
 atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
 
         openscad/ - 3D printable retro case.
