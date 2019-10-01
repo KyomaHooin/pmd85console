@@ -8,7 +8,6 @@ TODO
 
 <pre>
 -boot splash
-
 -[Heatsink]
 -[Sticker]
 </pre>
