@@ -72,9 +72,9 @@ raspi-config > Advanced > Overclocking > Medium
 dphys-swapfile swapoff
 dphys-swapfile uninstall
 
-sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy nfs-client.target systemd-timesyncd
-                  apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.time dphys-swapfile
-                  networking dhcpcd ssh getty@tty1]
+sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy.socket nfs-client.target
+                  systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.time
+                  dphys-swapfile networking dhcpcd ssh getty@tty1]
 
 apt-get install vim mc ntpdate
 
