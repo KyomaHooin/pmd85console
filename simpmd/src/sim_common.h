@@ -142,6 +142,7 @@ void DSPMenuInitialize ();
 void DSPShutdown ();
 void DSPMenuShutdown ();
 
+void DSPRenderLogo (int screen_width, int screen_height);
 void DSPRenderText (int screen_width, int screen_height);
 void DSPRenderImage (int screen_width, int screen_height);
 void DSPRenderMenu (int screen_width, int screen_height, int index);

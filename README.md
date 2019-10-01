@@ -76,6 +76,9 @@ sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy
                   systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.time
                   dphys-swapfile networking dhcpcd ssh getty@tty1]
 
+cp pmd85.service /etc/systemd/system/
+systemctl enable pmd85.service
+
 apt-get install vim mc ntpdate
 
 /etc/fstab:
@@ -89,8 +92,6 @@ tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 #/usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
 # Firewall
 #/root/firewall &
-# PMD-85
-/root/simpmd/bin/run > /var/log/pmd.log 2>&1 && halt &
 
 /etc/dhcpcd.conf:
 
@@ -142,7 +143,9 @@ cp -r theme-pmd85 /usr/share/plymouth/themes/
 plymouth-set-default-theme -R theme-pmd85
 
 /usr/share/plymouth/plymouthd.defaults:
-DeviceTimout=10
+DeviceTimout=5
+
+systemctl disable plymouth-start -> Shutdown/reboot only.
 
 /boot/cmdline.txt:
 logo.nologo quiet splash plymouth.ignore-serial-consoles vt.global_cursor_default=0
@@ -179,6 +182,7 @@ FILE
 <pre>
  pmd85console.png - Retro console schamatic.
 atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
+    pmd85.service - Systemd service file.
 
         openscad/ - 3D printable retro case.
           simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tuma (c) 2008.

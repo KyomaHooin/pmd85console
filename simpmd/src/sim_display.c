@@ -45,6 +45,9 @@ static const char *menuText[6] = {
   "Richard Bruna (c) 2019"
 };
 
+//static const char *pmdLogo[1] = {"/root/simpmd-develop/data/logo/pmd85.bmp"};
+static const char *pmdLogo[1] = {"/root/simpmd-develop/data/logo/pmd85_830_570.bmp"};
+
 static const char *gameLogo[4] = {
   "/root/simpmd-develop/data/logo/flappy.bmp",
   "/root/simpmd-develop/data/logo/boulder.bmp",
@@ -361,6 +364,32 @@ void DSPRenderImage(int screen_width, int screen_height) {
   }
   SDL_FreeSurface (imageSurface);
   SDL_DestroyTexture (imageTexture);
+}
+
+
+void DSPRenderLogo(int screen_width, int screen_height) {
+  SDL_Surface* logoSurface;
+  SDL_Texture* logoTexture;
+  SDL_Rect logoRectangle;
+
+  logoSurface = SDL_LoadBMP (pmdLogo[0]);
+  logoTexture = SDL_CreateTextureFromSurface (mRenderer, logoSurface);
+  
+  logoRectangle.w = 830;
+  logoRectangle.h = 570;
+  logoRectangle.x = (screen_width - 830)/2;
+  logoRectangle.y = (screen_height - 570)/2;
+
+  SDL_RenderCopy (mRenderer, logoTexture, NULL, &logoRectangle);
+  SDL_RenderPresent (mRenderer);
+  SDL_Delay(15000);// wait 15 sec.
+ 
+  SDL_DestroyTexture (logoTexture);
+  SDL_FreeSurface (logoSurface);
+
+  SDL_CheckZero (SDL_SetRenderDrawColor (mRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
+  SDL_CheckZero (SDL_RenderClear (mRenderer));
+  SDL_RenderPresent (mRenderer);
 }
 
 

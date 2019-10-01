@@ -232,8 +232,9 @@ int main (int iArgC, const char *apArgV [])
   SDL_CheckZero (SDL_GetCurrentDisplayMode(0, &fullscreen));
 
   // Menu
-  DSPMenuInitialize();
-  DSPRenderMenu(fullscreen.w, fullscreen.h, gameIndex);
+  DSPMenuInitialize ();
+  DSPRenderLogo (fullscreen.w, fullscreen.h);
+  DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
 
   // Event loop
   SDL_Event sEvent;
@@ -252,23 +253,23 @@ int main (int iArgC, const char *apArgV [])
 	    }
             if (sEvent.key.keysym.sym == SDLK_LEFT) {
               (gameIndex == 0) ? gameIndex = 3 : gameIndex--;
-              DSPRenderMenu(fullscreen.w, fullscreen.h, gameIndex);
+              DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
             }
             if (sEvent.key.keysym.sym == SDLK_RIGHT) { 
               (gameIndex == 3) ? gameIndex = 0 : gameIndex++;
-              DSPRenderMenu(fullscreen.w, fullscreen.h, gameIndex);
+              DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
             }
             if (sEvent.key.keysym.sym == SDLK_RETURN) {
-              DSPMenuShutdown();
-              EmulationInitialize(gameIndex);
+              DSPMenuShutdown ();
+              EmulationInitialize (gameIndex);
               inMenu = false;	
             }
           }
         } else {
           if (sEvent.key.keysym.sym == SDLK_ESCAPE) {
-            EmulationShutdown();
-            DSPMenuInitialize();
-            DSPRenderMenu(fullscreen.w, fullscreen.h, gameIndex);
+            EmulationShutdown ();
+            DSPMenuInitialize ();
+            DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
             inMenu = true;
         } else {
             KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
