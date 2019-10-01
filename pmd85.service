@@ -1,0 +1,13 @@
+[Unit]
+Description=PMD-85 Retro Console
+After=systemd-remount-fs.service
+
+[Service]
+ExecStart=/root/simpmd-develop/bin/simpmd
+WorkingDirectory=/root/simpmd-develop/bin/
+
+StandardOutput=/var/log/pmd85.log
+StandardError=/var/log/pmd85.log
+
+[Install]
+WantedBy=multi-user.target
