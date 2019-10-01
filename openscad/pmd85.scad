@@ -5,11 +5,11 @@
 include <mod.scad>;
 include <rpi.scad>;
 
-drawCaseBottom=1;
+drawCaseBottom=0;
 drawCaseTop=0;
 drawPi=0;
 drawKeyboard=0;
-drawAll=0;
+drawAll=1;
 
 //--------------------------------------
 
@@ -100,8 +100,8 @@ module case_top() {
     translate([topX-2,topY/4-5,-5])clip_back();
     translate([topX-2,topY-topY/4,-5])clip_back();
     //KBD
-    //color("grey")
-    //translate([(topX-53)/2,34.5,angle_coord(34.5,angle,-6)]) rotate([-angle,0,0]) keyboard();
+    color("grey")
+    translate([(topX-53)/2,35,angle_coord(35,angle,-9)]) rotate([-angle,0,0]) keyboard();
 }
 
 //------------------------------
