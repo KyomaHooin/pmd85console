@@ -74,12 +74,16 @@ static int iArgRefresh = 40;
 static SDL_Window *pWindow;
 /// Singleton screen renderer;
 static SDL_Renderer *pRenderer;
-/// Singleton screen texture;
+/// Singleton screen texture.
 static SDL_Texture *pTexture;
 /// Singleton menu window.
 static SDL_Window *mWindow;
-/// Singleton menu renderer;
+/// Singleton menu renderer.
 static SDL_Renderer *mRenderer;
+/// Singleton logo window.
+static SDL_Window *lWindow;
+/// Singleton logo renderer.
+static SDL_Renderer *lRenderer;
 /// Paint timer.
 static SDL_TimerID iPaintTimer;
 
@@ -238,9 +242,7 @@ void DSPInitialize ()
   // Clear screen.
   SDL_CheckZero (SDL_SetRenderDrawColor (pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
   SDL_CheckZero (SDL_RenderClear (pRenderer));
-
   SDL_RenderPresent (pRenderer);
-
   // Start the timer that paints the screen repeatedly ...
   iPaintTimer = SDL_AddTimer (iArgRefresh, DSPPaintTimerCallback, NULL);
 }
@@ -252,14 +254,25 @@ void DSPMenuInitialize ()
   SDL_CheckNotNull (mWindow = SDL_CreateWindow ("SimPMD - Menu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                                 PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT, 0));
   SDL_CheckNotNull (mRenderer = SDL_CreateRenderer (mWindow, -1, SDL_RENDERER_ACCELERATED));
-
   //TTF
   TTF_Init();
-
   // Clear screen.
   SDL_CheckZero (SDL_SetRenderDrawColor (mRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
   SDL_CheckZero (SDL_RenderClear (mRenderer));
   SDL_RenderPresent (mRenderer);
+}
+
+
+void DSPLogoInitialize ()
+{
+  // Initialize the video resources.
+  SDL_CheckNotNull (lWindow = SDL_CreateWindow ("SimPMD - Logo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                                PMD_VRAM_WIDTH * PMD_PIXEL_COUNT, PMD_VRAM_HEIGHT, 0));
+  SDL_CheckNotNull (lRenderer = SDL_CreateRenderer (lWindow, -1, SDL_RENDERER_ACCELERATED));
+  // Clear screen.
+  SDL_CheckZero (SDL_SetRenderDrawColor (lRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
+  SDL_CheckZero (SDL_RenderClear (lRenderer));
+  SDL_RenderPresent (lRenderer);
 }
 
 
@@ -283,6 +296,15 @@ void DSPMenuShutdown ()
   mRenderer = NULL;
   SDL_DestroyWindow (mWindow);
   mWindow = NULL;
+}
+
+
+void DSPLogoShutdown ()
+{
+  SDL_DestroyRenderer (lRenderer);
+  lRenderer = NULL;
+  SDL_DestroyWindow (lWindow);
+  lWindow = NULL;
 }
 
 
@@ -373,23 +395,19 @@ void DSPRenderLogo(int screen_width, int screen_height) {
   SDL_Rect logoRectangle;
 
   logoSurface = SDL_LoadBMP (pmdLogo[0]);
-  logoTexture = SDL_CreateTextureFromSurface (mRenderer, logoSurface);
+  logoTexture = SDL_CreateTextureFromSurface (lRenderer, logoSurface);
   
   logoRectangle.w = 830;
   logoRectangle.h = 570;
   logoRectangle.x = (screen_width - 830)/2;
   logoRectangle.y = (screen_height - 570)/2;
 
-  SDL_RenderCopy (mRenderer, logoTexture, NULL, &logoRectangle);
-  SDL_RenderPresent (mRenderer);
-  SDL_Delay(15000);// wait 15 sec.
+  SDL_RenderCopy (lRenderer, logoTexture, NULL, &logoRectangle);
+  SDL_RenderPresent (lRenderer);
+  SDL_Delay(6000);// wait 6 sec.
  
   SDL_DestroyTexture (logoTexture);
   SDL_FreeSurface (logoSurface);
-
-  SDL_CheckZero (SDL_SetRenderDrawColor (mRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE));
-  SDL_CheckZero (SDL_RenderClear (mRenderer));
-  SDL_RenderPresent (mRenderer);
 }
 
 

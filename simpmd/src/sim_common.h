@@ -139,8 +139,10 @@ void DSPPaintHandler ();
 void DSPResizeHandler ();
 void DSPInitialize ();
 void DSPMenuInitialize ();
+void DSPLogoInitialize ();
 void DSPShutdown ();
 void DSPMenuShutdown ();
+void DSPLogoShutdown ();
 
 void DSPRenderLogo (int screen_width, int screen_height);
 void DSPRenderText (int screen_width, int screen_height);

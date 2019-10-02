@@ -231,9 +231,13 @@ int main (int iArgC, const char *apArgV [])
   // Get fullscreen resolution
   SDL_CheckZero (SDL_GetCurrentDisplayMode(0, &fullscreen));
 
+  //Logo
+  DSPLogoInitialize ();
+  DSPRenderLogo (fullscreen.w, fullscreen.h);
+  DSPLogoShutdown ();
+
   // Menu
   DSPMenuInitialize ();
-  DSPRenderLogo (fullscreen.w, fullscreen.h);
   DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
 
   // Event loop
