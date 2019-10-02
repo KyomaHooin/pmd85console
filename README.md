@@ -7,7 +7,8 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
--boot splash
+-Fix sound
+-Fix window/renderer dup
 -[Heatsink]
 -[Sticker]
 </pre>
@@ -98,6 +99,7 @@ interface wlan0
 static ip_address=192.168.0.x85/24
 static routers=192.168.0.1
 static domain_name_servers=xx.xx.xx.xx xx.xx.xx.xx
+
 </pre>
 
 UART
@@ -142,7 +144,7 @@ cp -r theme-pmd85 /usr/share/plymouth/themes/
 plymouth-set-default-theme -R theme-pmd85
 
 /usr/share/plymouth/plymouthd.defaults:
-DeviceTimout=5
+DeviceTimout=10
 
 systemctl disable plymouth-start -> Shutdown/reboot only.
 
