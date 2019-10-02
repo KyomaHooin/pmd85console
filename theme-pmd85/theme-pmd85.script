@@ -1,13 +1,7 @@
 
-splash_image = Image("pmd85_splash.png");
-
-screen_width = Window.GetWidth();
-screen_height = Window.GetHeight();
+splash_image = Image("pmd85_830_570.png");
 
 splash_sprite = Sprite(splash_image);
-splash_sprite.SetX((screen_width - 830)/2)
-splash_sprite.SetY((screen_height - 570)/2)
 
-#splash_image_scaled = splash_image.Scale(screen_width,screen_height);
-#splash_sprite = Sprite(splash_image_scaled);
-
+splash_sprite.SetX(Window.GetWidth()/2 - splash_image.GetWidth()/2);
+splash_sprite.SetY(Window.GetHeight()/2 - splash_image.GetHeight()/2);
