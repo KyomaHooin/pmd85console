@@ -1,0 +1,10 @@
+#!/bin/bash
+
+service ssh stop
+service dhcpcd stop
+service networking stop
+
+systemctl disable networking
+systemctl disable dhcpcd
+systemctl disable ssh
+

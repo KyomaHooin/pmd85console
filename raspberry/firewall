@@ -1,0 +1,42 @@
+#!/bin/sh
+
+#MODE
+
+modprobe ip_conntrack
+
+#FLUSH, ZERO
+
+iptables -F
+iptables -Z
+
+#IFACE
+
+iptables -A INPUT -i lo -j ACCEPT
+
+#POLICY
+
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
+
+#ICMP
+
+iptables -A INPUT -p icmp -j ACCEPT
+
+#TCP
+
+iptables -A INPUT -p tcp -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --destination-port 22 -j ACCEPT
+
+#UDP
+
+iptables -A INPUT -p udp --source-port 123 -j ACCEPT
+iptables -A INPUT -p udp --source-port 67:68 --destination-port 67:68 -j ACCEPT
+iptables -A INPUT -p udp --source-port 53 -j ACCEPT
+
+#OUTPUT
+
+iptables -A OUTPUT -p tcp -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p icmp -j ACCEPT
+iptables -A OUTPUT -j ACCEPT
+

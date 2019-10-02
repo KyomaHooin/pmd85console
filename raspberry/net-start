@@ -1,0 +1,10 @@
+#!/bin/bash
+
+service networking start
+service dhcpcd start
+service ssh start
+
+/root/firewall
+
+/usr/sbin/ntpdate -b -4 tik.cesnet.cz
+

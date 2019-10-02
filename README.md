@@ -74,7 +74,7 @@ dphys-swapfile uninstall
 
 sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy.socket nfs-client.target
                   systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.time
-                  dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local]
+                  dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local wifi-country keyboard-setup]
 
 cp pmd85.service /etc/systemd/system/
 systemctl enable pmd85.service
@@ -86,17 +86,10 @@ apt-get install vim mc ntpdate
 tmpfs	/tmp	tmpfs	defaults,noatime,nosuid,size=5m	0	0
 tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 
-/etc/rc.local:
-
-# NTP
-#/usr/sbin/ntpdate -b -4 tik.cesnet.cz > /dev/null 2>&1 &
-# Firewall
-#/root/firewall &
-
 /etc/dhcpcd.conf:
 
 interface wlan0
-static ip_address=192.168.0.x85/24
+static ip_address=192.168.0.85/24
 static routers=192.168.0.1
 static domain_name_servers=xx.xx.xx.xx xx.xx.xx.xx
 </pre>
@@ -149,6 +142,10 @@ systemctl disable plymouth-start -> Shutdown/reboot only.
 
 /boot/cmdline.txt:
 logo.nologo quiet splash plymouth.ignore-serial-consoles vt.global_cursor_default=0
+
+/boot/config.txt:
+boot_delay=0
+
 </pre>
 
 SDL2
@@ -182,9 +179,9 @@ FILE
 <pre>
  pmd85console.png - Retro console schamatic.
 atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
-    pmd85.service - Systemd service file.
 
         openscad/ - 3D printable retro case.
+       raspberry/ - Raspbery support scripts.
           simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tuma (c) 2008.
      theme-pmd85/ - Splash Plymouth theme.
 </pre>
