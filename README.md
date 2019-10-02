@@ -74,7 +74,7 @@ dphys-swapfile uninstall
 
 sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy.socket nfs-client.target
                   systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.time
-                  dphys-swapfile networking dhcpcd ssh getty@tty1]
+                  dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local]
 
 cp pmd85.service /etc/systemd/system/
 systemctl enable pmd85.service
@@ -99,7 +99,6 @@ interface wlan0
 static ip_address=192.168.0.x85/24
 static routers=192.168.0.1
 static domain_name_servers=xx.xx.xx.xx xx.xx.xx.xx
-
 </pre>
 
 UART
