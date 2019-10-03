@@ -62,32 +62,33 @@ module keyboard() {//55x15x2
 
 module case_top() {
 //    color("grey")
+    union() {
     difference() {
     top_base();
     //RPI
     translate([0.5,0.5,-piThick-microHeight-0.5])rpi(edge=2);
     //KBD SLAB
-    translate([(topX-55)/2+0.5,34.5,angle_coord(34.5,angle,-8.5)])
+    translate([(topX-55)/2+0.5,34.5,angle_coord(34.5,angle,-8.25)])
         rotate([-angle,0,0]) kbd_slab();
     //VENT SLAB SLIDE
     translate([(topX-55)/2,30,angle_coord(30,angle,-8)]) rotate([-angle,0,0]) vent_slab();
     translate([(topX-55)/2,27,angle_coord(27,angle,-8)]) rotate([-angle,0,0]) vent_slab();
     translate([(topX-55)/2,24,angle_coord(24,angle,-8)]) rotate([-angle,0,0]) vent_slab();
     //VENT SLAB TOP
-    translate([(topX-56)/2,15.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2,12.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2,9.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2,6.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2,3.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2+15+(54-30-15.5)/2,9.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2+15+(54-30-15.5)/2,12.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2+15+(54-30-15.5)/2,15.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2 + 54-15.5,15.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2 + 54-15.5,12.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2 + 54-15.5,9.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2 + 54-15.5,6.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2 + 54-15.5,3.5,topBackHeight+1]) vent_slab_short();
-    translate([(topX-56)/2 +15+(54-30-15.5)/2,3.5,topBackHeight+1]) vent_slab_big();
+    translate([(topX-56)/2,15.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2,12.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2,9.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2,6.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2,3.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2+15+(54-30-15.5)/2,9.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2+15+(54-30-15.5)/2,12.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2+15+(54-30-15.5)/2,15.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2 + 54-15.5,15.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2 + 54-15.5,12.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2 + 54-15.5,9.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2 + 54-15.5,6.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2 + 54-15.5,3.5,topBackHeight+1.25]) vent_slab_short();
+    translate([(topX-56)/2 +15+(54-30-15.5)/2,3.5,topBackHeight+1.25]) vent_slab_big();
     //LED HOLE
     translate([15,52.5,10]) cylinder(d=3.25,h=10);
     translate([8.5,52.5,10]) cylinder(d=3.25,h=10);
@@ -99,9 +100,10 @@ module case_top() {
     translate([0,topY-topY/4,-5])clip_front();
     translate([topX-2,topY/4-5,-5])clip_back();
     translate([topX-2,topY-topY/4,-5])clip_back();
+    }
     //KBD
-    color("grey")
-    translate([(topX-53)/2,35,angle_coord(35,angle,-9)]) rotate([-angle,0,0]) keyboard();
+    //color("grey")
+    //translate([(topX-53)/2,35,angle_coord(35,angle,-9)]) rotate([-angle,0,0]) keyboard();
 }
 
 //------------------------------
