@@ -7,8 +7,8 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
--Fix sound
--Fix window/renderer dup
+-Fix sound.
+-Fix window/renderer duplication.
 -[Heatsink]
 -[Sticker]
 </pre>
@@ -30,7 +30,6 @@ HARDWARE
 1x <a target="_blank" href="https://www.aliexpress.com/item/New-High-Quality-USB-To-TTL-Serial-Module-FTDI-FT232RL-USB-3-3V-5V-To-TTL/32971767031.html">USB FTDI TTL/UART</a>(3.3V 6-pin)
 1x MicroSD(2GB)
 1x Keyboard(Chicony KU-0108s/100mA)
-
 1x <a target="_blank" href="https://www.ges.cz/cz/l-934gd-GES10700054.html">Green LED</a>(10mA 2.2V)
 1x <a target="_blank" href="https://www.ges.cz/cz/l-934id-GES10701762.html">Red LED</a>(10mA 2V)
 1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-120r-1-GES05300318.html">Rezistor 120R</a>
@@ -73,7 +72,7 @@ dphys-swapfile swapoff
 dphys-swapfile uninstall
 
 sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy.socket nfs-client.target
-                  systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.time
+                  systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.timer
                   dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local wifi-country keyboard-setup]
 
 cp pmd85.service /etc/systemd/system/
@@ -82,12 +81,10 @@ systemctl enable pmd85.service
 apt-get install vim mc ntpdate
 
 /etc/fstab:
-
 tmpfs	/tmp	tmpfs	defaults,noatime,nosuid,size=5m	0	0
 tmpfs	/var/log	tmpfs	defaults,noatime,nosuid,mode=0755,size=5m	0	0
 
 /etc/dhcpcd.conf:
-
 interface wlan0
 static ip_address=192.168.0.85/24
 static routers=192.168.0.1
