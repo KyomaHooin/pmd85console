@@ -73,7 +73,8 @@ dphys-swapfile uninstall
 
 sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy.socket nfs-client.target
                   systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.timer
-                  dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local wifi-country keyboard-setup]
+                  dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local wifi-country keyboard-setup
+                  alsa-restore systemd-rfkill]
 
 cp pmd85.service /etc/systemd/system/
 systemctl enable pmd85.service
