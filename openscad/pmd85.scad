@@ -123,8 +123,8 @@ module case_bottom() {
         //RPI
         translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi(edge=2);
         //CLIP HOLE
-        translate([-1,bottomY/4-6,bottomHeight-5])clip_hole_front();
-        translate([-1,bottomY-bottomY/4-1,bottomHeight-5])clip_hole_front();
+        translate([-1+0.5,bottomY/4-6,bottomHeight-5])clip_hole_front();
+        translate([-1+0.5,bottomY-bottomY/4-1,bottomHeight-5])clip_hole_front();
         translate([bottomX,bottomY/4-4,bottomHeight-5])clip_hole_back();
         translate([bottomX,bottomY-bottomY/4+1,bottomHeight-5])clip_hole_back();
         //LIP LOCK
