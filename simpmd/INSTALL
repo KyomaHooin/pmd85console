@@ -12,6 +12,7 @@ o REQUIREMENTS
   The simulator requires these libraries:
 
     - SDL2
+    - SDL2_TTF
 
 o COMPILATION
 
@@ -36,20 +37,6 @@ o EXECUTION
 The C version of the simulator has been tested on Fedora Core Linux.
 It should be reasonably portable on most Linux platforms, feel free
 to contact me if any issues come up.
-
-
-+-------------------------------------------------------------------+
-| ASSEMBLY VERSION                                                  |
-+-------------------------------------------------------------------+
-
-The assembly version of the simulator has been tested on DOS.
-It requires Borland Turbo Assembler to compile, there is no
-free assembler that can compile the sources (NASM does not
-support the ASSUME directive and YASM does not support the
-TASM syntax).
-
-The assembly version is superseded by the C version.
-
 
 +-------------------------------------------------------------------+
 |     Copyright (C) 2008 Petr Tuma <petr.tuma@dsrg.mff.cuni.cz>     |
