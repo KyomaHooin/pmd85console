@@ -167,15 +167,15 @@ module clip_hole() {// 1x5x4
 
 module clip() {
     union() {
-    translate([0,0,2])cube([2,5,8]);
+    translate([0,0,3])cube([2,5,8]);
     polyhedron(
         points = [
             [0,0,0],//0
             [0,5,0],//1
-            [0,0,2],//2
-            [2,0,2],//3
-            [2,5,2],//4
-            [0,5,2] //5
+            [0,0,3],//2
+            [2,0,3],//3
+            [2,5,3],//4
+            [0,5,3] //5
     ],
         faces = [
             [2,3,0],
@@ -185,7 +185,7 @@ module clip() {
             [2,5,4,3]
     ]
     );
-    translate([-1,0,6])
+    translate([-1,0,7])
     polyhedron(
         points = [
             [1,0,0],//0
@@ -224,4 +224,3 @@ module clip_hole_back() {
     translate([1,5,0])
         rotate([0,0,180]) clip_hole();
 }
-

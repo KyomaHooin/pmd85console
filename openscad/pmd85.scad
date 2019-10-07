@@ -96,10 +96,10 @@ module case_top() {
     top_lip_lock();
     }
     // CLIP
-    translate([0,topY/4-5,-5])clip_front();
-    translate([0,topY-topY/4,-5])clip_front();
-    translate([topX-2,topY/4-5,-5])clip_back();
-    translate([topX-2,topY-topY/4,-5])clip_back();
+    translate([0-0.1,topY/4-5,-4])clip_front();
+    translate([0-0.1,topY-topY/4,-4])clip_front();
+    translate([topX-2+0.1,topY/4-5,-4])clip_back();
+    translate([topX-2+0.1,topY-topY/4,-4])clip_back();
     }
     //KBD
     //color("grey")
