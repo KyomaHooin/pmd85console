@@ -18,6 +18,21 @@ limitations under the License.
 
 */
 
+/* MODIFIED
+
+ -Added:
+
+ void DSPRenderMenu(int screen_width, int screen_height, int index) {
+ void DSPRenderLogo(int screen_width, int screen_height) {
+ void DSPRenderImage(int screen_width, int screen_height) {
+ void DSPRenderText(int screen_width, int screen_height) {
+ void DSPLogoShutdown ()
+ void DSPMenuShutdown ()
+ void DSPLogoInitialize ()
+ void DSPMenuInitialize ()
+
+*/
+
 #include "sim_common.h"
 #include "SDL2/SDL_ttf.h"
 
@@ -45,7 +60,6 @@ static const char *menuText[6] = {
   "Richard Bruna (c) 2019"
 };
 
-//static const char *pmdLogo[1] = {"/root/simpmd-develop/data/logo/pmd85.bmp"};
 static const char *pmdLogo[1] = {"/root/simpmd-develop/data/logo/pmd85_830_570.bmp"};
 
 static const char *gameLogo[4] = {

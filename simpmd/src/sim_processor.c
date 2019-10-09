@@ -18,6 +18,14 @@ limitations under the License.
 
 */
 
+/* MODIFIED
+
+ - Removed suspend/resume.
+ - Sound commented out.
+ - Minor fixes.
+
+*/
+
 #include "sim_common.h"
 
 #include <semaphore.h>

@@ -18,6 +18,18 @@ limitations under the License.
 
 */
 
+/* MODIFIED
+
+ -Added:
+ 
+ static void FlushMemory (int iFrom, int iSize)
+ static void EmulationInitialize (int gameIndex)
+ static void EmulationShutdown ()
+
+ -Heavily modified main loop.
+
+*/
+
 #include "sim_common.h"
 #include <fstream>
 
@@ -50,9 +62,8 @@ static std::string gameSelect[4] = {
   "/root/simpmd-develop/data/tapes/games-pmd2/FRED"
 };
 
-// Game Tape IN
+/// Game Tape IN
 std::vector <std::string> gameIn;
-
 /// Screen resolution
 SDL_DisplayMode fullscreen;
 /// Menu
@@ -224,22 +235,17 @@ int main (int iArgC, const char *apArgV [])
   // SDL Init
   SDL_CheckZero (SDL_Init (SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_VIDEO));
   printf("SDL Initializing..\n");
-
   //Disable cursor
   SDL_ShowCursor(0);
-
   // Get fullscreen resolution
   SDL_CheckZero (SDL_GetCurrentDisplayMode(0, &fullscreen));
-
   //Logo
   DSPLogoInitialize ();
   DSPRenderLogo (fullscreen.w, fullscreen.h);
   DSPLogoShutdown ();
-
   // Menu
   DSPMenuInitialize ();
   DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
-
   // Event loop
   SDL_Event sEvent;
 
@@ -275,7 +281,7 @@ int main (int iArgC, const char *apArgV [])
             DSPMenuInitialize ();
             DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
             inMenu = true;
-        } else {
+          } else {
             KBDEventHandler ((SDL_KeyboardEvent *) &sEvent);
           }
         }
@@ -290,7 +296,7 @@ int main (int iArgC, const char *apArgV [])
 
   // Menu shutdown
   DSPMenuShutdown ();
-
+  // Quit
   SDL_Quit ();
 
   return (0);

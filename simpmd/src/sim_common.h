@@ -18,6 +18,28 @@ limitations under the License.
 
 */
 
+/* MODIFIED
+
+ -Removed options.
+ -Removed console.
+
+ -Added:
+
+ bool TAPNextInputFile (std::vector <std::string> oArgTapeInputs);
+ bool TAPNextOutputFile (std::vector <std::string> oArgTapeOutputs);
+
+ void DSPMenuInitialize ();
+ void DSPLogoInitialize ();
+ void DSPMenuShutdown ();
+ void DSPLogoShutdown ();
+
+ void DSPRenderLogo (int screen_width, int screen_height);
+ void DSPRenderText (int screen_width, int screen_height);
+ void DSPRenderImage (int screen_width, int screen_height);
+ void DSPRenderMenu (int screen_width, int screen_height, int index);
+
+*/
+
 #include <assert.h>
 #include <stdint.h>
 #include <pthread.h>
@@ -26,9 +48,6 @@ limitations under the License.
 #include <iomanip>
 #include <iostream>
 #include <vector>
-
-//#include <boost/program_options.hpp>
-//namespace opt = boost::program_options;
 
 #include <SDL2/SDL.h>
 
@@ -123,11 +142,6 @@ extern relaxed_int iProcessorClock;
 
 void SIMRequestShutdown ();
 bool SIMQueryShutdown ();
-
-//void CONStartThread ();
-//void CONTerminateThread ();
-//void CONInitialize ();
-//void CONShutdown ();
 
 void CPUReset ();
 void CPUStartThread ();

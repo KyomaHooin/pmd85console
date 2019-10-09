@@ -18,6 +18,17 @@ limitations under the License.
 
 */
 
+/* MODIFIED
+
+ -Modified:
+
+ bool TAPNextInputFile  (std::vector <std::string> oArgTapeInputs)
+ bool TAPNextOutputFile (std::vector <std::string> oArgTapeOututs)
+ bool TAPInputFileStatus ()
+ bool TAPOutputFileStatus ()
+
+*/
+
 #include "sim_common.h"
 
 #include <string>
@@ -30,10 +41,8 @@ limitations under the License.
 
 /// Tape input names. What files to open as tape inputs.
 static std::vector <std::string> oArgTapeInputs;
-//std::vector <std::string> oArgTapeInputs;
 /// Tape output names. What files to open as tape outputs.
 static std::vector <std::string> oArgTapeOutputs;
-//std::vector <std::string> oArgTapeOutputs;
 
 /// Time tape input. Whether to simulate timing of the tape input.
 static bool bArgTimeTapeInput = false;
