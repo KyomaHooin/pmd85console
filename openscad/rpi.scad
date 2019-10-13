@@ -10,9 +10,9 @@ piThick=1.27;
 piHoleDia=2.75;
 piHoleOffset=3.5;
 
-usbWidth=13.16;
+usbWidth=13.16+1;
 usbLength=17.05+1;
-usbHeight=9.1-piThick+1;
+usbHeight=9.1-piThick+0.5;
 usbOverHang=1.84;
 usbY=17.6;
 
@@ -24,7 +24,7 @@ avX=53.5-avWidth/2;
 
 hdmiWidth=11.47;
 hdmiLength=15.04+1;
-hdmiHeight=7.86-piThick+1;
+hdmiHeight=7.86-piThick+0.5;
 hdmiOverHang=1.59;
 hdmiX=32-(hdmiLength/2);
 
@@ -66,17 +66,17 @@ module rpi(edge=0) {
     }
     color("Silver") {
         // USB
-        translate([piX-usbWidth-usbOverHang+edge, piY-usbY-usbWidth, piThick-0.5])
+        translate([piX-usbWidth-usbOverHang+edge, piY-usbY-usbWidth+0.5, piThick])
             cube([usbLength, usbWidth, usbHeight]);
         // HDMI
-        translate([hdmiX, -hdmiOverHang-edge, piThick-0.5])
+        translate([hdmiX, -hdmiOverHang-edge, piThick])
             cube([hdmiLength, hdmiWidth, hdmiHeight]);
         // AV
         translate([avX, -avOverHang-edge, piThick-0.5])
             cube([avWidth, avLength, avHeight]);
         // microUSB
         translate([microX, -microOverHang-edge, piThick-0.5])
-            cube([microLength, microWidth, microHeight+1]);
+            cube([microLength, microWidth, microHeight]);
         // microSD
         translate([-cardOverHang-edge, cardY, -cardHeight+0.5])
             cube([cardLength, cardWidth,cardHeight]);
@@ -88,3 +88,4 @@ module rpi(edge=0) {
     }
 }
 
+//rpi();
