@@ -97,6 +97,7 @@ UART
 
 <pre>
 3.3V UART => | x | x | GND | TX | RX | ..
+             | x | x |  x  | x  | x  | ..
 
 minicom -D /dev/ttyUSB0 -b 115200
 
@@ -106,6 +107,9 @@ minicom -D /dev/ttyUSB0 -b 115200
 LED
 
 <pre name="led">
+.. | x | GND | 12 | GND | 16 | x | x |
+.. | x |  x  | x  |  x  | x  | x | x |
+
            [RED]                    [GREEN]
             | |                       | |
      150R --  |                120R --  |
