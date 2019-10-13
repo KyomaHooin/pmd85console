@@ -165,7 +165,7 @@ module clip_hole() {// 1x5x4
             [4,2,3,5]
     ]
     );
-    translate([0,-1,0])cube([2,9,1.5]);
+    translate([0,-1,0])cube([2,8,1.5]);
     }
 }
 
