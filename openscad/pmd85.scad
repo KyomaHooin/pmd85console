@@ -5,8 +5,8 @@
 include <mod.scad>;
 include <rpi.scad>;
 
-drawCaseBottom=0;
-drawCaseTop=1;
+drawCaseBottom=1;
+drawCaseTop=0;
 drawPi=0;
 drawKeyboard=0;
 drawAll=0;
@@ -66,7 +66,7 @@ module case_top() {
     difference() {
     top_base();
     //RPI
-    translate([0.5,0.5,-piThick-microHeight-0.5])rpi(edge=2);
+    translate([0.5,0.5,-piThick-microHeight+0.5])rpi(edge=2);
     //KBD SLAB
     translate([(topX-55)/2+0.5,34.5,angle_coord(34.5,angle,-8.25)])
         rotate([-angle,0,0]) kbd_slab();
@@ -92,6 +92,8 @@ module case_top() {
     //LED HOLE
     translate([15,53,10]) cylinder(d=3.5,h=10);
     translate([8.5,53,10]) cylinder(d=3.5,h=10);
+    // USB LIP
+    translate([topX+1.25,piY-usbY-usbWidth+1,-microHeight+0.5]) usb_lip();
     //LIP LOCK
     top_lip_lock();
     }
@@ -127,12 +129,13 @@ module case_bottom() {
         translate([-1+0.5,bottomY-bottomY/4-0.5,bottomHeight-2.5])clip_hole_front();
         translate([bottomX,bottomY/4-5.5,bottomHeight-2.5])clip_hole_back();
         translate([bottomX,bottomY-bottomY/4-0.5,bottomHeight-2.5])clip_hole_back();
+        // USB LIP
+        translate([bottomX+0.75,piY-usbY-usbWidth+1,bottomThick+bottomMountHeight+piThick]) usb_lip();
         //LIP LOCK
         translate([0,0,bottomHeight]) bottom_lip_lock();
         translate([0.5,-microWidth/2,bottomHeight-microHeight/2])// MiroUSB fix
             translate([microX, -microOverHang, piThick-0.5])
                 cube([microLength, microWidth, microHeight+1]);
-
     }
     // BOTTOM MOUNT
     bottom_mount(piHoleOffset+0.5, piHoleOffset+0.5, bottomThick);
@@ -159,6 +162,6 @@ if (drawKeyboard) {
 
 if (drawAll) {
     case_bottom();
-    //translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi();
+    translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi(edge=3);
     translate([0,0,bottomHeight]) case_top();
 }

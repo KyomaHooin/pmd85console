@@ -21,7 +21,7 @@ module bottom_base() {
 module bottom_lip_lock() {
     difference() {
         bottom_hull(bottomX,bottomY,1);
-        translate([1.25,1.25,-1]) bottom_hull(bottomX-2.25,bottomY-2.25,3);
+        translate([1.25,1.25,-1]) bottom_hull(bottomX-2.5,bottomY-2.5,3);
     }
 }
 
@@ -50,6 +50,17 @@ module sd_lip() {
       cylinder(r=1,h=3);
       translate([0,cardWidth,0]) cylinder(r=1,h=3);
       translate([0,-1,0])cube([cardHeight+bottomThick,cardWidth+2,3]);
+    }
+}
+
+
+module usb_lip(){
+    rotate([90,0,90])
+    hull() {
+        cylinder(r=1,h=2);
+        translate([usbWidth,0,0]) cylinder(r=1,h=2);
+        translate([usbWidth,usbHeight,0]) cylinder(r=1,h=2);
+        translate([0,usbHeight,0]) cylinder(r=1,h=2);
     }
 }
 
