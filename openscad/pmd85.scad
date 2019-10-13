@@ -6,10 +6,10 @@ include <mod.scad>;
 include <rpi.scad>;
 
 drawCaseBottom=0;
-drawCaseTop=0;
+drawCaseTop=1;
 drawPi=0;
 drawKeyboard=0;
-drawAll=1;
+drawAll=0;
 
 //--------------------------------------
 
@@ -90,8 +90,8 @@ module case_top() {
     translate([(topX-56)/2 + 54-15.5,3.5,topBackHeight+1.25]) vent_slab_short();
     translate([(topX-56)/2 +15+(54-30-15.5)/2,3.5,topBackHeight+1.25]) vent_slab_big();
     //LED HOLE
-    translate([15,52.5,10]) cylinder(d=3.25,h=10);
-    translate([8.5,52.5,10]) cylinder(d=3.25,h=10);
+    translate([15,53,10]) cylinder(d=3.5,h=10);
+    translate([8.5,53,10]) cylinder(d=3.5,h=10);
     //LIP LOCK
     top_lip_lock();
     }
@@ -159,6 +159,6 @@ if (drawKeyboard) {
 
 if (drawAll) {
     case_bottom();
-    translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi();
+    //translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi();
     translate([0,0,bottomHeight]) case_top();
 }
