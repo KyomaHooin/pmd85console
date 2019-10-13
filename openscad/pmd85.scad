@@ -22,7 +22,7 @@ bottomX=piX+1;
 bottomY=piY+1;
 bottomMountHeight=1.75;
 bottomMountDia=4.4;
-bottomHeight=bottomThick+bottomMountHeight+piThick+microHeight+0.5;
+bottomHeight=bottomThick+bottomMountHeight+piThick+microHeight-0.5;
 
 //--------------------------------------
 
@@ -96,10 +96,10 @@ module case_top() {
     top_lip_lock();
     }
     // CLIP
-    translate([0-0.1,topY/4-5,-4])clip_front();
-    translate([0-0.1,topY-topY/4,-4])clip_front();
-    translate([topX-2+0.1,topY/4-5,-4])clip_back();
-    translate([topX-2+0.1,topY-topY/4,-4])clip_back();
+    translate([0-0.1,topY/4-5,-2.5])clip_front();
+    translate([0-0.1,topY-topY/4,-2.5])clip_front();
+    translate([topX-2+0.1,topY/4-5,-2.5])clip_back();
+    translate([topX-2+0.1,topY-topY/4,-2.5])clip_back();
     }
     //KBD
     //color("grey")
@@ -123,10 +123,10 @@ module case_bottom() {
         //RPI
         translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi(edge=2);
         //CLIP HOLE
-        translate([-1+0.5,bottomY/4-6,bottomHeight-5])clip_hole_front();
-        translate([-1+0.5,bottomY-bottomY/4-1,bottomHeight-5])clip_hole_front();
-        translate([bottomX,bottomY/4-4,bottomHeight-5])clip_hole_back();
-        translate([bottomX,bottomY-bottomY/4+1,bottomHeight-5])clip_hole_back();
+        translate([-1+0.5,bottomY/4-5.5,bottomHeight-2.5])clip_hole_front();
+        translate([-1+0.5,bottomY-bottomY/4-0.5,bottomHeight-2.5])clip_hole_front();
+        translate([bottomX,bottomY/4-5.5,bottomHeight-2.5])clip_hole_back();
+        translate([bottomX,bottomY-bottomY/4-0.5,bottomHeight-2.5])clip_hole_back();
         //LIP LOCK
         translate([0,0,bottomHeight]) bottom_lip_lock();
         translate([0.5,-microWidth/2,bottomHeight-microHeight/2])// MiroUSB fix
@@ -159,6 +159,6 @@ if (drawKeyboard) {
 
 if (drawAll) {
     case_bottom();
-    translate([0.5,0.5,bottomThick+bottomMountHeight+10]) rpi();
-    %translate([0,0,bottomHeight+20]) case_top();
+    translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi();
+    translate([0,0,bottomHeight]) case_top();
 }

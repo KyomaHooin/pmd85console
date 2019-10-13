@@ -146,14 +146,16 @@ module vent_slab_big() {
 }
 
 module clip_hole() {// 1x5x4
+    translate([-0.5,0,-1.5])
+    difference(){
     polyhedron(
         points = [
             [1,0,0],//0
-            [1,7,0],//1
+            [1,6,0],//1
             [0+0.5,0,3],//2
-            [0+0.5,7,3],//3
+            [0+0.5,6,3],//3
             [1,0,4],//4
-            [1,7,4] //5
+            [1,6,4] //5
     ],
         faces = [
             [3,2,0,1],
@@ -163,9 +165,12 @@ module clip_hole() {// 1x5x4
             [4,2,3,5]
     ]
     );
+    translate([0,-1,0])cube([2,9,1.5]);
+    }
 }
 
 module clip() {
+    difference(){
     union() {
     translate([0,0,3])cube([2,5,8]);
     polyhedron(
@@ -204,23 +209,25 @@ module clip() {
     ]
     );
     }
+    translate([-1,-1,11-1.5])cube([4,7,2]);// clip cut
+    }
 }
 
 module clip_back() {
-    translate([2,0,10])
+    translate([2,0,11-1.5])// clip cut
     rotate([0,180,0]) clip();
 }
 
 module clip_front() {
-    translate([0,5,10])
+    translate([0,5,11-1.5])// clip cut
         rotate([0,180,180]) clip();
 }
 
 module clip_hole_front() {
-   translate([0-0.5,0,0])clip_hole();
+    clip_hole();
 }
 
 module clip_hole_back() {
-    translate([1,5,0])
+    translate([0.5,6,0])
         rotate([0,0,180]) clip_hole();
 }
