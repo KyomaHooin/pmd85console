@@ -60,18 +60,18 @@ static const char *menuText[6] = {
   "Richard Bruna (c) 2019"
 };
 
-static const char *pmdLogo[1] = {"/root/simpmd-develop/data/logo/pmd85_830_570.bmp"};
+static const char *pmdLogo[1] = {"/root/simpmd/data/logo/pmd85_830_570.bmp"};
 
 static const char *gameLogo[4] = {
-  "/root/simpmd-develop/data/logo/flappy.bmp",
-  "/root/simpmd-develop/data/logo/boulder.bmp",
-  "/root/simpmd-develop/data/logo/manic.bmp",
-  "/root/simpmd-develop/data/logo/fred.bmp"
+  "/root/simpmd/data/logo/flappy.bmp",
+  "/root/simpmd/data/logo/boulder.bmp",
+  "/root/simpmd/data/logo/manic.bmp",
+  "/root/simpmd/data/logo/fred.bmp"
 };
 
 static const char *gameText[4] = {"FLAPPY", "BOULDER", "MANIC", "FRED"};
 
-static const char *gameFont[1] = {"/root/simpmd-develop/data/font/atari-classic.ttf"};
+static const char *gameFont[1] = {"/root/simpmd/data/font/atari-classic.ttf"};
 
 
 //--------------------------------------------------------------------------

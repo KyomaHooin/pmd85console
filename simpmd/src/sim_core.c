@@ -56,10 +56,10 @@ static relaxed_bool bShutdown (false);
 
 /// Predefined Games
 static std::string gameSelect[4] = {
-  "/root/simpmd-develop/data/tapes/games-pmd1/FLAPPY",
-  "/root/simpmd-develop/data/tapes/games-pmd1/BOULDER",
-  "/root/simpmd-develop/data/tapes/games-pmd1/MANIC+",
-  "/root/simpmd-develop/data/tapes/games-pmd2/FRED"
+  "/root/simpmd/data/tapes/games-pmd1/FLAPPY",
+  "/root/simpmd/data/tapes/games-pmd1/BOULDER",
+  "/root/simpmd/data/tapes/games-pmd1/MANIC+",
+  "/root/simpmd/data/tapes/games-pmd2/FRED"
 };
 
 /// Game Tape IN
