@@ -5,11 +5,11 @@
 include <mod.scad>;
 include <rpi.scad>;
 
-drawCaseBottom=1;
+drawCaseBottom=0;
 drawCaseTop=0;
 drawPi=0;
 drawKeyboard=0;
-drawAll=0;
+drawAll=1;
 
 //--------------------------------------
 
@@ -68,12 +68,12 @@ module case_top() {
     //RPI
     translate([0.5,0.5,-piThick-microHeight+0.5])rpi(edge=2);
     //KBD SLAB
-    translate([(topX-55)/2+0.5,34.5,angle_coord(34.5,angle,-8.25)])
+    translate([(topX-55)/2+0.5,34.5,angle_coord(34.5,angle,-7.25)])
         rotate([-angle,0,0]) kbd_slab();
     //VENT SLAB SLIDE
-    translate([(topX-55)/2,30,angle_coord(30,angle,-8)]) rotate([-angle,0,0]) vent_slab();
-    translate([(topX-55)/2,27,angle_coord(27,angle,-8)]) rotate([-angle,0,0]) vent_slab();
-    translate([(topX-55)/2,24,angle_coord(24,angle,-8)]) rotate([-angle,0,0]) vent_slab();
+    translate([(topX-55)/2,30,angle_coord(30,angle,-7.1)]) rotate([-angle,0,0]) vent_slab();
+    translate([(topX-55)/2,27,angle_coord(27,angle,-7.1)]) rotate([-angle,0,0]) vent_slab();
+    translate([(topX-55)/2,24,angle_coord(24,angle,-7.1)]) rotate([-angle,0,0]) vent_slab();
     //VENT SLAB TOP
     translate([(topX-56)/2,15.5,topBackHeight+1.25]) vent_slab_short();
     translate([(topX-56)/2,12.5,topBackHeight+1.25]) vent_slab_short();
@@ -105,7 +105,7 @@ module case_top() {
     }
     //KBD
     //color("grey")
-    //translate([(topX-53)/2,35,angle_coord(35,angle,-9)]) rotate([-angle,0,0]) keyboard();
+    //translate([(topX-53)/2,35,angle_coord(35,angle,-8)]) rotate([-angle,0,0]) keyboard();
 }
 
 //------------------------------
@@ -162,6 +162,6 @@ if (drawKeyboard) {
 
 if (drawAll) {
     case_bottom();
-    translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi(edge=3);
+    translate([0.5,0.5,bottomThick+bottomMountHeight]) rpi();
     translate([0,0,bottomHeight]) case_top();
 }
