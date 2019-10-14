@@ -22,10 +22,10 @@ limitations under the License.
 
  -Added:
 
- void DSPRenderMenu(int screen_width, int screen_height, int index) {
- void DSPRenderLogo(int screen_width, int screen_height) {
- void DSPRenderImage(int screen_width, int screen_height) {
- void DSPRenderText(int screen_width, int screen_height) {
+ void DSPRenderMenu (int screen_width, int screen_height, int index)
+ void DSPRenderLogo (int screen_width, int screen_height)
+ void DSPRenderImage (int screen_width, int screen_height)
+ void DSPRenderText (int screen_width, int screen_height)
  void DSPLogoShutdown ()
  void DSPMenuShutdown ()
  void DSPLogoInitialize ()
@@ -322,7 +322,7 @@ void DSPLogoShutdown ()
 }
 
 
-void DSPRenderText(int screen_width, int screen_height) {
+void DSPRenderText (int screen_width, int screen_height) {
   TTF_Font *textFont;
   SDL_Surface* textSurface;
   SDL_Texture* textTexture;
@@ -382,7 +382,7 @@ void DSPRenderText(int screen_width, int screen_height) {
 }
 
 
-void DSPRenderImage(int screen_width, int screen_height) {
+void DSPRenderImage (int screen_width, int screen_height) {
   SDL_Surface* imageSurface;
   SDL_Texture* imageTexture;
   SDL_Rect imageRectangle;
@@ -403,7 +403,7 @@ void DSPRenderImage(int screen_width, int screen_height) {
 }
 
 
-void DSPRenderLogo(int screen_width, int screen_height) {
+void DSPRenderLogo (int screen_width, int screen_height) {
   SDL_Surface* logoSurface;
   SDL_Texture* logoTexture;
   SDL_Rect logoRectangle;
@@ -425,7 +425,7 @@ void DSPRenderLogo(int screen_width, int screen_height) {
 }
 
 
-void DSPRenderMenu(int screen_width, int screen_height, int index) {
+void DSPRenderMenu (int screen_width, int screen_height, int index) {
   SDL_Rect frameRectangle;
   SDL_Rect frameRectangleInner;
 

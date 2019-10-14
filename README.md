@@ -7,6 +7,7 @@ Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href
 TODO
 
 <pre>
+-Menu scroll game preview.
 -Fix sound.
 -Fix window/renderer duplication.
 -[Heatsink]

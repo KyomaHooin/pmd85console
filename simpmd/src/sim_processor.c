@@ -22,7 +22,7 @@ limitations under the License.
 
  - Removed suspend/resume.
  - Sound commented out.
- - Minor fixes.
+ - Reset termination token on CPU init.
 
 */
 

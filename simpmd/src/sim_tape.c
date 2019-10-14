@@ -22,8 +22,8 @@ limitations under the License.
 
  -Modified:
 
- bool TAPNextInputFile  (std::vector <std::string> oArgTapeInputs)
- bool TAPNextOutputFile (std::vector <std::string> oArgTapeOututs)
+ bool TAPNextInputFile (std::vector <std::string> oArgTapeInputs)
+ bool TAPNextOutputFile (std::vector <std::string> oArgTapeOutputs)
  bool TAPInputFileStatus ()
  bool TAPOutputFileStatus ()
 
@@ -102,7 +102,7 @@ template <class tStream> bool TAPNextFile (tStream &oStream, std::vector <std::s
 //bool TAPNextInputFile  () { return (TAPNextFile <std::ifstream> (oTapeInput, oArgTapeInputs)); }
 bool TAPNextInputFile  (std::vector <std::string> oArgTapeInputs) { return (TAPNextFile <std::ifstream> (oTapeInput, oArgTapeInputs)); }
 //bool TAPNextOutputFile () { return (TAPNextFile <std::ofstream> (oTapeOutput, oArgTapeOutputs)); }
-bool TAPNextOutputFile (std::vector <std::string> oArgTapeOututs) { return (TAPNextFile <std::ofstream> (oTapeOutput, oArgTapeOutputs)); }
+bool TAPNextOutputFile (std::vector <std::string> oArgTapeOutputs) { return (TAPNextFile <std::ofstream> (oTapeOutput, oArgTapeOutputs)); }
 
 
 /** Check input file status.

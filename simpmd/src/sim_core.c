@@ -236,7 +236,7 @@ int main (int iArgC, const char *apArgV [])
   SDL_CheckZero (SDL_Init (SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_VIDEO));
   printf("SDL Initializing..\n");
   //Disable cursor
-  SDL_ShowCursor(0);
+  SDL_ShowCursor (0);
   // Get fullscreen resolution
   SDL_CheckZero (SDL_GetCurrentDisplayMode(0, &fullscreen));
   //Logo
@@ -256,25 +256,25 @@ int main (int iArgC, const char *apArgV [])
     {
       case SDL_KEYUP:
       case SDL_KEYDOWN:
-       if (inMenu) {
-          if (sEvent.type == SDL_KEYDOWN) {
-            if (sEvent.key.keysym.sym == SDLK_ESCAPE) { 
+        if (inMenu) {
+           if (sEvent.type == SDL_KEYDOWN) {
+             if (sEvent.key.keysym.sym == SDLK_ESCAPE) { 
               SIMRequestShutdown ();
-	    }
-            if (sEvent.key.keysym.sym == SDLK_LEFT) {
-              (gameIndex == 0) ? gameIndex = 3 : gameIndex--;
-              DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
-            }
-            if (sEvent.key.keysym.sym == SDLK_RIGHT) { 
-              (gameIndex == 3) ? gameIndex = 0 : gameIndex++;
-              DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
-            }
-            if (sEvent.key.keysym.sym == SDLK_RETURN) {
-              DSPMenuShutdown ();
-              EmulationInitialize (gameIndex);
-              inMenu = false;	
-            }
-          }
+             }
+             if (sEvent.key.keysym.sym == SDLK_LEFT) {
+               (gameIndex == 0) ? gameIndex = 3 : gameIndex--;
+               DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
+             }
+             if (sEvent.key.keysym.sym == SDLK_RIGHT) { 
+               (gameIndex == 3) ? gameIndex = 0 : gameIndex++;
+               DSPRenderMenu (fullscreen.w, fullscreen.h, gameIndex);
+             }
+             if (sEvent.key.keysym.sym == SDLK_RETURN) {
+               DSPMenuShutdown ();
+               EmulationInitialize (gameIndex);
+               inMenu = false;	
+             }
+           }
         } else {
           if (sEvent.key.keysym.sym == SDLK_ESCAPE) {
             EmulationShutdown ();
