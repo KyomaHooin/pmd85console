@@ -37,7 +37,8 @@ HARDWARE
 1x <a target="_blank" href="https://www.ges.cz/cz/l-934id-GES10701762.html">Red LED</a>(10mA 2V)
 1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-120r-1-GES05300318.html">Rezistor 120R</a>
 1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-150r-1-GES05300319.html">Rezistor 150R</a>
-2x <a target="_blank" href="https://www.ges.cz/cz/bls-02-GES06614037.html">BLS 02</a>
+1x <a target="_blank" href="https://www.ges.cz/cz/bls-02-GES06614037.html">BLS 02</a>
+2x <a target="_blank" href="https://www.ges.cz/cz/bls-01-GES06614525.html">BLS 01</a>
 4x <a target="_blank" href="https://www.ges.cz/cz/bls-contacts-GES06614047.html">BLS contact</a>
 1x <a target="_blank" href="https://www.ges.cz/cz/tas-c130-0-GES13004464.html">Copper wire</a>(0.22mm 1m)
 4x <a target="_blank" href="https://www.ges.cz/cz/esst-m2-2x6-GES06814889.html">Screw</a>(M2.2x6mm)
@@ -115,15 +116,14 @@ LED
            [RED]                    [GREEN]
             | |                       | |
      150R --  |                120R --  |
-     [BGB]     -- GPIO12[32]   [BRB]     -- GPIO16[36]
+     [BGB]     -- 3.3V[17]     [BRB]     -- GPIO16[36]
        |                         |
-      GND[30]                   GND[34]
+      GND[25]                   GND[34]
 
 
 # PWR LED(disable onboard, enable GPIO12[32])
 dtparam=pwr_led_trigger=none
 dtparam=pwr_led_activelow=off
-dtoverlay=gpio-poweroff,gpiopin=12,active_low
 
 # ACT LED GPIO16[36]
 dtparam=act_led_gpio=16
