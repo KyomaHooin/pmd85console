@@ -121,7 +121,7 @@ LED
       GND[25]                   GND[34]
 
 
-# PWR LED(disable onboard, enable GPIO12[32])
+# PWR LED(disable onboard)
 dtparam=pwr_led_trigger=none
 dtparam=pwr_led_activelow=off
 
