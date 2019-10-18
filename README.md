@@ -110,8 +110,8 @@ minicom -D /dev/ttyUSB0 -b 115200
 LED
 
 <pre name="led">
-.. | x | GND | 12 | GND | 16 | x | x |
-.. | x |  x  | x  |  x  | x  | x | x |
+.. |  x  | x | x | x |  x  | x | x | x | GND | 16 | x | x |
+.. | 3v3 | x | x | x | GND | x | x | x |  x  | x  | x | x |
 
            [RED]                    [GREEN]
             | |                       | |
