@@ -2,7 +2,9 @@
 
 DESCRIPTION
 
-Raspberry Pi 1A+ Tesla PMD-85 retro cosole powered by modified Petr Tuma <a href="https://github.com/ceresek/simpmd">simpmd</a> (c) 2008.
+Raspberry Pi 1A+ Tesla PMD-85 retro console powered by modified Petr Tůma <a href="https://github.com/ceresek/simpmd">simpmd</a> (c) 2008.
+
+![SCHEMA](https://github.com/kyomahooin/pmd85console/raw/master/pmd85console_schema.png "schema")
 
 TODO
 
@@ -11,8 +13,6 @@ TODO
 -Menu scroll game preview.
 -Fix sound.
 -Fix window/renderer duplication.
--[Heatsink]
--[Sticker]
 </pre>
 
 BUG
@@ -120,7 +120,7 @@ LED
        |                         |
       GND[25]                   GND[34]
 
-
+/boot/config.txt:
 # PWR LED(disable onboard)
 dtparam=pwr_led_trigger=none
 dtparam=pwr_led_activelow=off
@@ -128,7 +128,6 @@ dtparam=pwr_led_activelow=off
 # ACT LED GPIO16[36]
 dtparam=act_led_gpio=16
 dtparam=act_led_trigger=cpu
-
 </pre>
 
 PLYMOUTH
@@ -150,7 +149,6 @@ logo.nologo quiet splash plymouth.ignore-serial-consoles vt.global_cursor_defaul
 
 /boot/config.txt:
 boot_delay=0
-
 </pre>
 
 SDL2
@@ -182,13 +180,14 @@ make
 FILE
 
 <pre>
- pmd85console.png - Retro console schamatic.
-atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
+       pmd85console.png - Retro console final.
+pmd85console_schema.png - Retro console schamatic.
+      atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
 
-        openscad/ - 3D printable retro case.
-       raspberry/ - Raspbery support scripts.
-          simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tuma (c) 2008.
-     theme-pmd85/ - Splash Plymouth theme.
+              openscad/ - 3D printable retro case.
+             raspberry/ - Raspbery support scripts.
+                simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tůma (c) 2008.
+           theme-pmd85/ - Splash Plymouth theme.
 </pre>
 
 SOURCE
