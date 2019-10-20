@@ -1,7 +1,0 @@
-#!/bin/bash
-#
-# PMD85 - Simpmd console wrap
-#
-
-script -q -c "/root/simpmd-develop/bin/simpmd" /dev/null
-
