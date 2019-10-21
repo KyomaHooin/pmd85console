@@ -93,7 +93,7 @@ module case_top() {
     translate([15,53,10]) cylinder(d=3.5,h=10);
     translate([8.5,53,10]) cylinder(d=3.5,h=10);
     // USB LIP
-    translate([topX+1.25,piY-usbY-usbWidth+1,-microHeight+0.5]) usb_lip();
+    translate([topX+1.25,piY-usbY-usbWidth+1,-microHeight+0.5+0.5]) usb_lip();
     //LIP LOCK
     top_lip_lock();
     }
@@ -130,7 +130,7 @@ module case_bottom() {
         translate([bottomX,bottomY/4-5.5,bottomHeight-2.5])clip_hole_back();
         translate([bottomX,bottomY-bottomY/4-0.5,bottomHeight-2.5])clip_hole_back();
         // USB LIP
-        translate([bottomX+0.75,piY-usbY-usbWidth+1,bottomThick+bottomMountHeight+piThick]) usb_lip();
+        translate([bottomX+0.75,piY-usbY-usbWidth+1,bottomThick+bottomMountHeight+piThick+0.5]) usb_lip();
         //LIP LOCK
         translate([0,0,bottomHeight]) bottom_lip_lock();
         translate([0.5,-microWidth/2,bottomHeight-microHeight/2])// MiroUSB fix

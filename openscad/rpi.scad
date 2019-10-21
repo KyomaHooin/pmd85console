@@ -12,7 +12,7 @@ piHoleOffset=3.5;
 
 usbWidth=13.16+1;
 usbLength=17.05+1;
-usbHeight=9.1-piThick+0.5;
+usbHeight=9.1-piThick-0.5;
 usbOverHang=1.84;
 usbY=17.6;
 
@@ -66,7 +66,7 @@ module rpi(edge=0) {
     }
     color("Silver") {
         // USB
-        translate([piX-usbWidth-usbOverHang+edge, piY-usbY-usbWidth+0.5, piThick])
+        translate([piX-usbWidth-usbOverHang+edge, piY-usbY-usbWidth+0.5, piThick+0.5])
             cube([usbLength, usbWidth, usbHeight]);
         // HDMI
         translate([hdmiX, -hdmiOverHang-edge, piThick])
