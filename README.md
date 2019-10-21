@@ -80,7 +80,7 @@ sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy
                   dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local wifi-country keyboard-setup
                   alsa-restore systemd-rfkill]
 
-cp pmd85.service /etc/systemd/system/
+cp raspberry/pmd85.service /etc/systemd/system/
 systemctl enable pmd85.service
 
 apt-get install vim mc ntpdate
