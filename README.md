@@ -48,8 +48,9 @@ RPI
 
 <pre>
 wget --no-check-certificate https://downloads.raspberrypi.org/raspbian_lite_latest
-umount /dev/sd[12] 2>/dev/null
-unzip -p 2018-11-13-raspbian-stretch-lite.zip | dd of=/dev/sda bs=4M
+# adjust XY in the commands below (must be your SD card reader)
+umount /dev/sdXY[12] 2>/dev/null
+unzip -p 2018-11-13-raspbian-stretch-lite.zip | dd of=/dev/sdXY bs=4M
 
 touch /boot/ssh
 cat << EOF >> /boot/wpa_supplicant.conf
@@ -75,10 +76,10 @@ raspi-config > Advanced > Overclocking > Medium
 dphys-swapfile swapoff
 dphys-swapfile uninstall
 
-sytemctl disable [avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy.socket nfs-client.target
-                  systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.timer
-                  dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local wifi-country keyboard-setup
-                  alsa-restore systemd-rfkill]
+systemctl disable avahi-daemon bluetooth paxctld rsync triggerhappy triggerhappy.socket nfs-client.target \
+                  systemd-timesyncd apt-daily apt-daily.timer apt-daily-upgrade apt-daily-upgrade.timer \
+                  dphys-swapfile networking dhcpcd ssh getty@tty1 rc-local wifi-country keyboard-setup \
+                  alsa-restore systemd-rfkill
 
 cp raspberry/pmd85.service /etc/systemd/system/
 systemctl enable pmd85.service
