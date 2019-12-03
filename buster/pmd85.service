@@ -1,0 +1,10 @@
+[Unit]
+Description=PMD-85 Retro Console
+After=systemd-remount-fs.service plymouth-quit.service
+
+[Service]
+ExecStart=/bin/bash -ce "simpmd > /tmp/pmd85.log 2>&1 && sudo shutdown -h now"
+User=pi
+
+[Install]
+WantedBy=multi-user.target
