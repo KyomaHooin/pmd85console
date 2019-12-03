@@ -181,15 +181,15 @@ make
 FILE
 
 <pre>
-       pmd85console.png - Retro console final.
-pmd85console_schema.png - Retro console schamatic.
-      atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
-
                 buster/ - Raspbian "Buster" install instructions by Jozef Říha - <a href="https://github.com/jose1711">jose1711</a>.
               openscad/ - 3D printable retro case.
              raspberry/ - Raspbery support scripts.
                 simpmd/ - Modified SDL2 PMD-85 emulator source code by Petr Tůma (c) 2008.
            theme-pmd85/ - Splash Plymouth theme.
+
+       pmd85console.png - Retro console final.
+pmd85console_schema.png - Retro console schamatic.
+      atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
 </pre>
 
 SOURCE
