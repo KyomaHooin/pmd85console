@@ -8,40 +8,36 @@ Raspberry Pi 1A+ Tesla PMD-85 retro console powered by modified Petr Tůma <a hr
 
 TODO
 
-<pre>
--Remove hardcoded paths.
--Menu scroll game preview.
--Fix sound.
--Fix window/renderer duplication.
-</pre>
+- Remove hardcoded paths.
+- Menu scroll game preview.
+- Fix sound.
+- Fix window/renderer duplication.
 
 BUG
 
-<pre name="#bug">
--snd flood alsa lib pcm.c:(snd_pcm_recover) underrun occured
--mesa loader: failed to retrieve device information
-</pre>
+- `snd flood alsa lib pcm.c:(snd_pcm_recover) underrun occured`
+- `mesa loader: failed to retrieve device information`
 
 HARDWARE
 
 <pre>
-1x <a target="_blank" href="http://rpishop.cz/248-raspberry-pi-1a">Raspberry</a>(1A+)
-1x <a target="_blank" href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a>(5V 1.2A)
-1x <a target="_blank" href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a>(RTL8188CUS/50-75mA)
-1x <a target="_blank" href="https://www.czc.cz/gembird-cablexpert-kabel-hdmi-hdmi-0-5m-1-4-m-m-stineny-zlacene-kontakty-cerna/248060/produkt">HDMI cable</a>(0.5m)
-1x <a target="_blank" href="https://www.alza.cz/roline-usb-2-0-usb-am-micro-usb-bm">Micro USB cable</a>(1m)
-1x <a target="_blank" href="https://www.aliexpress.com/item/New-High-Quality-USB-To-TTL-Serial-Module-FTDI-FT232RL-USB-3-3V-5V-To-TTL/32971767031.html">USB FTDI TTL/UART</a>(3.3V 6-pin)
-1x MicroSD(2GB)
-1x Keyboard(Chicony KU-0108s/100mA)
-1x <a target="_blank" href="https://www.ges.cz/cz/l-934gd-GES10700054.html">Green LED</a>(10mA 2.2V)
-1x <a target="_blank" href="https://www.ges.cz/cz/l-934id-GES10701762.html">Red LED</a>(10mA 2V)
-1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-120r-1-GES05300318.html">Rezistor 120R</a>
-1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-150r-1-GES05300319.html">Rezistor 150R</a>
+1x <a target="_blank" href="http://rpishop.cz/248-raspberry-pi-1a">Raspberry</a> (1A+)
+1x <a target="_blank" href="https://www.ges.cz/cz/usb-napajec-napajeci-adapter-mw-5v-1-2a-sun-usb-GES07507424.html">Power adapter</a> (5V 1.2A)
+1x <a target="_blank" href="https://www.mironet.cz/edimax-wireless-nano-usb-20-adapter-80211n-150mbps-sw-wps+dp117994/">USB Wifi dongle</a> (RTL8188CUS/50-75mA)
+1x <a target="_blank" href="https://www.czc.cz/gembird-cablexpert-kabel-hdmi-hdmi-0-5m-1-4-m-m-stineny-zlacene-kontakty-cerna/248060/produkt">HDMI cable</a> (0.5m)
+1x <a target="_blank" href="https://www.alza.cz/roline-usb-2-0-usb-am-micro-usb-bm">Micro USB cable</a> (1m)
+1x <a target="_blank" href="https://www.aliexpress.com/item/New-High-Quality-USB-To-TTL-Serial-Module-FTDI-FT232RL-USB-3-3V-5V-To-TTL/32971767031.html">USB FTDI TTL/UART</a> (3.3V 6-pin)
+1x MicroSD (2GB)
+1x Keyboard (Chicony KU-0108s/100mA)
+1x <a target="_blank" href="https://www.ges.cz/cz/l-934gd-GES10700054.html">Green LED</a> (10mA 2.2V)
+1x <a target="_blank" href="https://www.ges.cz/cz/l-934id-GES10701762.html">Red LED</a> (10mA 2V)
+1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-120r-1-GES05300318.html">Resistor 120R</a>
+1x <a target="_blank" href="https://www.ges.cz/cz/rm0207-150r-1-GES05300319.html">Resistor 150R</a>
 1x <a target="_blank" href="https://www.ges.cz/cz/bls-02-GES06614037.html">BLS 02</a>
 2x <a target="_blank" href="https://www.ges.cz/cz/bls-01-GES06614525.html">BLS 01</a>
 4x <a target="_blank" href="https://www.ges.cz/cz/bls-contacts-GES06614047.html">BLS contact</a>
-1x <a target="_blank" href="https://www.ges.cz/cz/tas-c130-0-GES13004464.html">Copper wire</a>(0.22mm 1m)
-4x <a target="_blank" href="https://www.ges.cz/cz/esst-m2-2x6-GES06814889.html">Screw</a>(M2.2x6mm)
+1x <a target="_blank" href="https://www.ges.cz/cz/tas-c130-0-GES13004464.html">Copper wire</a> (0.22mm 1m)
+4x <a target="_blank" href="https://www.ges.cz/cz/esst-m2-2x6-GES06814889.html">Screw</a> (M2.2x6mm)
 </pre>
 
 RPI
@@ -188,7 +184,7 @@ FILE
            theme-pmd85/ - Splash Plymouth theme.
 
        pmd85console.png - Retro console final.
-pmd85console_schema.png - Retro console schamatic.
+pmd85console_schema.png - Retro console schematics.
       atari-classic.ttf - TTF font by Mark Simonson (c) 2016.
 </pre>
 
