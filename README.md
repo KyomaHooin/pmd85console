@@ -192,4 +192,3 @@ SOURCE
 
 https://github.com/KyomaHooin/pmd85console
 
-https://www.ges.cz/cz/liyv-14-bl-GES06913880.html
