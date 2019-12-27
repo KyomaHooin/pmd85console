@@ -20,6 +20,10 @@ limitations under the License.
 
 /* MODIFIED
 
+ -Modified:
+
+  void DSPInitialize ()
+
  -Added:
 
  void DSPRenderMenu (int screen_width, int screen_height, int index)
