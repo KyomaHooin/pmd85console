@@ -36,7 +36,7 @@ HARDWARE
 1x <a target="_blank" href="https://www.ges.cz/cz/bls-02-GES06614037.html">BLS 02</a>
 2x <a target="_blank" href="https://www.ges.cz/cz/bls-01-GES06614525.html">BLS 01</a>
 4x <a target="_blank" href="https://www.ges.cz/cz/bls-contacts-GES06614047.html">BLS contact</a>
-1x <a target="_blank" href="https://www.ges.cz/cz/liyv-14-bl-GES06913880.html">Copper Wire</a> (0.14 1m)
+1x <a target="_blank" href="https://www.ges.cz/cz/liyv-14-bl-GES06913880.html">Copper Wire</a> (0.14mm 1m)
 4x <a target="_blank" href="https://www.ges.cz/cz/esst-m2-2x6-GES06814889.html">Screw</a> (M2.2x6mm)
 </pre>
 
