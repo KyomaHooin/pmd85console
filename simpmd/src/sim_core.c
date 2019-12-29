@@ -180,7 +180,8 @@ static void InitializePMD2 ()
 
 
 /// Initialize emulation
-static void EmulationInitialize (int gameIndex){
+static void EmulationInitialize (int gameIndex)
+{
   // Flush garbage
   FlushMemory(0x0000, 65536);
   // Reset processor clock
@@ -209,7 +210,8 @@ static void EmulationInitialize (int gameIndex){
 
 
 /// Shutdown emulation
-static void EmulationShutdown (){
+static void EmulationShutdown ()
+{
   CPUTerminateThread ();
   printf("CPU Thread shutdown..\n");
 

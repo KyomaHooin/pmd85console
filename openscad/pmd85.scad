@@ -61,7 +61,6 @@ module keyboard() {//55x15x2
 //
 
 module case_top() {
-//    color("grey")
     union() {
     difference() {
     top_base();
