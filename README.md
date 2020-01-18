@@ -6,6 +6,10 @@ Raspberry Pi 1A+ Tesla PMD-85 retro console powered by modified Petr Tůma <a hr
 
 ![SCHEMA](https://github.com/kyomahooin/pmd85console/raw/master/pmd85console_schema.png "schema")
 
+SCREEN
+
+![SCREEN](https://github.com/kyomahooin/pmd85console/raw/master/pmd85console_screen.png "screen")
+
 TODO
 
 - Remove hardcoded paths.
